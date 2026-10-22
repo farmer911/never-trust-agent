@@ -1,8 +1,24 @@
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import type { Finding } from "../types/verdict.ts";
 import { collectSourceFiles } from "./evidence-verifier.ts";
 import { analyzeSuppressionFraud } from "./suppression-fraud.ts";
+
+export interface MistakeInput {
+  readonly title: string;
+  readonly ruleId: string;
+  readonly where: string;
+  readonly how: string;
+  readonly why: string;
+  readonly prevention: string;
+  readonly date?: string;
+}
+
+export interface MistakeRecord extends MistakeInput {
+  readonly id: string;
+  readonly date: string;
+  readonly line: number;
+}
 
 const WEAK_OR_SYCOPHANTIC_SKILL_LINE =
   /\bwhen feasible\b|\bconsider writing\b|^#{1,4}\s+Strengths\b|\byou(?:'re| are) absolutely right\b/i;
@@ -153,6 +169,8 @@ export function analyzeSkillAndDocDrift(workspaceRoot: string): Finding[] {
     }
   }
 
+  findings.push(...auditMistakeLedger(workspaceRoot));
+
   return findings;
 }
 
@@ -283,5 +301,231 @@ function isExamplePlaceholderPath(refPath: string): boolean {
     refPath.includes("tool.sh") ||
     refPath.includes("tool.js") ||
     refPath.includes("example.")
+  );
+}
+
+const MISTAKE_HEADER_REGEX = /^###\s+\[(MISTAKE-\d{3,})\]\s+(.+)$/;
+const PLACEHOLDER_VALUE_REGEX = /^(?:todo|tbd|n\/a|none|-|\.\.\.)$/i;
+
+function auditMistakeLedger(workspaceRoot: string): Finding[] {
+  const findings: Finding[] = [];
+  const ledgerPath = join(workspaceRoot, "MISTAKE_LEDGER.md");
+  const growUpSkillPath = join(workspaceRoot, "skills/mistake-ledger-grow-up/SKILL.md");
+
+  if (!existsSync(ledgerPath)) {
+    if (existsSync(growUpSkillPath)) {
+      findings.push({
+        ruleId: "NTA-K009",
+        category: "SKILL_DRIFT",
+        severity: "HIGH",
+        file: "skills/mistake-ledger-grow-up/SKILL.md",
+        line: 1,
+        message:
+          "Grow-Up Ledger Missing: skills/mistake-ledger-grow-up/SKILL.md is installed, but MISTAKE_LEDGER.md does not exist at workspace root.",
+        evidence: "Missing MISTAKE_LEDGER.md",
+        subagent: "SkillAndDocDriftInquisitor",
+      });
+    }
+    return findings;
+  }
+
+  const content = readFileSync(ledgerPath, "utf8");
+  const lines = content.split(/\r?\n/);
+  const entries = parseMistakeEntries(lines);
+
+  if (entries.length === 0) {
+    findings.push({
+      ruleId: "NTA-K009",
+      category: "SKILL_DRIFT",
+      severity: "HIGH",
+      file: "MISTAKE_LEDGER.md",
+      line: 1,
+      message: "MISTAKE_LEDGER.md exists but contains zero '### [MISTAKE-XXX]' post-mortem entries.",
+      evidence: (lines[0] ?? "Empty MISTAKE_LEDGER.md").trim(),
+      subagent: "SkillAndDocDriftInquisitor",
+    });
+    return findings;
+  }
+
+  for (const entry of entries) {
+    const missingFields: string[] = [];
+    if (!entry.where || PLACEHOLDER_VALUE_REGEX.test(entry.where)) missingFields.push("Where");
+    if (!entry.how || PLACEHOLDER_VALUE_REGEX.test(entry.how)) missingFields.push("How");
+    if (!entry.why || PLACEHOLDER_VALUE_REGEX.test(entry.why)) missingFields.push("Why");
+    if (!entry.prevention || PLACEHOLDER_VALUE_REGEX.test(entry.prevention)) {
+      missingFields.push("Prevention");
+    }
+
+    if (missingFields.length > 0) {
+      findings.push({
+        ruleId: "NTA-K009",
+        category: "SKILL_DRIFT",
+        severity: "HIGH",
+        file: "MISTAKE_LEDGER.md",
+        line: entry.line,
+        message: `Incomplete Mistake Post-Mortem: ${entry.id} is missing required forensic fields (${missingFields.join(", ")}). Every mistake must document Where, How, Why, and Prevention.`,
+        evidence: `${entry.id} (${entry.title}) missing: ${missingFields.join(", ")}`,
+        subagent: "SkillAndDocDriftInquisitor",
+      });
+    }
+  }
+
+  return findings;
+}
+
+function parseMistakeEntries(lines: readonly string[]): MistakeRecord[] {
+  const records: MistakeRecord[] = [];
+  let current: {
+    id: string;
+    title: string;
+    ruleId: string;
+    date: string;
+    where: string;
+    how: string;
+    why: string;
+    prevention: string;
+    line: number;
+  } | null = null;
+
+  const flush = () => {
+    if (current) {
+      records.push({ ...current });
+      current = null;
+    }
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = (lines[i] ?? "").trim();
+    const headerMatch = MISTAKE_HEADER_REGEX.exec(line);
+    if (headerMatch?.[1] && headerMatch[2]) {
+      flush();
+      current = {
+        id: headerMatch[1],
+        title: headerMatch[2].trim(),
+        ruleId: "GENERAL",
+        date: "",
+        where: "",
+        how: "",
+        why: "",
+        prevention: "",
+        line: i + 1,
+      };
+      continue;
+    }
+
+    if (!current) continue;
+
+    const ruleMatch = /^-\s+\*\*Rule\s*(?:\([^)]*\))?:\*\*\s*(.+)$/i.exec(line);
+    if (ruleMatch?.[1]) {
+      current.ruleId = ruleMatch[1].trim().replace(/^`|`$/g, "");
+      continue;
+    }
+    const dateMatch = /^-\s+\*\*Date\s*(?:\([^)]*\))?:\*\*\s*(.+)$/i.exec(line);
+    if (dateMatch?.[1]) {
+      current.date = dateMatch[1].trim();
+      continue;
+    }
+    const whereMatch = /^-\s+\*\*Where\s*(?:\([^)]*\))?:\*\*\s*(.+)$/i.exec(line);
+    if (whereMatch?.[1]) {
+      current.where = whereMatch[1].trim();
+      continue;
+    }
+    const howMatch = /^-\s+\*\*How\s*(?:\([^)]*\))?:\*\*\s*(.+)$/i.exec(line);
+    if (howMatch?.[1]) {
+      current.how = howMatch[1].trim();
+      continue;
+    }
+    const whyMatch = /^-\s+\*\*Why\s*(?:\([^)]*\))?:\*\*\s*(.+)$/i.exec(line);
+    if (whyMatch?.[1]) {
+      current.why = whyMatch[1].trim();
+      continue;
+    }
+    const prevMatch = /^-\s+\*\*Prevention\s*(?:\([^)]*\))?:\*\*\s*(.+)$/i.exec(line);
+    if (prevMatch?.[1]) {
+      current.prevention = prevMatch[1].trim();
+      continue;
+    }
+  }
+  flush();
+  return records;
+}
+
+export function queryMistakes(workspaceRoot: string, query = ""): MistakeRecord[] {
+  const ledgerPath = join(workspaceRoot, "MISTAKE_LEDGER.md");
+  if (!existsSync(ledgerPath)) return [];
+  const lines = readFileSync(ledgerPath, "utf8").split(/\r?\n/);
+  const entries = parseMistakeEntries(lines);
+  const q = query.trim().toLowerCase();
+  if (!q) return entries;
+  return entries.filter(
+    (e) =>
+      e.id.toLowerCase().includes(q) ||
+      e.title.toLowerCase().includes(q) ||
+      e.ruleId.toLowerCase().includes(q) ||
+      e.where.toLowerCase().includes(q) ||
+      e.how.toLowerCase().includes(q) ||
+      e.why.toLowerCase().includes(q) ||
+      e.prevention.toLowerCase().includes(q)
+  );
+}
+
+export function recordMistake(workspaceRoot: string, input: MistakeInput): MistakeRecord {
+  const title = input.title.trim();
+  const ruleId = input.ruleId.trim() || "GENERAL";
+  const where = input.where.trim();
+  const how = input.how.trim();
+  const why = input.why.trim();
+  const prevention = input.prevention.trim();
+
+  if (!title || !where || !how || !why || !prevention) {
+    throw new Error(
+      "recordMistake requires non-empty title, where, how, why, and prevention fields."
+    );
+  }
+
+  const ledgerPath = join(workspaceRoot, "MISTAKE_LEDGER.md");
+  const existing = queryMistakes(workspaceRoot);
+  const nextNum = existing.length + 1;
+  const id = `MISTAKE-${String(nextNum).padStart(3, "0")}`;
+  const date = input.date?.trim() || new Date().toISOString().slice(0, 10);
+
+  const block = [
+    `### [${id}] ${title}`,
+    `- **Date (Ngày ghi nhận):** ${date}`,
+    `- **Rule (Mã vi phạm):** \`${ruleId}\``,
+    `- **Where (Ở đâu):** ${where}`,
+    `- **How (Như thế nào):** ${how}`,
+    `- **Why (Vì sao sai):** ${why}`,
+    `- **Prevention (Giải pháp & Phòng ngừa):** ${prevention}`,
+    "",
+  ].join("\n");
+
+  if (!existsSync(ledgerPath)) {
+    const header = [
+      "# MISTAKE_LEDGER.md — Agent Forensic Post-Mortem & Grow-Up Ledger",
+      "",
+      "> **Axiom:** `KNOWLEDGE EVOLVES DAILY. NO AGENT IS 100% RIGHT — EVERY MISTAKE MUST BE DISSECTED (WHERE, HOW, WHY, PREVENTION) SO IT IS NEVER REPEATED.`",
+      "",
+      block,
+    ].join("\n");
+    writeFileSync(ledgerPath, header, "utf8");
+  } else {
+    const currentContent = readFileSync(ledgerPath, "utf8").trimEnd();
+    writeFileSync(ledgerPath, `${currentContent}\n\n${block}`, "utf8");
+  }
+
+  const updated = queryMistakes(workspaceRoot, id);
+  return (
+    updated[0] ?? {
+      id,
+      title,
+      ruleId,
+      date,
+      where,
+      how,
+      why,
+      prevention,
+      line: 1,
+    }
   );
 }

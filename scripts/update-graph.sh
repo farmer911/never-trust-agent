@@ -16,7 +16,7 @@ from graphify.report import generate
 from graphify.export import to_json
 
 all_files = []
-for target in ["src", "tests", "scripts", "prompts", "skills", "AGENTS.md", "GEMINI.md"]:
+for target in ["src", "tests", "scripts", "prompts", "skills", "AGENTS.md", "GEMINI.md", "MISTAKE_LEDGER.md"]:
     p = Path(target)
     if p.is_file():
         all_files.append(p)

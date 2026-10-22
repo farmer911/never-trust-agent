@@ -1,6 +1,6 @@
 # GEMINI.md — NeverTrustAgent Workspace Rules
 
-See [`AGENTS.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/AGENTS.md) and [`skills/never-trust-agent/SKILL.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/skills/never-trust-agent/SKILL.md) for the complete rule ledger (`NTA-T001..T007`, `NTA-S001..S004`, `NTA-P001..P005`, `NTA-C001..C006`, `NTA-K001..K008`, `NTA-D001..D003`, `NTA-G001..G002`, `NTA-E001..E004`) and mandatory **Keep-Up-To-Date** synchronization protocol.
+See [`AGENTS.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/AGENTS.md), [`skills/never-trust-agent/SKILL.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/skills/never-trust-agent/SKILL.md), [`skills/mistake-ledger-grow-up/SKILL.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/skills/mistake-ledger-grow-up/SKILL.md), and [`MISTAKE_LEDGER.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/MISTAKE_LEDGER.md) for the complete rule ledger (`NTA-T001..T007`, `NTA-S001..S004`, `NTA-P001..P005`, `NTA-C001..C006`, `NTA-K001..K009`, `NTA-D001..D003`, `NTA-G001..G002`, `NTA-E001..E004`) and mandatory **Keep-Up-To-Date** + **Mistake Ledger Grow-Up** protocols.
 
 ## Continuous Learning & Keep-Up-To-Date Loop
 

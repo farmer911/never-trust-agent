@@ -5,7 +5,11 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { analyzeCssAndUi } from "../../src/analyzers/css-critic.ts";
 import { findDuplicateBlocks, findOrphanExports } from "../../src/analyzers/phantom-code.ts";
-import { analyzeSkillAndDocDrift } from "../../src/analyzers/skill-critic.ts";
+import {
+  analyzeSkillAndDocDrift,
+  queryMistakes,
+  recordMistake,
+} from "../../src/analyzers/skill-critic.ts";
 import { scanWorkspace } from "../../src/engine/scanner.ts";
 import { analyzeGraphAndTokenOptimization } from "../../src/analyzers/graph-optimizer.ts";
 import { syncRepository, parseRepoSlug } from "../../src/repo/git-manager.ts";
@@ -172,6 +176,65 @@ describe("Subagent 5: Skill Stupidity & Skill-vs-Code Drift Critic", () => {
       expect(
         report.findings.some((f) => f.ruleId === "NTA-K008" && f.evidence.includes("NTA-X901"))
       ).toBe(true);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test("enforces Mistake Ledger structure (NTA-K009) and supports recording & querying agent mistakes", () => {
+    const dir = mkdtempSync(join(tmpdir(), "nta-mistake-ledger-"));
+    try {
+      mkdirSync(join(dir, "skills/mistake-ledger-grow-up"), { recursive: true });
+      writeFileSync(
+        join(dir, "skills/mistake-ledger-grow-up/SKILL.md"),
+        [
+          "---",
+          "name: mistake-ledger-grow-up",
+          "description: Use when any test fails, analyzer flags a violation, or user corrects an assumption",
+          "---",
+          "# Mistake Ledger & Grow Up",
+        ].join("\n")
+      );
+
+      // Missing MISTAKE_LEDGER.md when mistake-ledger-grow-up skill exists -> NTA-K009
+      const missingLedgerFindings = analyzeSkillAndDocDrift(dir);
+      expect(missingLedgerFindings.some((f) => f.ruleId === "NTA-K009")).toBe(true);
+
+      // Incomplete mistake entry missing Why and Prevention -> NTA-K009
+      writeFileSync(
+        join(dir, "MISTAKE_LEDGER.md"),
+        [
+          "# Agent Mistake Ledger",
+          "",
+          "### [MISTAKE-001] Unanchored Regex False Positive",
+          "- **Where (Ở đâu):** `src/analyzers/skill-critic.ts:8`",
+          "- **How (Như thế nào):** Matched literal text inside markdown bullet.",
+        ].join("\n")
+      );
+      const incompleteFindings = analyzeSkillAndDocDrift(dir);
+      expect(
+        incompleteFindings.some((f) => f.ruleId === "NTA-K009" && f.evidence.includes("MISTAKE-001"))
+      ).toBe(true);
+
+      // Clean MISTAKE_LEDGER.md recorded via recordMistake -> 0 NTA-K009 findings & queryable
+      rmSync(join(dir, "MISTAKE_LEDGER.md"), { force: true });
+      const recorded = recordMistake(dir, {
+        title: "Self-triggering sycophancy regex in SKILL.md",
+        ruleId: "NTA-K003",
+        where: "skills/never-trust-agent/SKILL.md:70",
+        how: "Embedded literal banned phrase inside Red Flags section, triggering NTA-K003 during self-scan.",
+        why: "Quoted the exact regex trigger string verbatim without checking WEAK_OR_SYCOPHANTIC_SKILL_LINE.",
+        prevention: "Describe banned sycophancy patterns structurally instead of embedding raw trigger strings in SKILL.md.",
+      });
+      expect(recorded.id).toBe("MISTAKE-001");
+
+      const cleanFindings = analyzeSkillAndDocDrift(dir);
+      expect(cleanFindings.filter((f) => f.ruleId === "NTA-K009")).toEqual([]);
+
+      const hits = queryMistakes(dir, "NTA-K003");
+      expect(hits.length).toBe(1);
+      expect(hits[0]?.id).toBe("MISTAKE-001");
+      expect(hits[0]?.where).toContain("skills/never-trust-agent/SKILL.md:70");
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }

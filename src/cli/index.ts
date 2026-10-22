@@ -6,6 +6,7 @@ import {
   createVerdictReceipt,
   verifyVerdictReceipt,
 } from "../analyzers/evidence-verifier.ts";
+import { queryMistakes, recordMistake } from "../analyzers/skill-critic.ts";
 import { analyzeTestDiffSabotage } from "../analyzers/test-fraud.ts";
 import { scanWorkspace } from "../engine/scanner.ts";
 import { runInquisitorSubagents } from "../subagents/orchestrator.ts";
@@ -73,8 +74,29 @@ export async function runCli(argv: readonly string[]): Promise<number> {
     return findings.length === 0 ? 0 : 1;
   }
 
+  if (cmd === "mistakes") {
+    const query = argv[1] && argv[1] !== "." ? argv[1] : "";
+    const hits = queryMistakes(process.cwd(), query);
+    process.stdout.write(`${JSON.stringify({ count: hits.length, mistakes: hits }, null, 2)}\n`);
+    return 0;
+  }
+
+  if (cmd === "log-mistake") {
+    const [, title = "", ruleId = "GENERAL", where = "", how = "", why = "", prevention = ""] = argv;
+    const entry = recordMistake(process.cwd(), {
+      title,
+      ruleId,
+      where,
+      how,
+      why,
+      prevention,
+    });
+    process.stdout.write(`${JSON.stringify(entry, null, 2)}\n`);
+    return 0;
+  }
+
   process.stderr.write(
-    "Usage: nta <serve|audit-repo|scan|diff-audit|report-audit|issue-receipt|verify-receipt> [target]\n"
+    "Usage: nta <serve|audit-repo|scan|diff-audit|report-audit|issue-receipt|verify-receipt|mistakes|log-mistake> [target]\n"
   );
   return 2;
 }
