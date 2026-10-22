@@ -1,0 +1,20 @@
+{
+  "name": "never-trust-agent",
+  "version": "0.1.0",
+  "description": "Deterministic forensic verification engine, CLI, MCP server, and multi-subagent adversarial web platform for AI coding agents. Philosophy: NOTHING IS PERFECT, EVERY AGENT IS AN ASSHOLE UNTIL PROVEN BY EVIDENCE.",
+  "type": "module",
+  "bin": {
+    "nta": "./src/cli/index.ts"
+  },
+  "scripts": {
+    "dev": "bun run src/cli/index.ts serve 4173",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "test:api": "bun test",
+    "scan": "bun run src/cli/index.ts scan ."
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.8.0"
+  }
+}
