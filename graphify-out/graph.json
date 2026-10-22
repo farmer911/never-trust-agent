@@ -729,7 +729,7 @@
       "file_type": "code",
       "norm_label": "detectentrypoints()",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L804"
+      "source_location": "L807"
     },
     {
       "id": "src_subagents_orchestrator_indexworkspace",
@@ -740,7 +740,7 @@
       "file_type": "code",
       "norm_label": "indexworkspace()",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L782"
+      "source_location": "L785"
     },
     {
       "id": "src_subagents_orchestrator_rendercrossarenamarkdown",
@@ -751,7 +751,7 @@
       "file_type": "code",
       "norm_label": "rendercrossarenamarkdown()",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L738"
+      "source_location": "L741"
     },
     {
       "id": "src_subagents_orchestrator_runcrosstestarena",
@@ -2910,7 +2910,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L787",
+      "source_location": "L790",
       "weight": 1.0
     },
     {
@@ -7044,7 +7044,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L738",
+      "source_location": "L741",
       "weight": 1.0
     },
     {
@@ -7055,7 +7055,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L782",
+      "source_location": "L785",
       "weight": 1.0
     },
     {
@@ -7066,7 +7066,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L804",
+      "source_location": "L807",
       "weight": 1.0
     },
     {
@@ -7529,5 +7529,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "37f7e6fdf5da374fcbd9ca41d6afc35e9d299898"
+  "built_at_commit": "65ae97939e29021ad43119450e530e539e2e89df"
 }

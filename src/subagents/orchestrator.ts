@@ -730,7 +730,10 @@ export async function runCrossTestArena(
   };
 
   mkdirSync(dirname(targetMd), { recursive: true });
-  writeFileSync(targetMd, renderCrossArenaMarkdown(report), "utf8");
+  const mdText = renderCrossArenaMarkdown(report);
+  if (!existsSync(targetMd) || readFileSync(targetMd, "utf8") !== mdText) {
+    writeFileSync(targetMd, mdText, "utf8");
+  }
 
   return report;
 }
