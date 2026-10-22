@@ -4,16 +4,52 @@
   "graph": {},
   "nodes": [
     {
-      "id": "src_web_server_serveroptions",
-      "label": "ServerOptions",
+      "id": "src_engine_scanner_scanoptions",
+      "label": "ScanOptions",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "serveroptions",
-      "source_file": "src/web/server.ts",
-      "source_location": "L7"
+      "norm_label": "scanoptions",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "src_subagents_orchestrator_indexedworkspace",
+      "label": "IndexedWorkspace",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "indexedworkspace",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "src_types_verdict_finding",
+      "label": "Finding",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "finding",
+      "source_file": "src/types/verdict.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_rawpackagejson",
+      "label": "RawPackageJson",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "rawpackagejson",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L6"
     },
     {
       "id": "src_types_verdict_auditflowstep",
@@ -61,7 +97,7 @@
       "file_type": "code",
       "norm_label": "platformauditreport",
       "source_file": "src/types/verdict.ts",
-      "source_location": "L106"
+      "source_location": "L117"
     },
     {
       "id": "src_types_verdict_reposyncmetadata",
@@ -112,6 +148,18 @@
       "source_location": "L93"
     },
     {
+      "id": "src_types_verdict_techstackprofile",
+      "label": "TechStackProfile",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "techstackprofile",
+      "source_file": "src/types/verdict.ts",
+      "source_location": "L106"
+    },
+    {
       "id": "src_types_verdict_tokenoptimizationmetrics",
       "label": "TokenOptimizationMetrics",
       "_callable": true,
@@ -136,12 +184,24 @@
       "source_location": "L35"
     },
     {
+      "id": "src_web_server_serveroptions",
+      "label": "ServerOptions",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "serveroptions",
+      "source_file": "src/web/server.ts",
+      "source_location": "L7"
+    },
+    {
       "id": "src_analyzers_skill_critic_mistakeinput",
       "label": "MistakeInput",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "file_type": "code",
       "norm_label": "mistakeinput",
       "source_file": "src/analyzers/skill-critic.ts",
@@ -153,47 +213,11 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "file_type": "code",
       "norm_label": "mistakerecord",
       "source_file": "src/analyzers/skill-critic.ts",
       "source_location": "L17"
-    },
-    {
-      "id": "src_engine_scanner_scanoptions",
-      "label": "ScanOptions",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "scanoptions",
-      "source_file": "src/engine/scanner.ts",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_subagents_orchestrator_indexedworkspace",
-      "label": "IndexedWorkspace",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "code",
-      "norm_label": "indexedworkspace",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_types_verdict_finding",
-      "label": "Finding",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "code",
-      "norm_label": "finding",
-      "source_file": "src/types/verdict.ts",
-      "source_location": "L13"
     },
     {
       "id": "src_types_verdict_verdictreceipt",
@@ -208,275 +232,11 @@
       "source_location": "L53"
     },
     {
-      "id": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
-      "label": "analyzeGraphAndTokenOptimization()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "analyzegraphandtokenoptimization()",
-      "source_file": "src/analyzers/graph-optimizer.ts",
-      "source_location": "L19"
-    },
-    {
-      "id": "src_analyzers_graph_optimizer_detectrtkversion",
-      "label": "detectRtkVersion()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "detectrtkversion()",
-      "source_file": "src/analyzers/graph-optimizer.ts",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_analyzers_phantom_code_resolverelativeimport",
-      "label": "resolveRelativeImport()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "resolverelativeimport()",
-      "source_file": "src/analyzers/phantom-code.ts",
-      "source_location": "L190"
-    },
-    {
-      "id": "src_repo_git_manager_gitoutput",
-      "label": "gitOutput()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "gitoutput()",
-      "source_file": "src/repo/git-manager.ts",
-      "source_location": "L81"
-    },
-    {
-      "id": "src_repo_git_manager_parsereposlug",
-      "label": "parseRepoSlug()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "parsereposlug()",
-      "source_file": "src/repo/git-manager.ts",
-      "source_location": "L9"
-    },
-    {
-      "id": "src_repo_git_manager_syncrepository",
-      "label": "syncRepository()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "syncrepository()",
-      "source_file": "src/repo/git-manager.ts",
-      "source_location": "L30"
-    },
-    {
-      "id": "src_web_server_createappserver",
-      "label": "createAppServer()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "createappserver()",
-      "source_file": "src/web/server.ts",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_web_ui_renderforensicdashboardhtml",
-      "label": "renderForensicDashboardHtml()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "renderforensicdashboardhtml()",
-      "source_file": "src/web/ui.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_scripts_superpowers_extracted_test_runbash",
-      "label": "runBash()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "runbash()",
-      "source_file": "tests/scripts/superpowers-extracted.test.ts",
-      "source_location": "L9"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
-      "label": "enrichFindingWithBrutalCritique()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "enrichfindingwithbrutalcritique()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L362"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_verifycitations",
-      "label": "verifyCitations()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "verifycitations()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L31"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_verifyexternalauditforensics",
-      "label": "verifyExternalAuditForensics()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "verifyexternalauditforensics()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L473"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_collectsourcefiles",
-      "label": "collectSourceFiles()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "collectsourcefiles()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L161"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_computeworkspacehash",
-      "label": "computeWorkspaceHash()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "computeworkspacehash()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L95"
-    },
-    {
-      "id": "src_analyzers_skill_critic_analyzeskillanddocdrift",
-      "label": "analyzeSkillAndDocDrift()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "analyzeskillanddocdrift()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L30"
-    },
-    {
-      "id": "src_analyzers_skill_critic_auditmistakeledger",
-      "label": "auditMistakeLedger()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "auditmistakeledger()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L310"
-    },
-    {
-      "id": "src_analyzers_skill_critic_auditskillfrontmatter",
-      "label": "auditSkillFrontmatter()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "auditskillfrontmatter()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L177"
-    },
-    {
-      "id": "src_analyzers_skill_critic_collectskillandruledocs",
-      "label": "collectSkillAndRuleDocs()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "collectskillandruledocs()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L248"
-    },
-    {
-      "id": "src_analyzers_skill_critic_isexampleplaceholderpath",
-      "label": "isExamplePlaceholderPath()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "isexampleplaceholderpath()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L299"
-    },
-    {
-      "id": "src_analyzers_skill_critic_parsemistakeentries",
-      "label": "parseMistakeEntries()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "parsemistakeentries()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L376"
-    },
-    {
-      "id": "src_analyzers_skill_critic_readpackagescripts",
-      "label": "readPackageScripts()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "readpackagescripts()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L286"
-    },
-    {
-      "id": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
-      "label": "analyzeSuppressionFraud()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "analyzesuppressionfraud()",
-      "source_file": "src/analyzers/suppression-fraud.ts",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_analyzers_suppression_fraud_stripstrings",
-      "label": "stripStrings()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "stripstrings()",
-      "source_file": "src/analyzers/suppression-fraud.ts",
-      "source_location": "L72"
-    },
-    {
-      "id": "src_engine_scanner_scanworkspace",
-      "label": "scanWorkspace()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "scanworkspace()",
-      "source_file": "src/engine/scanner.ts",
-      "source_location": "L19"
-    },
-    {
       "id": "src_analyzers_css_critic_analyzecssandui",
       "label": "analyzeCssAndUi()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
       "norm_label": "analyzecssandui()",
       "source_file": "src/analyzers/css-critic.ts",
@@ -487,29 +247,51 @@
       "label": "analyzeDefects()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
       "norm_label": "analyzedefects()",
       "source_file": "src/analyzers/defect-scanner.ts",
       "source_location": "L7"
     },
     {
+      "id": "src_analyzers_evidence_verifier_collectsourcefiles",
+      "label": "collectSourceFiles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "collectsourcefiles()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L162"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_computeworkspacehash",
+      "label": "computeWorkspaceHash()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "computeworkspacehash()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L96"
+    },
+    {
       "id": "src_analyzers_evidence_verifier_generateauditvideoevidence",
       "label": "generateAuditVideoEvidence()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
       "norm_label": "generateauditvideoevidence()",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L385"
+      "source_location": "L396"
     },
     {
       "id": "src_analyzers_phantom_code_analyzephantomcode",
       "label": "analyzePhantomCode()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
       "norm_label": "analyzephantomcode()",
       "source_file": "src/analyzers/phantom-code.ts",
@@ -520,7 +302,7 @@
       "label": "findDuplicateBlocks()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
       "norm_label": "findduplicateblocks()",
       "source_file": "src/analyzers/phantom-code.ts",
@@ -531,7 +313,7 @@
       "label": "findOrphanExports()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
       "norm_label": "findorphanexports()",
       "source_file": "src/analyzers/phantom-code.ts",
@@ -542,117 +324,40 @@
       "label": "findOrphanFiles()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
       "norm_label": "findorphanfiles()",
       "source_file": "src/analyzers/phantom-code.ts",
       "source_location": "L47"
     },
     {
-      "id": "src_subagents_orchestrator_detectentrypoints",
-      "label": "detectEntrypoints()",
+      "id": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
+      "label": "analyzeSuppressionFraud()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
-      "norm_label": "detectentrypoints()",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L303"
+      "norm_label": "analyzesuppressionfraud()",
+      "source_file": "src/analyzers/suppression-fraud.ts",
+      "source_location": "L11"
     },
     {
-      "id": "src_subagents_orchestrator_indexworkspace",
-      "label": "indexWorkspace()",
+      "id": "src_analyzers_suppression_fraud_stripstrings",
+      "label": "stripStrings()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 0,
       "file_type": "code",
-      "norm_label": "indexworkspace()",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L258"
-    },
-    {
-      "id": "src_subagents_orchestrator_runinquisitorsubagents",
-      "label": "runInquisitorSubagents()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "code",
-      "norm_label": "runinquisitorsubagents()",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L35"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_analyzeagentreportlanguage",
-      "label": "analyzeAgentReportLanguage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "analyzeagentreportlanguage()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L69"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_createverdictreceipt",
-      "label": "createVerdictReceipt()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "createverdictreceipt()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L109"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_verifyverdictreceipt",
-      "label": "verifyVerdictReceipt()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "verifyverdictreceipt()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L126"
-    },
-    {
-      "id": "src_analyzers_skill_critic_querymistakes",
-      "label": "queryMistakes()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "querymistakes()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L453"
-    },
-    {
-      "id": "src_analyzers_skill_critic_recordmistake",
-      "label": "recordMistake()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "recordmistake()",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L472"
-    },
-    {
-      "id": "src_analyzers_test_fraud_analyzetestdiffsabotage",
-      "label": "analyzeTestDiffSabotage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "analyzetestdiffsabotage()",
-      "source_file": "src/analyzers/test-fraud.ts",
-      "source_location": "L107"
+      "norm_label": "stripstrings()",
+      "source_file": "src/analyzers/suppression-fraud.ts",
+      "source_location": "L72"
     },
     {
       "id": "src_analyzers_test_fraud_analyzetestfraud",
       "label": "analyzeTestFraud()",
       "_callable": true,
       "_origin": "ast",
-      "community": 5,
+      "community": 0,
       "file_type": "code",
       "norm_label": "analyzetestfraud()",
       "source_file": "src/analyzers/test-fraud.ts",
@@ -663,7 +368,7 @@
       "label": "detectMirrorAssertion()",
       "_callable": true,
       "_origin": "ast",
-      "community": 5,
+      "community": 0,
       "file_type": "code",
       "norm_label": "detectmirrorassertion()",
       "source_file": "src/analyzers/test-fraud.ts",
@@ -674,92 +379,476 @@
       "label": "extractBalancedBraces()",
       "_callable": true,
       "_origin": "ast",
-      "community": 5,
+      "community": 0,
       "file_type": "code",
       "norm_label": "extractbalancedbraces()",
       "source_file": "src/analyzers/test-fraud.ts",
       "source_location": "L153"
     },
     {
+      "id": "src_engine_scanner_scanworkspace",
+      "label": "scanWorkspace()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "scanworkspace()",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_subagents_orchestrator_detectentrypoints",
+      "label": "detectEntrypoints()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "detectentrypoints()",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L316"
+    },
+    {
+      "id": "src_subagents_orchestrator_indexworkspace",
+      "label": "indexWorkspace()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "indexworkspace()",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L271"
+    },
+    {
+      "id": "src_subagents_orchestrator_runinquisitorsubagents",
+      "label": "runInquisitorSubagents()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "runinquisitorsubagents()",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
+      "label": "enrichFindingWithBrutalCritique()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "enrichfindingwithbrutalcritique()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L367"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_verifycitations",
+      "label": "verifyCitations()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "verifycitations()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_verifyexternalauditforensics",
+      "label": "verifyExternalAuditForensics()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "verifyexternalauditforensics()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L484"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_cleanrelpath",
+      "label": "cleanRelPath()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "cleanrelpath()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L246"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_collectexportentrypoints",
+      "label": "collectExportEntrypoints()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "collectexportentrypoints()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L250"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "label": "detectProjectTechStack()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "detectprojecttechstack()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_verifytechstackalignment",
+      "label": "verifyTechStackAlignment()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "verifytechstackalignment()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L179"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_walktechfiles",
+      "label": "walkTechFiles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "walktechfiles()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L263"
+    },
+    {
+      "id": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
+      "label": "analyzeGraphAndTokenOptimization()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "analyzegraphandtokenoptimization()",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "src_analyzers_graph_optimizer_detectrtkversion",
+      "label": "detectRtkVersion()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "detectrtkversion()",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_analyzers_phantom_code_resolverelativeimport",
+      "label": "resolveRelativeImport()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "resolverelativeimport()",
+      "source_file": "src/analyzers/phantom-code.ts",
+      "source_location": "L190"
+    },
+    {
+      "id": "src_repo_git_manager_gitoutput",
+      "label": "gitOutput()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "gitoutput()",
+      "source_file": "src/repo/git-manager.ts",
+      "source_location": "L81"
+    },
+    {
+      "id": "src_repo_git_manager_parsereposlug",
+      "label": "parseRepoSlug()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "parsereposlug()",
+      "source_file": "src/repo/git-manager.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_repo_git_manager_syncrepository",
+      "label": "syncRepository()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "syncrepository()",
+      "source_file": "src/repo/git-manager.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "src_web_server_createappserver",
+      "label": "createAppServer()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "createappserver()",
+      "source_file": "src/web/server.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_web_ui_renderforensicdashboardhtml",
+      "label": "renderForensicDashboardHtml()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "renderforensicdashboardhtml()",
+      "source_file": "src/web/ui.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_scripts_superpowers_extracted_test_runbash",
+      "label": "runBash()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "runbash()",
+      "source_file": "tests/scripts/superpowers-extracted.test.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_analyzers_skill_critic_analyzeskillanddocdrift",
+      "label": "analyzeSkillAndDocDrift()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "code",
+      "norm_label": "analyzeskillanddocdrift()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "src_analyzers_skill_critic_auditmistakeledger",
+      "label": "auditMistakeLedger()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "code",
+      "norm_label": "auditmistakeledger()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L310"
+    },
+    {
+      "id": "src_analyzers_skill_critic_auditskillfrontmatter",
+      "label": "auditSkillFrontmatter()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "code",
+      "norm_label": "auditskillfrontmatter()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L177"
+    },
+    {
+      "id": "src_analyzers_skill_critic_collectskillandruledocs",
+      "label": "collectSkillAndRuleDocs()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "code",
+      "norm_label": "collectskillandruledocs()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L248"
+    },
+    {
+      "id": "src_analyzers_skill_critic_isexampleplaceholderpath",
+      "label": "isExamplePlaceholderPath()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "code",
+      "norm_label": "isexampleplaceholderpath()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L299"
+    },
+    {
+      "id": "src_analyzers_skill_critic_parsemistakeentries",
+      "label": "parseMistakeEntries()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "code",
+      "norm_label": "parsemistakeentries()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L376"
+    },
+    {
+      "id": "src_analyzers_skill_critic_readpackagescripts",
+      "label": "readPackageScripts()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "code",
+      "norm_label": "readpackagescripts()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L286"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_analyzeagentreportlanguage",
+      "label": "analyzeAgentReportLanguage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "file_type": "code",
+      "norm_label": "analyzeagentreportlanguage()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_createverdictreceipt",
+      "label": "createVerdictReceipt()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "file_type": "code",
+      "norm_label": "createverdictreceipt()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L110"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_verifyverdictreceipt",
+      "label": "verifyVerdictReceipt()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "file_type": "code",
+      "norm_label": "verifyverdictreceipt()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L127"
+    },
+    {
+      "id": "src_analyzers_skill_critic_querymistakes",
+      "label": "queryMistakes()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "file_type": "code",
+      "norm_label": "querymistakes()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L453"
+    },
+    {
+      "id": "src_analyzers_skill_critic_recordmistake",
+      "label": "recordMistake()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "file_type": "code",
+      "norm_label": "recordmistake()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L472"
+    },
+    {
+      "id": "src_analyzers_test_fraud_analyzetestdiffsabotage",
+      "label": "analyzeTestDiffSabotage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "file_type": "code",
+      "norm_label": "analyzetestdiffsabotage()",
+      "source_file": "src/analyzers/test-fraud.ts",
+      "source_location": "L107"
+    },
+    {
       "id": "src_cli_index_runcli",
       "label": "runCli()",
       "_callable": true,
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "code",
       "norm_label": "runcli()",
       "source_file": "src/cli/index.ts",
       "source_location": "L16"
     },
     {
-      "id": "src_analyzers_graph_optimizer",
-      "label": "graph-optimizer.ts",
+      "id": "src_analyzers_css_critic",
+      "label": "css-critic.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "graph-optimizer.ts",
-      "source_file": "src/analyzers/graph-optimizer.ts",
+      "norm_label": "css-critic.ts",
+      "source_file": "src/analyzers/css-critic.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_repo_git_manager",
-      "label": "git-manager.ts",
+      "id": "src_analyzers_defect_scanner",
+      "label": "defect-scanner.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "git-manager.ts",
-      "source_file": "src/repo/git-manager.ts",
+      "norm_label": "defect-scanner.ts",
+      "source_file": "src/analyzers/defect-scanner.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_web_server",
-      "label": "server.ts",
+      "id": "src_analyzers_phantom_code",
+      "label": "phantom-code.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "server.ts",
-      "source_file": "src/web/server.ts",
+      "norm_label": "phantom-code.ts",
+      "source_file": "src/analyzers/phantom-code.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_web_ui",
-      "label": "ui.ts",
+      "id": "src_analyzers_suppression_fraud",
+      "label": "suppression-fraud.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "ui.ts",
-      "source_file": "src/web/ui.ts",
+      "norm_label": "suppression-fraud.ts",
+      "source_file": "src/analyzers/suppression-fraud.ts",
       "source_location": "L1"
     },
     {
-      "id": "tests_analyzers_deep_critics_test",
-      "label": "deep-critics.test.ts",
+      "id": "src_analyzers_test_fraud",
+      "label": "test-fraud.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "deep-critics.test.ts",
-      "source_file": "tests/analyzers/deep-critics.test.ts",
+      "norm_label": "test-fraud.ts",
+      "source_file": "src/analyzers/test-fraud.ts",
       "source_location": "L1"
     },
     {
-      "id": "tests_scripts_superpowers_extracted_test",
-      "label": "superpowers-extracted.test.ts",
+      "id": "src_engine_scanner",
+      "label": "scanner.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "superpowers-extracted.test.ts",
-      "source_file": "tests/scripts/superpowers-extracted.test.ts",
+      "norm_label": "scanner.ts",
+      "source_file": "src/engine/scanner.ts",
       "source_location": "L1"
     },
     {
-      "id": "tests_scripts_superpowers_extracted_test_scripts_dir",
-      "label": "SCRIPTS_DIR",
+      "id": "src_subagents_orchestrator",
+      "label": "orchestrator.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "scripts_dir",
-      "source_file": "tests/scripts/superpowers-extracted.test.ts",
-      "source_location": "L7"
+      "norm_label": "orchestrator.ts",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_analyzers_nta_suite_test",
+      "label": "nta-suite.test.ts",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "nta-suite.test.ts",
+      "source_file": "tests/analyzers/nta-suite.test.ts",
+      "source_location": "L1"
     },
     {
       "id": "src_analyzers_evidence_verifier",
@@ -779,7 +868,7 @@
       "file_type": "code",
       "norm_label": "brutal_critique_by_rule",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L193"
+      "source_location": "L194"
     },
     {
       "id": "src_analyzers_evidence_verifier_sycophancy_or_speculation_patterns",
@@ -789,7 +878,17 @@
       "file_type": "code",
       "norm_label": "sycophancy_or_speculation_patterns",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L13"
+      "source_location": "L14"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector",
+      "label": "tech-stack-detector.ts",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "tech-stack-detector.ts",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L1"
     },
     {
       "id": "src_types_verdict",
@@ -802,43 +901,10 @@
       "source_location": "L1"
     },
     {
-      "id": "gemini",
-      "label": "GEMINI.md",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "gemini.md",
-      "source_file": "GEMINI.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "gemini_continuous_learning_keep_up_to_date_loop",
-      "label": "Continuous Learning & Keep-Up-To-Date Loop",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "continuous learning & keep-up-to-date loop",
-      "source_file": "GEMINI.md",
-      "source_location": "L5"
-    },
-    {
-      "id": "gemini_gemini_md_nevertrustagent_workspace_rules",
-      "label": "GEMINI.md \u2014 NeverTrustAgent Workspace Rules",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "gemini.md \u2014 nevertrustagent workspace rules",
-      "source_file": "GEMINI.md",
-      "source_location": "L1"
-    },
-    {
       "id": "prompts_implementer_strict",
       "label": "implementer-strict.md",
       "_origin": "ast",
-      "community": 11,
+      "community": 10,
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "implementer-strict.md",
@@ -849,7 +915,7 @@
       "id": "prompts_implementer_strict_strict_implementer_subagent_protocol",
       "label": "Strict Implementer Subagent Protocol",
       "_origin": "ast",
-      "community": 11,
+      "community": 10,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "strict implementer subagent protocol",
@@ -860,7 +926,7 @@
       "id": "prompts_inquisitor_task_reviewer",
       "label": "inquisitor-task-reviewer.md",
       "_origin": "ast",
-      "community": 12,
+      "community": 11,
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "inquisitor-task-reviewer.md",
@@ -871,7 +937,7 @@
       "id": "prompts_inquisitor_task_reviewer_inquisitor_task_code_reviewer_prompt_template",
       "label": "Inquisitor Task & Code Reviewer Prompt Template",
       "_origin": "ast",
-      "community": 12,
+      "community": 11,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "inquisitor task & code reviewer prompt template",
@@ -882,7 +948,7 @@
       "id": "scripts_find_polluter",
       "label": "find-polluter.sh",
       "_origin": "ast",
-      "community": 13,
+      "community": 12,
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -896,7 +962,7 @@
       "id": "scripts_find_polluter_sh__entry",
       "label": "find-polluter.sh script",
       "_origin": "ast",
-      "community": 13,
+      "community": 12,
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -910,7 +976,7 @@
       "id": "scripts_update_graph",
       "label": "update-graph.sh",
       "_origin": "ast",
-      "community": 14,
+      "community": 13,
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -924,7 +990,7 @@
       "id": "scripts_update_graph_sh__entry",
       "label": "update-graph.sh script",
       "_origin": "ast",
-      "community": 14,
+      "community": 13,
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -935,73 +1001,149 @@
       "source_location": "L1"
     },
     {
+      "id": "src_analyzers_graph_optimizer",
+      "label": "graph-optimizer.ts",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "graph-optimizer.ts",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_repo_git_manager",
+      "label": "git-manager.ts",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "git-manager.ts",
+      "source_file": "src/repo/git-manager.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_web_server",
+      "label": "server.ts",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "server.ts",
+      "source_file": "src/web/server.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_web_ui",
+      "label": "ui.ts",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "ui.ts",
+      "source_file": "src/web/ui.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_analyzers_deep_critics_test",
+      "label": "deep-critics.test.ts",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "deep-critics.test.ts",
+      "source_file": "tests/analyzers/deep-critics.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_scripts_superpowers_extracted_test",
+      "label": "superpowers-extracted.test.ts",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "superpowers-extracted.test.ts",
+      "source_file": "tests/scripts/superpowers-extracted.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_scripts_superpowers_extracted_test_scripts_dir",
+      "label": "SCRIPTS_DIR",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "scripts_dir",
+      "source_file": "tests/scripts/superpowers-extracted.test.ts",
+      "source_location": "L7"
+    },
+    {
       "id": "src_analyzers_skill_critic",
       "label": "skill-critic.ts",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "file_type": "code",
       "norm_label": "skill-critic.ts",
       "source_file": "src/analyzers/skill-critic.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_analyzers_suppression_fraud",
-      "label": "suppression-fraud.ts",
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "suppression-fraud.ts",
-      "source_file": "src/analyzers/suppression-fraud.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_engine_scanner",
-      "label": "scanner.ts",
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "scanner.ts",
-      "source_file": "src/engine/scanner.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_analyzers_css_critic",
-      "label": "css-critic.ts",
+      "id": "mistake_ledger",
+      "label": "MISTAKE_LEDGER.md",
       "_origin": "ast",
       "community": 3,
-      "file_type": "code",
-      "norm_label": "css-critic.ts",
-      "source_file": "src/analyzers/css-critic.ts",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "mistake_ledger.md",
+      "source_file": "MISTAKE_LEDGER.md",
       "source_location": "L1"
     },
     {
-      "id": "src_analyzers_defect_scanner",
-      "label": "defect-scanner.ts",
+      "id": "mistake_ledger_mistake_001_self_triggering_sycophancy_regex_inside_skill_md_red_flags_section",
+      "label": "[MISTAKE-001] Self-Triggering Sycophancy Regex Inside SKILL.md Red Flags Section",
       "_origin": "ast",
       "community": 3,
-      "file_type": "code",
-      "norm_label": "defect-scanner.ts",
-      "source_file": "src/analyzers/defect-scanner.ts",
-      "source_location": "L1"
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-001] self-triggering sycophancy regex inside skill.md red flags section",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L7"
     },
     {
-      "id": "src_analyzers_phantom_code",
-      "label": "phantom-code.ts",
+      "id": "mistake_ledger_mistake_002_unscoped_graphify_file_collection_indexing_node_modules_and_cache_directories",
+      "label": "[MISTAKE-002] Unscoped Graphify File Collection Indexing node_modules and Cache Directories",
       "_origin": "ast",
       "community": 3,
-      "file_type": "code",
-      "norm_label": "phantom-code.ts",
-      "source_file": "src/analyzers/phantom-code.ts",
-      "source_location": "L1"
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-002] unscoped graphify file collection indexing node_modules and cache directories",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L15"
     },
     {
-      "id": "src_subagents_orchestrator",
-      "label": "orchestrator.ts",
+      "id": "mistake_ledger_mistake_003_deferring_skill_knowledge_synchronization_under_time_pressure",
+      "label": "[MISTAKE-003] Deferring Skill & Knowledge Synchronization Under Time Pressure",
       "_origin": "ast",
       "community": 3,
-      "file_type": "code",
-      "norm_label": "orchestrator.ts",
-      "source_file": "src/subagents/orchestrator.ts",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-003] deferring skill & knowledge synchronization under time pressure",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L23"
+    },
+    {
+      "id": "mistake_ledger_mistake_004_embedded_call_site_syntax_in_brutal_critique_dictionary_triggered_nta_d001_and_nta_d003",
+      "label": "[MISTAKE-004] Embedded Call-Site Syntax in Brutal Critique Dictionary Triggered NTA-D001 and NTA-D003",
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-004] embedded call-site syntax in brutal critique dictionary triggered nta-d001 and nta-d003",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L31"
+    },
+    {
+      "id": "mistake_ledger_mistake_ledger_md_agent_forensic_post_mortem_grow_up_ledger",
+      "label": "MISTAKE_LEDGER.md \u2014 Agent Forensic Post-Mortem & Grow-Up Ledger",
+      "_origin": "ast",
+      "community": 3,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "mistake_ledger.md \u2014 agent forensic post-mortem & grow-up ledger",
+      "source_file": "MISTAKE_LEDGER.md",
       "source_location": "L1"
     },
     {
@@ -1094,7 +1236,7 @@
       "node_kind": "heading",
       "norm_label": "keep-up-to-date gate function (mandatory before finishing any turn)",
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L33"
+      "source_location": "L34"
     },
     {
       "id": "skills_never_trust_agent_skill_nevertrustagent_nta_forensic_inquisitor_keep_up_to_date_skill",
@@ -1127,7 +1269,7 @@
       "node_kind": "heading",
       "norm_label": "rationalization prevention (bulletproofing table)",
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L64"
+      "source_location": "L65"
     },
     {
       "id": "skills_never_trust_agent_skill_red_flags_stop_immediately",
@@ -1138,7 +1280,7 @@
       "node_kind": "heading",
       "norm_label": "red flags \u2014 stop immediately",
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L75"
+      "source_location": "L76"
     },
     {
       "id": "skills_never_trust_agent_skill_the_7_inquisitor_subagents_complete_rule_ledger",
@@ -1149,7 +1291,7 @@
       "node_kind": "heading",
       "norm_label": "the 7 inquisitor subagents & complete rule ledger",
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L49"
+      "source_location": "L50"
     },
     {
       "id": "skills_never_trust_agent_skill_the_five_iron_laws",
@@ -1163,40 +1305,10 @@
       "source_location": "L16"
     },
     {
-      "id": "src_analyzers_test_fraud",
-      "label": "test-fraud.ts",
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "test-fraud.ts",
-      "source_file": "src/analyzers/test-fraud.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_cli_index",
-      "label": "index.ts",
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "index.ts",
-      "source_file": "src/cli/index.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_analyzers_nta_suite_test",
-      "label": "nta-suite.test.ts",
-      "_origin": "ast",
-      "community": 5,
-      "file_type": "code",
-      "norm_label": "nta-suite.test.ts",
-      "source_file": "tests/analyzers/nta-suite.test.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "skills_mistake_ledger_grow_up_skill",
       "label": "mistake-ledger-grow-up/SKILL.md",
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "document",
       "frontmatter": {
         "name": "mistake-ledger-grow-up",
@@ -1211,7 +1323,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_mandatory_two_phase_loop",
       "label": "Mandatory Two-Phase Loop",
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "mandatory two-phase loop",
@@ -1222,7 +1334,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_mistake_ledger_grow_up_protocol_nta_k009",
       "label": "Mistake Ledger & Grow-Up Protocol (`NTA-K009`)",
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "mistake ledger & grow-up protocol (`nta-k009`)",
@@ -1233,7 +1345,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_overview",
       "label": "Overview",
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "overview",
@@ -1244,7 +1356,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_phase_1_pre_task_lookup_before_writing_code",
       "label": "Phase 1: Pre-Task Lookup (Before Writing Code)",
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "phase 1: pre-task lookup (before writing code)",
@@ -1255,7 +1367,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_phase_2_post_mistake_dissection_grow_up_whenever_any_failure_or_correction_happens",
       "label": "Phase 2: Post-Mistake Dissection & Grow-Up (Whenever Any Failure or Correction Happens)",
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "phase 2: post-mistake dissection & grow-up (whenever any failure or correction happens)",
@@ -1266,7 +1378,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_rationalization_prevention_bulletproofing_table",
       "label": "Rationalization Prevention (Bulletproofing Table)",
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "rationalization prevention (bulletproofing table)",
@@ -1277,7 +1389,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_red_flags_stop_immediately",
       "label": "Red Flags \u2014 STOP Immediately",
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "red flags \u2014 stop immediately",
@@ -1285,76 +1397,20 @@
       "source_location": "L56"
     },
     {
-      "id": "mistake_ledger",
-      "label": "MISTAKE_LEDGER.md",
+      "id": "src_cli_index",
+      "label": "index.ts",
       "_origin": "ast",
-      "community": 7,
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "mistake_ledger.md",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "mistake_ledger_mistake_001_self_triggering_sycophancy_regex_inside_skill_md_red_flags_section",
-      "label": "[MISTAKE-001] Self-Triggering Sycophancy Regex Inside SKILL.md Red Flags Section",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "[mistake-001] self-triggering sycophancy regex inside skill.md red flags section",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L7"
-    },
-    {
-      "id": "mistake_ledger_mistake_002_unscoped_graphify_file_collection_indexing_node_modules_and_cache_directories",
-      "label": "[MISTAKE-002] Unscoped Graphify File Collection Indexing node_modules and Cache Directories",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "[mistake-002] unscoped graphify file collection indexing node_modules and cache directories",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L15"
-    },
-    {
-      "id": "mistake_ledger_mistake_003_deferring_skill_knowledge_synchronization_under_time_pressure",
-      "label": "[MISTAKE-003] Deferring Skill & Knowledge Synchronization Under Time Pressure",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "[mistake-003] deferring skill & knowledge synchronization under time pressure",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L23"
-    },
-    {
-      "id": "mistake_ledger_mistake_004_embedded_call_site_syntax_in_brutal_critique_dictionary_triggered_nta_d001_and_nta_d003",
-      "label": "[MISTAKE-004] Embedded Call-Site Syntax in Brutal Critique Dictionary Triggered NTA-D001 and NTA-D003",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "[mistake-004] embedded call-site syntax in brutal critique dictionary triggered nta-d001 and nta-d003",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L31"
-    },
-    {
-      "id": "mistake_ledger_mistake_ledger_md_agent_forensic_post_mortem_grow_up_ledger",
-      "label": "MISTAKE_LEDGER.md \u2014 Agent Forensic Post-Mortem & Grow-Up Ledger",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "mistake_ledger.md \u2014 agent forensic post-mortem & grow-up ledger",
-      "source_file": "MISTAKE_LEDGER.md",
+      "community": 6,
+      "file_type": "code",
+      "norm_label": "index.ts",
+      "source_file": "src/cli/index.ts",
       "source_location": "L1"
     },
     {
       "id": "prompts_inquisitor_re_reviewer",
       "label": "inquisitor-re-reviewer.md",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "inquisitor-re-reviewer.md",
@@ -1365,7 +1421,7 @@
       "id": "prompts_inquisitor_re_reviewer_1_the_5_round_fix_loop_mechanics",
       "label": "1. The 5-Round Fix Loop Mechanics",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "1. the 5-round fix loop mechanics",
@@ -1376,7 +1432,7 @@
       "id": "prompts_inquisitor_re_reviewer_2_scoped_re_review_prompt_template",
       "label": "2. Scoped Re-Review Prompt Template",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "2. scoped re-review prompt template",
@@ -1387,7 +1443,7 @@
       "id": "prompts_inquisitor_re_reviewer_scoped_re_reviewer_5_round_fix_loop_protocol",
       "label": "Scoped Re-Reviewer & 5-Round Fix Loop Protocol",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "scoped re-reviewer & 5-round fix loop protocol",
@@ -1398,7 +1454,7 @@
       "id": "prompts_session_forensics",
       "label": "session-forensics.md",
       "_origin": "ast",
-      "community": 9,
+      "community": 8,
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "session-forensics.md",
@@ -1409,7 +1465,7 @@
       "id": "prompts_session_forensics_dimension_1_claim_to_tool_output_forensics_quality_evidence",
       "label": "Dimension 1: Claim-to-Tool-Output Forensics (`quality-evidence`)",
       "_origin": "ast",
-      "community": 9,
+      "community": 8,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "dimension 1: claim-to-tool-output forensics (`quality-evidence`)",
@@ -1420,7 +1476,7 @@
       "id": "prompts_session_forensics_dimension_2_plan_adherence_post_compaction_drift_plan_adherence",
       "label": "Dimension 2: Plan Adherence & Post-Compaction Drift (`plan-adherence`)",
       "_origin": "ast",
-      "community": 9,
+      "community": 8,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "dimension 2: plan adherence & post-compaction drift (`plan-adherence`)",
@@ -1431,7 +1487,7 @@
       "id": "prompts_session_forensics_session_transcript_forensics_protocol",
       "label": "Session Transcript Forensics Protocol",
       "_origin": "ast",
-      "community": 9,
+      "community": 8,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "session transcript forensics protocol",
@@ -1439,9 +1495,52 @@
       "source_location": "L1"
     },
     {
+      "id": "gemini",
+      "label": "GEMINI.md",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "gemini.md",
+      "source_file": "GEMINI.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "gemini_continuous_learning_keep_up_to_date_loop",
+      "label": "Continuous Learning & Keep-Up-To-Date Loop",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "continuous learning & keep-up-to-date loop",
+      "source_file": "GEMINI.md",
+      "source_location": "L5"
+    },
+    {
+      "id": "gemini_gemini_md_nevertrustagent_workspace_rules",
+      "label": "GEMINI.md \u2014 NeverTrustAgent Workspace Rules",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "gemini.md \u2014 nevertrustagent workspace rules",
+      "source_file": "GEMINI.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_node_crypto",
+      "label": "ref_node_crypto",
+      "community": 1,
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_node_crypto",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "ref_bun_test",
       "label": "ref_bun_test",
-      "community": 0,
+      "community": 2,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_bun_test",
@@ -1451,7 +1550,7 @@
     {
       "id": "ref_node_child_process",
       "label": "ref_node_child_process",
-      "community": 0,
+      "community": 2,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_node_child_process",
@@ -1461,7 +1560,7 @@
     {
       "id": "ref_node_fs",
       "label": "ref_node_fs",
-      "community": 0,
+      "community": 2,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_node_fs",
@@ -1471,7 +1570,7 @@
     {
       "id": "ref_node_os",
       "label": "ref_node_os",
-      "community": 0,
+      "community": 2,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_node_os",
@@ -1481,20 +1580,10 @@
     {
       "id": "ref_node_path",
       "label": "ref_node_path",
-      "community": 0,
+      "community": 2,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_node_path",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "ref_node_crypto",
-      "label": "ref_node_crypto",
-      "community": 1,
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_node_crypto",
       "source_file": "",
       "type": "external"
     }
@@ -1509,7 +1598,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -1521,7 +1610,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L118",
+      "source_location": "L119",
       "weight": 1.0
     },
     {
@@ -1533,7 +1622,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L478",
+      "source_location": "L489",
       "weight": 1.0
     },
     {
@@ -1545,7 +1634,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L130",
+      "source_location": "L131",
       "weight": 1.0
     },
     {
@@ -1717,6 +1806,78 @@
       "weight": 1.0
     },
     {
+      "source": "src_analyzers_tech_stack_detector_collectexportentrypoints",
+      "target": "src_analyzers_tech_stack_detector_cleanrelpath",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L253",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector_collectexportentrypoints",
+      "target": "src_analyzers_tech_stack_detector_collectexportentrypoints",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L258",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "target": "src_analyzers_tech_stack_detector_walktechfiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "target": "src_analyzers_tech_stack_detector_cleanrelpath",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "target": "src_analyzers_tech_stack_detector_collectexportentrypoints",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector_verifytechstackalignment",
+      "target": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L185",
+      "weight": 1.0
+    },
+    {
       "source": "src_analyzers_test_fraud_analyzetestfraud",
       "target": "src_analyzers_test_fraud_extractbalancedbraces",
       "relation": "calls",
@@ -1857,7 +2018,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -1869,7 +2030,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -1881,7 +2042,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -1893,7 +2054,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -1905,12 +2066,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
       "source": "src_engine_scanner_scanworkspace",
-      "target": "src_analyzers_phantom_code_findorphanfiles",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1922,6 +2083,18 @@
     },
     {
       "source": "src_engine_scanner_scanworkspace",
+      "target": "src_analyzers_phantom_code_findorphanfiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner_scanworkspace",
       "target": "src_analyzers_skill_critic_analyzeskillanddocdrift",
       "relation": "calls",
       "_origin": "ast",
@@ -1929,7 +2102,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L46",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -1941,7 +2114,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L47",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -1953,7 +2126,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L51",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -1994,174 +2167,6 @@
     },
     {
       "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_css_critic_analyzecssandui",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L112",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_skill_critic_analyzeskillanddocdrift",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L124",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_defect_scanner_analyzedefects",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L137",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L157",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_evidence_verifier_computeworkspacehash",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L182",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_evidence_verifier_generateauditvideoevidence",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L231",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_repo_git_manager_syncrepository",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L39",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_subagents_orchestrator_indexworkspace",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L40",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_subagents_orchestrator_detectentrypoints",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L41",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L42",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_test_fraud_analyzetestfraud",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L58",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L73",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_phantom_code_analyzephantomcode",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L88",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_phantom_code_findorphanfiles",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L93",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
       "target": "src_analyzers_phantom_code_findorphanexports",
       "relation": "calls",
       "_origin": "ast",
@@ -2169,7 +2174,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L96",
+      "source_location": "L100",
       "weight": 1.0
     },
     {
@@ -2181,7 +2186,187 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L99",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_css_critic_analyzecssandui",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_skill_critic_analyzeskillanddocdrift",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_defect_scanner_analyzedefects",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L141",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_evidence_verifier_computeworkspacehash",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L186",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_evidence_verifier_generateauditvideoevidence",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L243",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_repo_git_manager_syncrepository",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_subagents_orchestrator_indexworkspace",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_subagents_orchestrator_detectentrypoints",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_test_fraud_analyzetestfraud",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_phantom_code_analyzephantomcode",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_phantom_code_findorphanfiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -2295,6 +2480,18 @@
     {
       "source": "src_analyzers_evidence_verifier",
       "target": "src_types_verdict_platformauditreport",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_evidence_verifier",
+      "target": "src_types_verdict_techstackprofile",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2422,6 +2619,54 @@
       "context": "import",
       "source_file": "src/analyzers/suppression-fraud.ts",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_types_verdict_finding",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_types_verdict_platformauditreport",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_types_verdict_techstackprofile",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -2582,7 +2827,7 @@
     },
     {
       "source": "src_engine_scanner",
-      "target": "src_analyzers_test_fraud_analyzetestfraud",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2594,7 +2839,7 @@
     },
     {
       "source": "src_engine_scanner",
-      "target": "src_types_verdict_finding",
+      "target": "src_analyzers_test_fraud_analyzetestfraud",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2606,6 +2851,18 @@
     },
     {
       "source": "src_engine_scanner",
+      "target": "src_types_verdict_finding",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner",
       "target": "src_types_verdict_scanreport",
       "relation": "imports",
       "_origin": "ast",
@@ -2613,7 +2870,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -2798,7 +3055,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_test_fraud_analyzetestfraud",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2810,7 +3067,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_repo_git_manager_syncrepository",
+      "target": "src_analyzers_test_fraud_analyzetestfraud",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2822,7 +3079,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_types_verdict_auditflowstep",
+      "target": "src_repo_git_manager_syncrepository",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2830,6 +3087,18 @@
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
       "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator",
+      "target": "src_types_verdict_auditflowstep",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -2841,7 +3110,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -2853,7 +3122,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -2865,7 +3134,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -2990,7 +3259,7 @@
     },
     {
       "source": "tests_analyzers_deep_critics_test",
-      "target": "src_repo_git_manager_parsereposlug",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2998,6 +3267,30 @@
       "context": "import",
       "source_file": "tests/analyzers/deep-critics.test.ts",
       "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_analyzers_deep_critics_test",
+      "target": "src_analyzers_tech_stack_detector_verifytechstackalignment",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/analyzers/deep-critics.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_analyzers_deep_critics_test",
+      "target": "src_repo_git_manager_parsereposlug",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/analyzers/deep-critics.test.ts",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -3009,7 +3302,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/analyzers/deep-critics.test.ts",
-      "source_location": "L16",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -3021,7 +3314,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/analyzers/deep-critics.test.ts",
-      "source_location": "L17",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -3033,7 +3326,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/analyzers/deep-critics.test.ts",
-      "source_location": "L18",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -3488,6 +3781,55 @@
       "weight": 1.0
     },
     {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_types_verdict",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L3",
+      "type_only": true,
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_evidence_verifier",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "src_analyzers_test_fraud",
       "target": "src_types_verdict",
       "relation": "imports_from",
@@ -3647,7 +3989,7 @@
     },
     {
       "source": "src_engine_scanner",
-      "target": "src_analyzers_test_fraud",
+      "target": "src_analyzers_tech_stack_detector",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3659,7 +4001,7 @@
     },
     {
       "source": "src_engine_scanner",
-      "target": "src_types_verdict",
+      "target": "src_analyzers_test_fraud",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3667,6 +4009,18 @@
       "context": "import",
       "source_file": "src/engine/scanner.ts",
       "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner",
+      "target": "src_types_verdict",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L14",
       "type_only": true,
       "weight": 1.0
     },
@@ -3841,7 +4195,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_test_fraud",
+      "target": "src_analyzers_tech_stack_detector",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3865,7 +4219,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_repo_git_manager",
+      "target": "src_analyzers_test_fraud",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3877,7 +4231,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_types_verdict",
+      "target": "src_repo_git_manager",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3885,6 +4239,18 @@
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
       "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator",
+      "target": "src_types_verdict",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L22",
       "type_only": true,
       "weight": 1.0
     },
@@ -4022,7 +4388,7 @@
     },
     {
       "source": "tests_analyzers_deep_critics_test",
-      "target": "src_repo_git_manager",
+      "target": "src_analyzers_tech_stack_detector",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4030,30 +4396,6 @@
       "context": "import",
       "source_file": "tests/analyzers/deep-critics.test.ts",
       "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "tests_analyzers_deep_critics_test",
-      "target": "src_subagents_orchestrator",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "tests/analyzers/deep-critics.test.ts",
-      "source_location": "L17",
-      "weight": 1.0
-    },
-    {
-      "source": "tests_analyzers_deep_critics_test",
-      "target": "src_web_server",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "tests/analyzers/deep-critics.test.ts",
-      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -4066,6 +4408,42 @@
       "context": "import",
       "source_file": "tests/analyzers/deep-critics.test.ts",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_analyzers_deep_critics_test",
+      "target": "src_repo_git_manager",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/analyzers/deep-critics.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_analyzers_deep_critics_test",
+      "target": "src_subagents_orchestrator",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/analyzers/deep-critics.test.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_analyzers_deep_critics_test",
+      "target": "src_web_server",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/analyzers/deep-critics.test.ts",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -4693,7 +5071,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -4704,7 +5082,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L49",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -4715,7 +5093,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L64",
+      "source_location": "L65",
       "weight": 1.0
     },
     {
@@ -4726,7 +5104,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L75",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -4770,7 +5148,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -4781,7 +5159,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L126",
+      "source_location": "L127",
       "weight": 1.0
     },
     {
@@ -4792,7 +5170,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -4803,7 +5181,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L161",
+      "source_location": "L162",
       "weight": 1.0
     },
     {
@@ -4814,7 +5192,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L193",
+      "source_location": "L194",
       "weight": 1.0
     },
     {
@@ -4825,7 +5203,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -4836,7 +5214,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L362",
+      "source_location": "L367",
       "weight": 1.0
     },
     {
@@ -4847,7 +5225,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L385",
+      "source_location": "L396",
       "weight": 1.0
     },
     {
@@ -4858,7 +5236,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L473",
+      "source_location": "L484",
       "weight": 1.0
     },
     {
@@ -4869,7 +5247,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L69",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -4880,7 +5258,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L95",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -5104,6 +5482,72 @@
       "weight": 1.0
     },
     {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_tech_stack_detector_verifytechstackalignment",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_tech_stack_detector_cleanrelpath",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L246",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_tech_stack_detector_collectexportentrypoints",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L250",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_tech_stack_detector_walktechfiles",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L263",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_tech_stack_detector_rawpackagejson",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
       "source": "src_analyzers_test_fraud",
       "target": "src_analyzers_test_fraud_analyzetestdiffsabotage",
       "relation": "contains",
@@ -5166,7 +5610,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -5177,7 +5621,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -5221,7 +5665,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L258",
+      "source_location": "L271",
       "weight": 1.0
     },
     {
@@ -5232,7 +5676,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -5243,7 +5687,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L303",
+      "source_location": "L316",
       "weight": 1.0
     },
     {
@@ -5254,7 +5698,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -5270,13 +5714,24 @@
     },
     {
       "source": "src_types_verdict",
-      "target": "src_types_verdict_platformauditreport",
+      "target": "src_types_verdict_techstackprofile",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/types/verdict.ts",
       "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "src_types_verdict",
+      "target": "src_types_verdict_platformauditreport",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/types/verdict.ts",
+      "source_location": "L117",
       "weight": 1.0
     },
     {
@@ -5466,7 +5921,7 @@
       "confidence_score": 0.95,
       "context": "VerdictReceipt",
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L72",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -5478,7 +5933,7 @@
       "confidence_score": 0.95,
       "context": "VerdictReceipt",
       "source_file": "skills/never-trust-agent/SKILL.md",
-      "source_location": "L62",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -5503,6 +5958,18 @@
       "context": "analyzeSkillAndDocDrift",
       "source_file": "MISTAKE_LEDGER.md",
       "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "skills_never_trust_agent_skill_external_project_forensic_audit_protocol_nta_e005",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "detectProjectTechStack",
+      "source_file": "skills/never-trust-agent/SKILL.md",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -5531,5 +5998,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "58b7c354497e60ad059cbf3ffef12fdb0e3bae62"
+  "built_at_commit": "9fa02ba53adb16d5b1f79b83d753987af73702dd"
 }

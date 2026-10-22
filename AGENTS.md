@@ -32,7 +32,7 @@ Whenever you add, modify, or delete any analyzer rule (`NTA-*`), subagent, scrip
   5. `SkillAndDocDriftInquisitor` (`src/analyzers/skill-critic.ts`): `NTA-K001`..`NTA-K009`
   6. `RuntimeAndSecurityInquisitor` (`src/analyzers/defect-scanner.ts`): `NTA-D001`..`NTA-D003`
   7. `GraphAndTokenInquisitor` (`src/analyzers/graph-optimizer.ts`): `NTA-G001`..`NTA-G002` + RTK/Graphify token telemetry
-- **Evidence & Receipt Verifier (`src/analyzers/evidence-verifier.ts`):** `NTA-E001`..`NTA-E005` (citations, anti-sycophancy, SHA-256 `VerdictReceipt`, full-flow A→Z `.webm` video evidence & brutal `whyItIsWrong` root-cause verifier)
+- **Evidence & Tech-Stack Verifier (`src/analyzers/evidence-verifier.ts` & `src/analyzers/tech-stack-detector.ts`):** `NTA-E001`..`NTA-E006` (citations, anti-sycophancy, SHA-256 `VerdictReceipt`, full-flow A→Z `.webm` video evidence, brutal `whyItIsWrong` root-cause verifier, and tech-stack fingerprinting / anti-backfire guard)
 - **Deterministic SDD & Debugging Scripts (`scripts/`):**
   - `scripts/sdd-workspace`, `scripts/task-brief`, `scripts/review-package`, `scripts/find-polluter.sh`, `scripts/update-graph.sh`
 - **Adversarial Prompt Templates (`prompts/`):**

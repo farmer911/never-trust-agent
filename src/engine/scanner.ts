@@ -9,6 +9,7 @@ import {
 import { analyzePhantomCode, findOrphanFiles } from "../analyzers/phantom-code.ts";
 import { analyzeSkillAndDocDrift } from "../analyzers/skill-critic.ts";
 import { analyzeSuppressionFraud } from "../analyzers/suppression-fraud.ts";
+import { detectProjectTechStack } from "../analyzers/tech-stack-detector.ts";
 import { analyzeTestFraud } from "../analyzers/test-fraud.ts";
 import type { Finding, ScanReport } from "../types/verdict.ts";
 
@@ -41,10 +42,13 @@ export function scanWorkspace(
     findings.push(...analyzeSuppressionFraud(relPath, content));
   }
 
-  const entrypoints = options.entrypoints ?? ["src/index.ts", "src/cli/index.ts"];
+  const techStack = detectProjectTechStack(root);
+  const entrypoints = options.entrypoints ?? [
+    ...new Set(["src/index.ts", "src/cli/index.ts", ...techStack.discoveredEntrypoints]),
+  ];
   findings.push(...findOrphanFiles(fileMap, entrypoints));
   findings.push(...analyzeSkillAndDocDrift(root));
-  const enrichedFindings = findings.map((f) => enrichFindingWithBrutalCritique(f));
+  const enrichedFindings = findings.map((f) => enrichFindingWithBrutalCritique(f, techStack));
 
   return {
     workspaceRoot: root,

@@ -13,6 +13,10 @@ import {
 } from "../../src/analyzers/skill-critic.ts";
 import { scanWorkspace } from "../../src/engine/scanner.ts";
 import { analyzeGraphAndTokenOptimization } from "../../src/analyzers/graph-optimizer.ts";
+import {
+  detectProjectTechStack,
+  verifyTechStackAlignment,
+} from "../../src/analyzers/tech-stack-detector.ts";
 import { syncRepository, parseRepoSlug } from "../../src/repo/git-manager.ts";
 import { runInquisitorSubagents } from "../../src/subagents/orchestrator.ts";
 import { createAppServer } from "../../src/web/server.ts";
@@ -407,6 +411,89 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
       expect(res.findings.some((f) => f.ruleId === "NTA-G002")).toBe(true);
     } finally {
       rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test("Tech-Stack Recon & Anti-Backfire Guard detects framework routes/tools and prevents stack-mismatch critiques (NTA-E006)", async () => {
+    const tempRoot = mkdtempSync(join(tmpdir(), "nta-tech-stack-"));
+    const nextRepo = join(tempRoot, "nextjs-vitest-repo");
+    const cacheDir = join(tempRoot, "cache");
+
+    try {
+      mkdirSync(join(nextRepo, "src/app/dashboard"), { recursive: true });
+      mkdirSync(join(nextRepo, "tests"), { recursive: true });
+      spawnSync("git", ["init"], { cwd: nextRepo });
+      spawnSync("git", ["config", "user.email", "test@nta.local"], { cwd: nextRepo });
+      spawnSync("git", ["config", "user.name", "NTA Test"], { cwd: nextRepo });
+
+      writeFileSync(
+        join(nextRepo, "package.json"),
+        JSON.stringify({
+          name: "nextjs-vitest-app",
+          packageManager: "pnpm@9.12.0",
+          scripts: { test: "vitest run", build: "next build" },
+          dependencies: { next: "15.1.0", react: "19.0.0" },
+          devDependencies: { tailwindcss: "4.0.0", vitest: "2.1.0", typescript: "5.7.0" },
+        })
+      );
+      writeFileSync(join(nextRepo, "pnpm-lock.yaml"), "lockfileVersion: '9.0'\n");
+      writeFileSync(
+        join(nextRepo, "src/app/dashboard/page.tsx"),
+        "export default function DashboardPage() { return <main>Dashboard</main>; }\n"
+      );
+      writeFileSync(
+        join(nextRepo, "tests/dashboard.test.ts"),
+        'import { test } from "vitest";\ntest("empty dashboard test", () => {});\n'
+      );
+
+      spawnSync("git", ["add", "."], { cwd: nextRepo });
+      spawnSync("git", ["commit", "-m", "init nextjs vitest repo"], { cwd: nextRepo });
+
+      const stack = detectProjectTechStack(nextRepo);
+      expect(stack.packageManager).toBe("pnpm");
+      expect(stack.testRunner).toBe("vitest");
+      expect(stack.frameworks).toContain("Next.js");
+      expect(stack.frameworks).toContain("React");
+      expect(stack.frameworks).toContain("Tailwind CSS");
+      expect(stack.discoveredEntrypoints).toContain("src/app/dashboard/page.tsx");
+
+      const audit = await runInquisitorSubagents(nextRepo, cacheDir);
+      // Anti-Backfire: Next.js App Router page.tsx must NOT be flagged as NTA-P003 (Orphan File) or NTA-P004 (Orphan Export)!
+      expect(
+        audit.findings.some(
+          (f) =>
+            (f.ruleId === "NTA-P003" || f.ruleId === "NTA-P004") &&
+            f.file === "src/app/dashboard/page.tsx"
+        )
+      ).toBe(false);
+      // Critique must be grounded in the detected stack (pnpm / vitest / Next.js)
+      const testFinding = audit.findings.find((f) => f.ruleId === "NTA-T001");
+      expect(testFinding).toBeDefined();
+      expect(testFinding?.whyItIsWrong).toContain("vitest");
+      expect(verifyTechStackAlignment(audit)).toEqual([]);
+
+      // Simulate a naive/hallucinated critique that mismatches the repo's tech stack -> NTA-E006
+      const mismatchedAudit = {
+        ...audit,
+        findings: [
+          ...audit.findings,
+          {
+            ruleId: "NTA-P003",
+            category: "PHANTOM_CODE" as const,
+            severity: "MEDIUM" as const,
+            file: "src/app/dashboard/page.tsx",
+            line: 1,
+            message: "Orphan file not imported by index.ts",
+            evidence: "src/app/dashboard/page.tsx",
+            whyItIsWrong: "File tidak diimport, jalankan cargo test.",
+            directFix: "Run cargo test and delete page.tsx",
+          },
+        ],
+      };
+      const backfireFindings = verifyTechStackAlignment(mismatchedAudit);
+      expect(backfireFindings.some((f) => f.ruleId === "NTA-E006")).toBe(true);
+    } finally {
+      rmSync(tempRoot, { recursive: true, force: true });
     }
   });
 });

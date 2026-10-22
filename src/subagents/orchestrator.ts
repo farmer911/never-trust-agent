@@ -16,6 +16,7 @@ import {
 } from "../analyzers/phantom-code.ts";
 import { analyzeSkillAndDocDrift } from "../analyzers/skill-critic.ts";
 import { analyzeSuppressionFraud } from "../analyzers/suppression-fraud.ts";
+import { detectProjectTechStack } from "../analyzers/tech-stack-detector.ts";
 import { analyzeTestFraud } from "../analyzers/test-fraud.ts";
 import { syncRepository } from "../repo/git-manager.ts";
 import type {
@@ -38,7 +39,10 @@ export async function runInquisitorSubagents(
 ): Promise<PlatformAuditReport> {
   const repoMeta = syncRepository(repoUrlOrPath, cacheBaseDir);
   const ws = indexWorkspace(repoMeta.localPath);
-  const entrypoints = detectEntrypoints(ws.codeFiles);
+  const techStack = detectProjectTechStack(ws.root);
+  const entrypoints = [
+    ...new Set([...detectEntrypoints(ws.codeFiles), ...techStack.discoveredEntrypoints]),
+  ];
   const graphOpt = analyzeGraphAndTokenOptimization(ws.root);
 
   const subagentDefinitions: readonly {
@@ -154,7 +158,7 @@ export async function runInquisitorSubagents(
     subagentDefinitions.map(async (def) => {
       const t0 = performance.now();
       const rawSubFindings = await Promise.resolve(def.run());
-      const subFindings = rawSubFindings.map((f) => enrichFindingWithBrutalCritique(f));
+      const subFindings = rawSubFindings.map((f) => enrichFindingWithBrutalCritique(f, techStack));
       const durationMs = Math.max(1, Math.round(performance.now() - t0));
       return {
         id: def.id,
@@ -198,6 +202,14 @@ export async function runInquisitorSubagents(
       evidence: `workspaceHash=${workspaceHash}`,
       timestamp: new Date().toISOString(),
       durationMs: 8,
+    },
+    {
+      stageId: "STAGE_B0_TECH_STACK_RECON",
+      title: "Stage B0 — Tech-Stack Fingerprinting & Anti-Backfire Grounding",
+      detail: `Detected ${techStack.groundingSummary}`,
+      evidence: `entrypoints=${entrypoints.length} (${entrypoints.slice(0, 4).join(", ")})`,
+      timestamp: new Date().toISOString(),
+      durationMs: 4,
     },
     ...subagentReports.map((sub, idx) => ({
       stageId: `STAGE_${stageLetters[idx] ?? "X"}_SUBAGENT_${idx + 1}`,
@@ -247,6 +259,7 @@ export async function runInquisitorSubagents(
     totalFindings: allFindings.length,
     integrityScore,
     passed: allFindings.length === 0,
+    techStack,
     tokenOptimization: graphOpt.telemetry,
     flowTrace: baseSteps,
     videoEvidence,

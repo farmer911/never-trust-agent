@@ -6,6 +6,7 @@ import type {
   Citation,
   Finding,
   PlatformAuditReport,
+  TechStackProfile,
   VerdictReceipt,
   VideoEvidenceMetadata,
 } from "../types/verdict.ts";
@@ -357,22 +358,32 @@ const BRUTAL_CRITIQUE_BY_RULE: Readonly<
     why: "Báo cáo kiểm toán thiếu bằng chứng toàn trình: không quét hết mã nguồn, thiếu luồng A->Z, không có video bằng chứng A->Z hoặc không phân tích thẳng mặt vì sao sai.",
     fix: "Chạy đầy đủ luồng quét A->Z, sinh file video bằng chứng `.webm` và điền đủ phân tích `whyItIsWrong` cho từng lỗi.",
   },
+  "NTA-E006": {
+    why: "Phê bình lệch hệ sinh thái công nghệ của dự án (Tech-Stack Mismatch): phán xét mà không kiểm tra manifest/framework thực tế của repo, dẫn tới bắt nhầm file route của framework hoặc xúi chạy sai công cụ.",
+    fix: "Chạy `detectProjectTechStack` trước khi quét để khóa chặt runtime, packageManager, testRunner và các entrypoint theo quy ước framework.",
+  },
 };
 
-export function enrichFindingWithBrutalCritique(finding: Finding): Finding {
+export function enrichFindingWithBrutalCritique(
+  finding: Finding,
+  techStack?: TechStackProfile
+): Finding {
   const entry = BRUTAL_CRITIQUE_BY_RULE[finding.ruleId];
+  const stackContext = techStack
+    ? ` [Đối chiếu đúng hệ sinh thái repo: ${techStack.groundingSummary}]`
+    : "";
   const whyItIsWrong =
     finding.whyItIsWrong && finding.whyItIsWrong.trim().length > 0
       ? finding.whyItIsWrong
       : entry
-        ? `[${finding.file}:${finding.line}] ${entry.why} Bằng chứng sống tại dòng ${finding.line}: \`${finding.evidence}\`.`
-        : `[${finding.file}:${finding.line}] Vi phạm quy tắc ${finding.ruleId}: mã nguồn viết cẩu thả tại dòng ${finding.line} (\`${finding.evidence}\`), gây rủi ro trực tiếp cho tính toàn vẹn của hệ thống.`;
+        ? `[${finding.file}:${finding.line}] ${entry.why}${stackContext} Bằng chứng sống tại dòng ${finding.line}: \`${finding.evidence}\`.`
+        : `[${finding.file}:${finding.line}] Vi phạm quy tắc ${finding.ruleId}: mã nguồn viết cẩu thả tại dòng ${finding.line} (\`${finding.evidence}\`), gây rủi ro trực tiếp cho tính toàn vẹn của hệ thống.${stackContext}`;
 
   const directFix =
     finding.directFix && finding.directFix.trim().length > 0
       ? finding.directFix
       : entry
-        ? entry.fix
+        ? `${entry.fix}${techStack ? ` (Thực thi chuẩn theo stack: ${techStack.packageManager} / ${techStack.testRunner})` : ""}`
         : `Sửa ngay dòng ${finding.line} trong file ${finding.file} để loại bỏ vi phạm ${finding.ruleId}.`;
 
   return {

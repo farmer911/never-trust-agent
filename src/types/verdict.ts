@@ -103,6 +103,17 @@ export interface SubagentSummary {
   readonly findings: readonly Finding[];
 }
 
+export interface TechStackProfile {
+  readonly runtime: string;
+  readonly packageManager: string;
+  readonly testRunner: string;
+  readonly stylingSystem: string;
+  readonly languages: readonly string[];
+  readonly frameworks: readonly string[];
+  readonly discoveredEntrypoints: readonly string[];
+  readonly groundingSummary: string;
+}
+
 export interface PlatformAuditReport {
   readonly repoMeta: RepoSyncMetadata;
   readonly workspaceHash: string;
@@ -111,6 +122,7 @@ export interface PlatformAuditReport {
   readonly totalFindings: number;
   readonly integrityScore: number;
   readonly passed: boolean;
+  readonly techStack: TechStackProfile;
   readonly tokenOptimization: TokenOptimizationMetrics;
   readonly flowTrace: readonly AuditFlowStep[];
   readonly videoEvidence: VideoEvidenceMetadata;
