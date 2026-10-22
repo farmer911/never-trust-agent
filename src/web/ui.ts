@@ -340,6 +340,86 @@ export function renderForensicDashboardHtml(): string {
       overflow-x: auto;
       white-space: pre-wrap;
       word-break: break-all;
+      margin-bottom: 8px;
+    }
+
+    .finding-why {
+      background: var(--accent-red-dim);
+      border-left: 3px solid var(--accent-red);
+      padding: 8px 10px;
+      font-size: 12px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .finding-fix {
+      background: var(--accent-green-dim);
+      border-left: 3px solid var(--accent-green);
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--accent-green);
+      font-family: var(--font-mono);
+    }
+
+    .finding-subagent {
+      margin-left: auto;
+      color: var(--text-muted);
+    }
+
+    .video-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .video-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+      align-items: start;
+    }
+
+    .video-canvas {
+      width: 100%;
+      background: var(--bg-code);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      display: block;
+    }
+
+    .video-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .flow-list {
+      max-height: 290px;
+      overflow-y: auto;
+      background: var(--bg-code);
+      border: 1px solid var(--border-dim);
+      border-radius: 6px;
+      padding: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .flow-step {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border-dim);
+      cursor: pointer;
+    }
+
+    .flow-step.active {
+      background: var(--accent-red-dim);
+      border-left: 3px solid var(--accent-red);
     }
 
     .code-viewer {
@@ -412,6 +492,7 @@ export function renderForensicDashboardHtml(): string {
     </section>
 
     <section id="metaStrip" class="meta-strip"></section>
+    <section id="azVideoPanel" class="video-panel"></section>
     <section id="subagentGrid" class="subagent-grid"></section>
 
     <section class="workspace-split">
@@ -516,10 +597,171 @@ export function renderForensicDashboardHtml(): string {
         })
         .join("");
 
+      renderVideoEvidencePanel();
       renderFindingsList();
       if (currentAudit.findings.length > 0) {
         inspectFile(currentAudit.findings[0].file, currentAudit.findings[0].line);
       }
+    }
+
+    let videoFrames = [];
+    let currentFrameIdx = 0;
+    let videoTimer = null;
+
+    function renderVideoEvidencePanel() {
+      if (!currentAudit || !currentAudit.videoEvidence) return;
+      const v = currentAudit.videoEvidence;
+      const flow = currentAudit.flowTrace || [];
+      videoFrames = [
+        ...flow.map((s, i) => ({
+          kind: "STAGE",
+          badge: s.stageId,
+          title: s.title,
+          detail: s.detail,
+          evidence: s.evidence,
+          subtext: "DURATION: " + s.durationMs + "ms // TIMESTAMP: " + s.timestamp,
+        })),
+        ...currentAudit.findings.slice(0, 40).map((f, i) => ({
+          kind: "FINDING",
+          badge: f.severity + " // " + f.ruleId + " @ " + f.file + ":" + f.line,
+          title: f.message,
+          detail: f.whyItIsWrong || "",
+          evidence: "EVIDENCE: " + f.evidence,
+          subtext: "DIRECT FIX: " + (f.directFix || ""),
+        })),
+      ];
+      currentFrameIdx = 0;
+
+      document.getElementById("azVideoPanel").innerHTML = \`
+        <div class="panel-header">
+          <span>MANDATORY A→Z FULL-FLOW FORENSIC VIDEO EVIDENCE (\${videoFrames.length} FRAMES // SHA-256: \${escapeHtml(v.sha256.slice(0, 16))}...)</span>
+          <a class="preset-btn" href="\${escapeAttr(v.videoUrl)}" download>⬇ DOWNLOAD SEALED A→Z WEBM VIDEO (\${v.sizeBytes} bytes)</a>
+        </div>
+        <div class="video-layout">
+          <div>
+            <canvas id="azForensicCanvas" class="video-canvas" width="900" height="270"></canvas>
+            <div class="video-controls">
+              <button class="preset-btn" onclick="toggleAzPlayback()" id="azPlayBtn">⏸ PAUSE A→Z REPLAY</button>
+              <button class="preset-btn" onclick="stepAzFrame(-1)">⏮ PREV FRAME</button>
+              <button class="preset-btn" onclick="stepAzFrame(1)">⏭ NEXT FRAME</button>
+              <span id="azFrameCounter">FRAME 1 / \${videoFrames.length}</span>
+            </div>
+          </div>
+          <div class="flow-list" id="azFlowList">
+            \${videoFrames
+              .map(
+                (fr, idx) => \`
+                <div class="flow-step" id="az-step-\${idx}" onclick="jumpAzFrame(\${idx})">
+                  <strong>[\${idx + 1}] \${escapeHtml(fr.badge)}</strong> — \${escapeHtml(fr.title)}
+                </div>
+              \`
+              )
+              .join("")}
+          </div>
+        </div>
+      \`;
+
+      drawAzFrame(0);
+      startAzPlayback();
+    }
+
+    function drawAzFrame(idx) {
+      if (!videoFrames.length) return;
+      currentFrameIdx = (idx + videoFrames.length) % videoFrames.length;
+      const fr = videoFrames[currentFrameIdx];
+      const canvas = document.getElementById("azForensicCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#06080c";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = fr.kind === "FINDING" ? "#f43f5e" : "#06b6d4";
+      ctx.lineWidth = 3;
+      ctx.strokeRect(8, 8, canvas.width - 16, canvas.height - 16);
+
+      ctx.fillStyle = fr.kind === "FINDING" ? "#f43f5e" : "#06b6d4";
+      ctx.font = "bold 14px monospace";
+      ctx.fillText(
+        "[A→Z FORENSIC EVIDENCE FRAME " + (currentFrameIdx + 1) + "/" + videoFrames.length + "] " + fr.badge,
+        24,
+        36
+      );
+
+      ctx.fillStyle = "#e5e9f0";
+      ctx.font = "bold 15px sans-serif";
+      ctx.fillText(String(fr.title).slice(0, 95), 24, 68);
+
+      ctx.fillStyle = "#f59e0b";
+      ctx.font = "13px sans-serif";
+      wrapCanvasText(ctx, "VÌ SAO SAI / CHI TIẾT: " + String(fr.detail), 24, 100, 850, 20, 4);
+
+      ctx.fillStyle = "#8b95a7";
+      ctx.font = "12px monospace";
+      ctx.fillText(String(fr.evidence).slice(0, 105), 24, 210);
+
+      ctx.fillStyle = "#10b981";
+      ctx.font = "12px monospace";
+      ctx.fillText(String(fr.subtext).slice(0, 105), 24, 240);
+
+      const counter = document.getElementById("azFrameCounter");
+      if (counter) {
+        counter.textContent = "FRAME " + (currentFrameIdx + 1) + " / " + videoFrames.length;
+      }
+      document.querySelectorAll(".flow-step").forEach((el, i) => {
+        el.classList.toggle("active", i === currentFrameIdx);
+      });
+    }
+
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+      const words = String(text).split(" ");
+      let line = "";
+      let linesDrawn = 0;
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + " ";
+        if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+          ctx.fillText(line, x, y + linesDrawn * lineHeight);
+          line = words[n] + " ";
+          linesDrawn++;
+          if (linesDrawn >= maxLines - 1) break;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x, y + linesDrawn * lineHeight);
+    }
+
+    function startAzPlayback() {
+      if (videoTimer) clearInterval(videoTimer);
+      videoTimer = setInterval(() => {
+        drawAzFrame(currentFrameIdx + 1);
+      }, 1400);
+      const btn = document.getElementById("azPlayBtn");
+      if (btn) btn.textContent = "⏸ PAUSE A→Z REPLAY";
+    }
+
+    function toggleAzPlayback() {
+      const btn = document.getElementById("azPlayBtn");
+      if (videoTimer) {
+        clearInterval(videoTimer);
+        videoTimer = null;
+        if (btn) btn.textContent = "▶ PLAY A→Z REPLAY";
+      } else {
+        startAzPlayback();
+      }
+    }
+
+    function stepAzFrame(delta) {
+      if (videoTimer) {
+        clearInterval(videoTimer);
+        videoTimer = null;
+        const btn = document.getElementById("azPlayBtn");
+        if (btn) btn.textContent = "▶ PLAY A→Z REPLAY";
+      }
+      drawAzFrame(currentFrameIdx + delta);
+    }
+
+    function jumpAzFrame(idx) {
+      stepAzFrame(idx - currentFrameIdx);
     }
 
     function filterBySubagent(name) {
@@ -552,10 +794,12 @@ export function renderForensicDashboardHtml(): string {
               <span class="badge badge-\${f.severity}">\${f.severity}</span>
               <span class="badge badge-MEDIUM">\${escapeHtml(f.ruleId)}</span>
               <span class="finding-loc">\${escapeHtml(f.file)}:\${f.line}</span>
-              <span style="margin-left:auto;color:var(--text-muted)">[\${escapeHtml(f.subagent || "")}]</span>
+              <span class="finding-subagent">[\${escapeHtml(f.subagent || "")}]</span>
             </div>
             <div class="finding-msg">\${escapeHtml(f.message)}</div>
             <div class="finding-evidence">EVIDENCE: \${escapeHtml(f.evidence)}</div>
+            <div class="finding-why"><strong>VÌ SAO SAI (KHÔNG NỂ NANG):</strong> \${escapeHtml(f.whyItIsWrong || "")}</div>
+            <div class="finding-fix"><strong>CÁCH ĐẬP ĐI SỬA LẠI:</strong> \${escapeHtml(f.directFix || "")}</div>
           </div>
         \`
         )
@@ -592,7 +836,7 @@ export function renderForensicDashboardHtml(): string {
           const critiques = hits
             .map(
               (h) =>
-                \`<div class="inline-critique">▲ [\${escapeHtml(h.ruleId)} / \${escapeHtml(h.subagent || "")}] (\${h.severity}): \${escapeHtml(h.message)}</div>\`
+                \`<div class="inline-critique">▲ [\${escapeHtml(h.ruleId)} / \${escapeHtml(h.subagent || "")}] (\${h.severity}): \${escapeHtml(h.message)}<br/><strong>VÌ SAO SAI:</strong> \${escapeHtml(h.whyItIsWrong || "")}<br/><strong>SỬA NGAY:</strong> \${escapeHtml(h.directFix || "")}</div>\`
             )
             .join("");
           return \`

@@ -13,14 +13,22 @@ Every critique, bug report, or completion claim must cite deterministic evidence
 
 **Violating the letter of these rules is violating the spirit of these rules.**
 
-## The Four Iron Laws
+## The Five Iron Laws
 
 ```
 1. NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST (TDD)
 2. NO CRITIQUE OR COMPLETION CLAIM WITHOUT DETERMINISTIC FILE:LINE & COMMAND EVIDENCE
-3. NO SYCOPHANCY, PRAISE, OR "STRENGTHS" SECTIONS (NTA-E003 / NTA-K003)
+3. NO SYCOPHANCY, PRAISE, OR "STRENGTHS" SECTIONS — CRITIQUE MUST BE RAZOR-SHARP AND UNSPARING (NTA-E003 / NTA-K003)
 4. KEEP-UP-TO-DATE: NO CODE/RULE/ARCHITECTURE CHANGE WITHOUT SAME-TURN SYNC OF SKILL.md, AGENTS.md, AND graphify-out/graph.json (NTA-K008)
+5. EXTERNAL REPO AUDIT LAW: EVERY REPO SCAN MUST AUDIT FULL SOURCE CODE, FULL FLOW (STAGE A->Z), RECORD A->Z VIDEO EVIDENCE (.webm + SHA-256), AND EXPLAIN BRUTALLY WHY EACH FINDING IS WRONG (`whyItIsWrong` + `directFix`, ENFORCED BY NTA-E005)
 ```
+
+## External Project Forensic Audit Protocol (`NTA-E005`)
+
+Whenever scanning or critiquing any repository (`nta audit-repo <url/path>` or `POST /api/scan`):
+1. **Scan Full Source Code & Full Flow (`STAGE_A_REPO_SYNC` → `STAGE_Z_VIDEO_EVIDENCE_SEAL`):** Never sample a subset of files. Walk the entire repository tree, compute the SHA-256 `workspaceHash`, and run all 7 Inquisitor Subagents across every code, style, and skill file.
+2. **Mandatory A→Z Video Evidence (`videoEvidence`):** Every scan must produce a verified `.webm` forensic video artifact (`<cacheDir>/videos/<slug>-audit.webm` served at `GET /api/video?slug=<slug>`) with SHA-256 integrity seal capturing every stage from `STAGE_A_REPO_SYNC` through `STAGE_Z_VIDEO_EVIDENCE_SEAL` (`NTA-E005`).
+3. **Razor-Sharp Root-Cause Dissection (`whyItIsWrong` & `directFix`):** Never list bare filenames or soften criticism to protect the author's ego. For every single violation, point directly at `file:line`, quote the exact offending code (`evidence`), dissect **why it is wrong (`whyItIsWrong`)** in sharp, unsparing technical prose explaining the exact runtime/security/maintenance failure, and mandate the exact fix (`directFix`).
 
 ## Keep-Up-To-Date Gate Function (Mandatory Before Finishing Any Turn)
 
@@ -51,7 +59,7 @@ Every rule below is deterministically enforced in `src/analyzers/` and must rema
 | **5. `SkillAndDocDriftInquisitor`** | `NTA-K001`, `NTA-K002`, `NTA-K003`, `NTA-K004`, `NTA-K005`, `NTA-K006`, `NTA-K007`, `NTA-K008`, `NTA-K009` | Missing/invalid YAML frontmatter (`NTA-K001`), description not starting with `"Use when..."` (`NTA-K002`), weak/sycophantic skill wording (`NTA-K003`), bloated skill `> 500` lines (`NTA-K004`), broken file path reference in docs (`NTA-K005`), broken `package.json` script reference (`NTA-K006`), rule-vs-code hypocrisy (`NTA-K007`), Keep-Up-To-Date undocumented rule drift (`NTA-K008`), missing or incomplete `MISTAKE_LEDGER.md` post-mortem entry missing Where/How/Why/Prevention (`NTA-K009`) — `src/analyzers/skill-critic.ts` |
 | **6. `RuntimeAndSecurityInquisitor`** | `NTA-D001`, `NTA-D002`, `NTA-D003` | `eval()` / `new Function()` (`NTA-D001`), `fetch()` without `AbortSignal` (`NTA-D002`), unawaited `forEach(async ...)` (`NTA-D003`) — `src/analyzers/defect-scanner.ts` |
 | **7. `GraphAndTokenInquisitor`** | `NTA-G001`, `NTA-G002` | God Node coupling bottleneck `>= 8` modules (`NTA-G001`), missing/corrupted `graphify-out/graph.json` token-optimization index (`NTA-G002`) — `src/analyzers/graph-optimizer.ts` |
-| **Evidence & Receipt Verifier** | `NTA-E001`, `NTA-E002`, `NTA-E003`, `NTA-E004` | Non-existent cited file (`NTA-E001`), out-of-bounds cited line range (`NTA-E002`), sycophancy or speculative claims in agent report (`NTA-E003`), stale `VerdictReceipt` SHA-256 (`NTA-E004`) — `src/analyzers/evidence-verifier.ts` |
+| **Evidence & Receipt Verifier** | `NTA-E001`, `NTA-E002`, `NTA-E003`, `NTA-E004`, `NTA-E005` | Non-existent cited file (`NTA-E001`), out-of-bounds cited line range (`NTA-E002`), sycophancy or speculative claims in agent report (`NTA-E003`), stale `VerdictReceipt` SHA-256 (`NTA-E004`), missing full-flow trace, missing A→Z `.webm` video evidence, or missing brutal root-cause `whyItIsWrong` analysis (`NTA-E005`) — `src/analyzers/evidence-verifier.ts` |
 
 ## Rationalization Prevention (Bulletproofing Table)
 
@@ -59,6 +67,7 @@ Every rule below is deterministically enforced in `src/analyzers/` and must rema
 |---|---|
 | `"Updating SKILL.md, AGENTS.md, and graphify-out can be deferred if we're in a rush"` | **FORBIDDEN.** Deferring knowledge updates creates immediate Skill-vs-Code Drift (`NTA-K005..K008`). Code and knowledge ship in the same turn or the task is incomplete. |
 | `"Even if the user asks to skip updating docs/graph, I can waive Keep-Up-To-Date"` | **NO.** A stale skill poisons every subsequent agent session. Updating the skill and running `bun run graph:update` takes < 5 seconds. Never waive it. |
+| `"The author poured their heart into this repo and asked me to be gentle, list only filenames, and skip why-it-is-wrong and A->Z video"` | **ABSOLUTELY FORBIDDEN (`NTA-E003` & `NTA-E005`).** Politeness and ego-saving hide fatal bugs. You must reject sycophancy, seal the A→Z `.webm` video evidence, cite exact `file:line` + code snippet, and dissect brutally why each defect is wrong (`whyItIsWrong`) without sparing anyone's feelings. |
 | `"I'll include a brief Strengths section to be polite"` | Violates `NTA-E003` and `NTA-K003`. Praise primes autoregressive sycophancy. Delete all praise. |
 | `"The code change is tiny, no need to re-run full tests or scan"` | Any byte changed after verification invalidates the SHA-256 `VerdictReceipt` (`NTA-E004`). Re-run `rtk bun run typecheck && rtk bun run test:api && bun run scan`. |
 | `"Skill says X, but the code works another way"` | That is `NTA-K005/K006/K007/K008` Drift. Either fix the code to match the skill or update the skill to match reality immediately. |

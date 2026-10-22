@@ -1,7 +1,11 @@
 import { readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import { analyzeDefects } from "../analyzers/defect-scanner.ts";
-import { collectSourceFiles, computeWorkspaceHash } from "../analyzers/evidence-verifier.ts";
+import {
+  collectSourceFiles,
+  computeWorkspaceHash,
+  enrichFindingWithBrutalCritique,
+} from "../analyzers/evidence-verifier.ts";
 import { analyzePhantomCode, findOrphanFiles } from "../analyzers/phantom-code.ts";
 import { analyzeSkillAndDocDrift } from "../analyzers/skill-critic.ts";
 import { analyzeSuppressionFraud } from "../analyzers/suppression-fraud.ts";
@@ -40,12 +44,13 @@ export function scanWorkspace(
   const entrypoints = options.entrypoints ?? ["src/index.ts", "src/cli/index.ts"];
   findings.push(...findOrphanFiles(fileMap, entrypoints));
   findings.push(...analyzeSkillAndDocDrift(root));
+  const enrichedFindings = findings.map((f) => enrichFindingWithBrutalCritique(f));
 
   return {
     workspaceRoot: root,
     workspaceHash: computeWorkspaceHash(root),
     scannedFiles: absFiles.length,
-    passed: findings.length === 0,
-    findings,
+    passed: enrichedFindings.length === 0,
+    findings: enrichedFindings,
   };
 }

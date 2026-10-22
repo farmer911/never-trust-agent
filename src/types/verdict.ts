@@ -19,6 +19,29 @@ export interface Finding {
   readonly message: string;
   readonly evidence: string;
   readonly subagent?: string;
+  readonly whyItIsWrong?: string;
+  readonly directFix?: string;
+}
+
+export interface AuditFlowStep {
+  readonly stageId: string;
+  readonly title: string;
+  readonly detail: string;
+  readonly evidence: string;
+  readonly timestamp: string;
+  readonly durationMs: number;
+}
+
+export interface VideoEvidenceMetadata {
+  readonly filePath: string;
+  readonly videoUrl: string;
+  readonly mimeType: string;
+  readonly sizeBytes: number;
+  readonly sha256: string;
+  readonly durationMs: number;
+  readonly fps: number;
+  readonly frameCount: number;
+  readonly stagesCaptured: readonly string[];
 }
 
 export interface Citation {
@@ -89,6 +112,8 @@ export interface PlatformAuditReport {
   readonly integrityScore: number;
   readonly passed: boolean;
   readonly tokenOptimization: TokenOptimizationMetrics;
+  readonly flowTrace: readonly AuditFlowStep[];
+  readonly videoEvidence: VideoEvidenceMetadata;
   readonly subagentReports: readonly SubagentSummary[];
   readonly findings: readonly Finding[];
 }

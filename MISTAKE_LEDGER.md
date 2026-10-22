@@ -27,3 +27,11 @@ Use `bun run mistakes` (or `bun run src/cli/index.ts mistakes [keyword]`) to sea
 - **How (Như thế nào):** In baseline pressure testing, an agent without the Keep-Up-To-Date gate agreed to skip updating `SKILL.md`, `AGENTS.md`, and `graphify-out/graph.json` when told deployment freeze was 1 minute away.
 - **Why (Vì sao sai):** Without a deterministic static analysis failure, agents treat documentation and knowledge-graph updates as optional post-processing rather than part of the code contract.
 - **Prevention (Giải pháp & Phòng ngừa):** Implemented `NTA-K008` in `src/analyzers/skill-critic.ts` to extract every `ruleId: "NTA-..."` from `src/` and fail `bun run scan` whenever any rule is missing from `SKILL.md`, `AGENTS.md`, or `GEMINI.md`.
+
+### [MISTAKE-004] Embedded Call-Site Syntax in Brutal Critique Dictionary Triggered NTA-D001 and NTA-D003
+- **Date (Ngày ghi nhận):** 2026-10-22
+- **Rule (Mã vi phạm):** `NTA-D001`
+- **Where (Ở đâu):** `src/analyzers/evidence-verifier.ts:321` and `src/analyzers/evidence-verifier.ts:330`
+- **How (Như thế nào):** Self-dogfooding test `tests/analyzers/nta-suite.test.ts:107` failed with NTA-D001 and NTA-D003 because the Vietnamese critique strings in `BRUTAL_CRITIQUE_BY_RULE` contained literal call-site substrings `eval()` and `.forEach(async ...)`.
+- **Why (Vì sao sai):** Repeated the pattern of MISTAKE-001 in TypeScript string literals: `analyzeDefects` scans all non-comment source lines for `\beval\s*\(` and `\.forEach\s*\(\s*async\b` including inside dictionary strings.
+- **Prevention (Giải pháp & Phòng ngừa):** Replaced raw call-site syntax inside `BRUTAL_CRITIQUE_BY_RULE` strings with descriptive identifier references (`hàm eval`, `vòng lặp forEach bất đồng bộ`) and verified `bun run scan` returns 0 findings.

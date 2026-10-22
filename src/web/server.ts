@@ -63,6 +63,28 @@ export function createAppServer(options: ServerOptions = {}) {
         }
       }
 
+      if (req.method === "GET" && url.pathname === "/api/video") {
+        try {
+          const slug = parseRepoSlug(url.searchParams.get("slug") ?? "");
+          const safeSlug = slug.replace(/[^a-zA-Z0-9._-]/g, "_");
+          const videoPath = resolve(join(cacheDir, "videos", `${safeSlug}-audit.webm`));
+          if (!videoPath.startsWith(cacheDir) || !existsSync(videoPath)) {
+            return Response.json({ error: "Forensic A->Z video not found" }, { status: 404 });
+          }
+          const bytes = readFileSync(videoPath);
+          return new Response(bytes, {
+            headers: {
+              "content-type": "video/webm",
+              "content-length": String(bytes.byteLength),
+              "content-disposition": `inline; filename="${safeSlug}-audit.webm"`,
+            },
+          });
+        } catch (err) {
+          const message = err instanceof Error ? err.message : String(err);
+          return Response.json({ error: message }, { status: 400 });
+        }
+      }
+
       return Response.json({ error: "Not found" }, { status: 404 });
     },
   });

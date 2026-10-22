@@ -1,9 +1,10 @@
 import { describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { analyzeCssAndUi } from "../../src/analyzers/css-critic.ts";
+import { verifyExternalAuditForensics } from "../../src/analyzers/evidence-verifier.ts";
 import { findDuplicateBlocks, findOrphanExports } from "../../src/analyzers/phantom-code.ts";
 import {
   analyzeSkillAndDocDrift,
@@ -313,6 +314,32 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
       expect(audit.tokenOptimization.rawCorpusTokens).toBeGreaterThan(0);
       expect(audit.tokenOptimization.reductionPercent).toBeGreaterThanOrEqual(0);
       expect(audit.findings.every((f) => f.evidence.length > 0 && f.line >= 1)).toBe(true);
+      expect(
+        audit.findings.every(
+          (f) =>
+            typeof f.whyItIsWrong === "string" &&
+            f.whyItIsWrong.length > 20 &&
+            typeof f.directFix === "string" &&
+            f.directFix.length > 10
+        )
+      ).toBe(true);
+      expect(audit.flowTrace.length).toBeGreaterThanOrEqual(9);
+      expect(audit.flowTrace[0]?.stageId).toBe("STAGE_A_REPO_SYNC");
+      expect(audit.flowTrace[audit.flowTrace.length - 1]?.stageId).toBe(
+        "STAGE_Z_VIDEO_EVIDENCE_SEAL"
+      );
+      expect(existsSync(audit.videoEvidence.filePath)).toBe(true);
+      expect(audit.videoEvidence.sizeBytes).toBeGreaterThan(256);
+      expect(audit.videoEvidence.sha256.length).toBe(64);
+      expect(verifyExternalAuditForensics(audit)).toEqual([]);
+
+      const tamperedAudit = {
+        ...audit,
+        videoEvidence: { ...audit.videoEvidence, filePath: join(tempRoot, "missing-video.webm") },
+        findings: audit.findings.map((f, idx) => (idx === 0 ? { ...f, whyItIsWrong: "" } : f)),
+      };
+      const forensicViolations = verifyExternalAuditForensics(tamperedAudit);
+      expect(forensicViolations.some((v) => v.ruleId === "NTA-E005")).toBe(true);
 
       const server = createAppServer({ port: 0, cacheDir });
       try {
@@ -330,9 +357,22 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
           signal: AbortSignal.timeout(5000),
         });
         expect(scanRes.status).toBe(200);
-        const scanJson = (await scanRes.json()) as { totalFindings: number; repoMeta: { action: string } };
+        const scanJson = (await scanRes.json()) as {
+          totalFindings: number;
+          repoMeta: { action: string; slug: string };
+          videoEvidence: { videoUrl: string; sizeBytes: number };
+        };
         expect(scanJson.totalFindings).toBeGreaterThanOrEqual(6);
         expect(["CLONED", "PULLED"]).toContain(scanJson.repoMeta.action);
+
+        const videoRes = await fetch(
+          `http://127.0.0.1:${server.port}${scanJson.videoEvidence.videoUrl}`,
+          { signal: AbortSignal.timeout(5000) }
+        );
+        expect(videoRes.status).toBe(200);
+        expect(videoRes.headers.get("content-type")).toContain("video/webm");
+        const videoBytes = await videoRes.arrayBuffer();
+        expect(videoBytes.byteLength).toBe(scanJson.videoEvidence.sizeBytes);
       } finally {
         server.stop(true);
       }
