@@ -3,6 +3,7 @@ import { relative, resolve } from "node:path";
 import { analyzeDefects } from "../analyzers/defect-scanner.ts";
 import { collectSourceFiles, computeWorkspaceHash } from "../analyzers/evidence-verifier.ts";
 import { analyzePhantomCode, findOrphanFiles } from "../analyzers/phantom-code.ts";
+import { analyzeSkillAndDocDrift } from "../analyzers/skill-critic.ts";
 import { analyzeSuppressionFraud } from "../analyzers/suppression-fraud.ts";
 import { analyzeTestFraud } from "../analyzers/test-fraud.ts";
 import type { Finding, ScanReport } from "../types/verdict.ts";
@@ -38,6 +39,7 @@ export function scanWorkspace(
 
   const entrypoints = options.entrypoints ?? ["src/index.ts", "src/cli/index.ts"];
   findings.push(...findOrphanFiles(fileMap, entrypoints));
+  findings.push(...analyzeSkillAndDocDrift(root));
 
   return {
     workspaceRoot: root,

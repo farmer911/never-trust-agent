@@ -1,176 +1,29 @@
 {
-  "package.json": {
-    "mtime": 1792685133.3431258,
-    "seen": 1792685853.2184699,
-    "ast_hash": "892da25f3dbf5d46d70fe24c6a6af037",
-    "semantic_hash": "892da25f3dbf5d46d70fe24c6a6af037"
-  },
-  "scripts/find-polluter.sh": {
-    "mtime": 1792684616.9549687,
-    "seen": 1792685853.218472,
-    "ast_hash": "74ba9e0911b11514285b5904553a3c1f",
-    "semantic_hash": "74ba9e0911b11514285b5904553a3c1f"
-  },
-  "scripts/review-package": {
-    "mtime": 1792684614.5964854,
-    "seen": 1792685853.218473,
-    "ast_hash": "df5b7c9efa35065c3bfb3c8696336113",
-    "semantic_hash": "df5b7c9efa35065c3bfb3c8696336113"
-  },
-  "scripts/sdd-workspace": {
-    "mtime": 1792684610.3677855,
-    "seen": 1792685853.218474,
-    "ast_hash": "4656efb41ca169759d8548b71e5e68d7",
-    "semantic_hash": "4656efb41ca169759d8548b71e5e68d7"
-  },
-  "scripts/task-brief": {
-    "mtime": 1792684612.314631,
-    "seen": 1792685853.218474,
-    "ast_hash": "51bcf65c75cd924f32572f2d7686b4f9",
-    "semantic_hash": "51bcf65c75cd924f32572f2d7686b4f9"
-  },
-  "src/analyzers/css-critic.ts": {
-    "mtime": 1792685295.4415104,
-    "seen": 1792685853.218475,
-    "ast_hash": "1211cbeafd7377677a469f6855d1605a",
-    "semantic_hash": "1211cbeafd7377677a469f6855d1605a"
-  },
-  "src/analyzers/defect-scanner.ts": {
-    "mtime": 1792685185.051086,
-    "seen": 1792685853.218475,
-    "ast_hash": "01e59b5d6c377f53c2f25ab687e395f7",
-    "semantic_hash": "01e59b5d6c377f53c2f25ab687e395f7"
-  },
-  "src/analyzers/evidence-verifier.ts": {
-    "mtime": 1792685822.181323,
-    "seen": 1792685853.218476,
-    "ast_hash": "3dffa8709cdabdac9bffb20abd3288d5",
-    "semantic_hash": "3dffa8709cdabdac9bffb20abd3288d5"
-  },
-  "src/analyzers/graph-optimizer.ts": {
-    "mtime": 1792685717.5790217,
-    "seen": 1792685853.218476,
-    "ast_hash": "13ced7525636d2bc9cf4d954ad4bc265",
-    "semantic_hash": "13ced7525636d2bc9cf4d954ad4bc265"
-  },
-  "src/analyzers/phantom-code.ts": {
-    "mtime": 1792685711.637167,
-    "seen": 1792685853.218476,
-    "ast_hash": "1681a7d022ac4be063032c1758fb7a58",
-    "semantic_hash": "1681a7d022ac4be063032c1758fb7a58"
-  },
-  "src/analyzers/skill-critic.ts": {
-    "mtime": 1792685830.276482,
-    "seen": 1792685853.218477,
-    "ast_hash": "fdfa6f569a3944e09383aeada36a01e8",
-    "semantic_hash": "fdfa6f569a3944e09383aeada36a01e8"
-  },
-  "src/analyzers/suppression-fraud.ts": {
-    "mtime": 1792684489.8860867,
-    "seen": 1792685853.218477,
-    "ast_hash": "d55609300f1f5690aa7d3634771a5176",
-    "semantic_hash": "d55609300f1f5690aa7d3634771a5176"
-  },
-  "src/analyzers/test-fraud.ts": {
-    "mtime": 1792684488.4463954,
-    "seen": 1792685853.218478,
-    "ast_hash": "7476b19bcd15ea1a9418ea298318ec45",
-    "semantic_hash": "7476b19bcd15ea1a9418ea298318ec45"
-  },
-  "src/cli/index.ts": {
-    "mtime": 1792685131.147956,
-    "seen": 1792685853.218478,
-    "ast_hash": "4ab1bfe3e6e5b41b42537ae5603f9df9",
-    "semantic_hash": "4ab1bfe3e6e5b41b42537ae5603f9df9"
-  },
-  "src/engine/scanner.ts": {
-    "mtime": 1792684369.2866814,
-    "seen": 1792685853.218478,
-    "ast_hash": "43d2046153c5208a10ae3a5b09a86902",
-    "semantic_hash": "43d2046153c5208a10ae3a5b09a86902"
-  },
-  "src/repo/git-manager.ts": {
-    "mtime": 1792685778.9318905,
-    "seen": 1792685853.2184792,
-    "ast_hash": "2af7ad5d970e1d31f4c4ee1e8f5e3fd2",
-    "semantic_hash": "2af7ad5d970e1d31f4c4ee1e8f5e3fd2"
-  },
-  "src/subagents/orchestrator.ts": {
-    "mtime": 1792685832.4019034,
-    "seen": 1792685853.2184792,
-    "ast_hash": "01fa7aa26226a64fbc4b092ea83fc404",
-    "semantic_hash": "01fa7aa26226a64fbc4b092ea83fc404"
-  },
-  "src/types/verdict.ts": {
-    "mtime": 1792685685.5615711,
-    "seen": 1792685853.21848,
-    "ast_hash": "61276cbc40a072b85e6454d6cc38f348",
-    "semantic_hash": "61276cbc40a072b85e6454d6cc38f348"
-  },
-  "src/web/server.ts": {
-    "mtime": 1792685111.8776784,
-    "seen": 1792685853.21848,
-    "ast_hash": "03d0d9cfb3d6379b3570ad09e6a96b63",
-    "semantic_hash": "03d0d9cfb3d6379b3570ad09e6a96b63"
-  },
-  "src/web/ui.ts": {
-    "mtime": 1792685781.1214087,
-    "seen": 1792685853.2184808,
-    "ast_hash": "dc07771f8d8c1728e99031d82df6eae0",
-    "semantic_hash": "dc07771f8d8c1728e99031d82df6eae0"
-  },
-  "tests/analyzers/deep-critics.test.ts": {
-    "mtime": 1792685587.9132211,
-    "seen": 1792685853.2184808,
-    "ast_hash": "80498f787cb63cb56babe309bcce0d4f",
-    "semantic_hash": "80498f787cb63cb56babe309bcce0d4f"
-  },
-  "tests/analyzers/nta-suite.test.ts": {
-    "mtime": 1792684433.5332496,
-    "seen": 1792685853.2184808,
-    "ast_hash": "9b2f3ad48944b829c9fae73b4f864056",
-    "semantic_hash": "9b2f3ad48944b829c9fae73b4f864056"
-  },
-  "tests/scripts/superpowers-extracted.test.ts": {
-    "mtime": 1792684535.0067062,
-    "seen": 1792685853.218483,
-    "ast_hash": "352a9b0f2b045de960dc0d7d88041c41",
-    "semantic_hash": "352a9b0f2b045de960dc0d7d88041c41"
-  },
-  "tsconfig.json": {
-    "mtime": 1792684111.6792276,
-    "seen": 1792685853.218483,
-    "ast_hash": "0c53f39a605116ea66303c0006e2e6b5",
-    "semantic_hash": "0c53f39a605116ea66303c0006e2e6b5"
-  },
-  "docs/SUPERPOWERS_EXTRACTION_MATRIX.md": {
-    "mtime": 1792684732.9074116,
-    "seen": 1792685853.218484,
-    "ast_hash": "1b14f8177c39edc0d6dd3492ad27a0d4",
-    "semantic_hash": "1b14f8177c39edc0d6dd3492ad27a0d4"
-  },
-  "prompts/implementer-strict.md": {
-    "mtime": 1792684730.2485604,
-    "seen": 1792685853.218484,
-    "ast_hash": "97a25cf3dce9c77bafc19decea8b1594",
-    "semantic_hash": "97a25cf3dce9c77bafc19decea8b1594"
-  },
-  "prompts/inquisitor-re-reviewer.md": {
-    "mtime": 1792684728.4337974,
-    "seen": 1792685853.2184849,
-    "ast_hash": "3687f2f912adfd67ad82d983b85d5fe4",
-    "semantic_hash": "3687f2f912adfd67ad82d983b85d5fe4"
-  },
-  "prompts/inquisitor-task-reviewer.md": {
-    "mtime": 1792684726.7095246,
-    "seen": 1792685853.2184849,
-    "ast_hash": "fa2a2dfb2bd03f242f2a5a5ed7ef2600",
-    "semantic_hash": "fa2a2dfb2bd03f242f2a5a5ed7ef2600"
-  },
-  "prompts/session-forensics.md": {
-    "mtime": 1792684731.5503695,
-    "seen": 1792685853.2184849,
-    "ast_hash": "583a9d762cec29d9b2e51b75f250cc2c",
-    "semantic_hash": "583a9d762cec29d9b2e51b75f250cc2c"
-  }
+  "src/analyzers/css-critic.ts": 1792685295.4415104,
+  "src/analyzers/defect-scanner.ts": 1792685185.051086,
+  "src/analyzers/evidence-verifier.ts": 1792685822.181323,
+  "src/analyzers/graph-optimizer.ts": 1792685717.5790217,
+  "src/analyzers/phantom-code.ts": 1792685711.637167,
+  "src/analyzers/skill-critic.ts": 1792686070.2873545,
+  "src/analyzers/suppression-fraud.ts": 1792684489.8860867,
+  "src/analyzers/test-fraud.ts": 1792684488.4463954,
+  "src/cli/index.ts": 1792685131.147956,
+  "src/engine/scanner.ts": 1792686301.349387,
+  "src/repo/git-manager.ts": 1792685778.9318905,
+  "src/subagents/orchestrator.ts": 1792685832.4019034,
+  "src/types/verdict.ts": 1792685685.5615711,
+  "src/web/server.ts": 1792685111.8776784,
+  "src/web/ui.ts": 1792685781.1214087,
+  "tests/analyzers/deep-critics.test.ts": 1792686286.0462282,
+  "tests/analyzers/nta-suite.test.ts": 1792684433.5332496,
+  "tests/scripts/superpowers-extracted.test.ts": 1792684535.0067062,
+  "scripts/find-polluter.sh": 1792684616.9549687,
+  "scripts/update-graph.sh": 1792686450.0389814,
+  "prompts/implementer-strict.md": 1792684730.2485604,
+  "prompts/inquisitor-re-reviewer.md": 1792684728.4337974,
+  "prompts/inquisitor-task-reviewer.md": 1792684726.7095246,
+  "prompts/session-forensics.md": 1792684731.5503695,
+  "skills/never-trust-agent/SKILL.md": 1792686354.830117,
+  "AGENTS.md": 1792686478.7079988,
+  "GEMINI.md": 1792686135.965451
 }

@@ -6,6 +6,7 @@ import { join } from "node:path";
 import { analyzeCssAndUi } from "../../src/analyzers/css-critic.ts";
 import { findDuplicateBlocks, findOrphanExports } from "../../src/analyzers/phantom-code.ts";
 import { analyzeSkillAndDocDrift } from "../../src/analyzers/skill-critic.ts";
+import { scanWorkspace } from "../../src/engine/scanner.ts";
 import { analyzeGraphAndTokenOptimization } from "../../src/analyzers/graph-optimizer.ts";
 import { syncRepository, parseRepoSlug } from "../../src/repo/git-manager.ts";
 import { runInquisitorSubagents } from "../../src/subagents/orchestrator.ts";
@@ -135,6 +136,42 @@ describe("Subagent 5: Skill Stupidity & Skill-vs-Code Drift Critic", () => {
       expect(findings.some((f) => f.ruleId === "NTA-K005")).toBe(true);
       expect(findings.some((f) => f.ruleId === "NTA-K006")).toBe(true);
       expect(findings.some((f) => f.ruleId === "NTA-K007")).toBe(true);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test("catches Keep-Up-To-Date knowledge drift when code defines NTA rules missing from project skill/knowledge docs (NTA-K008)", () => {
+    const dir = mkdtempSync(join(tmpdir(), "nta-keep-uptodate-"));
+    try {
+      mkdirSync(join(dir, "skills/project-skill"), { recursive: true });
+      mkdirSync(join(dir, "src"), { recursive: true });
+
+      writeFileSync(
+        join(dir, "src/scanner.ts"),
+        'export const rule = { ruleId: "NTA-X901", message: "Undocumented rule in code" };\n'
+      );
+
+      writeFileSync(
+        join(dir, "skills/project-skill/SKILL.md"),
+        [
+          "---",
+          "name: project-skill",
+          "description: Use when auditing repositories or updating project knowledge",
+          "---",
+          "# Project Skill",
+          "Known rules: NTA-T001.",
+        ].join("\n")
+      );
+
+      const findings = analyzeSkillAndDocDrift(dir);
+      expect(findings.some((f) => f.ruleId === "NTA-K008" && f.evidence.includes("NTA-X901"))).toBe(
+        true
+      );
+      const report = scanWorkspace(dir, { entrypoints: ["src/scanner.ts"] });
+      expect(
+        report.findings.some((f) => f.ruleId === "NTA-K008" && f.evidence.includes("NTA-X901"))
+      ).toBe(true);
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }

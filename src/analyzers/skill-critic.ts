@@ -9,6 +9,7 @@ const WEAK_OR_SYCOPHANTIC_SKILL_LINE =
 const SCRIPT_RUN_REGEX = /\b(?:bun|npm|pnpm|yarn)\s+run\s+([a-zA-Z0-9:_-]+)\b/g;
 const FILE_REF_REGEX = /\b((?:scripts|src|references)\/[A-Za-z0-9_./-]+\.[A-Za-z0-9]+)\b/g;
 const NO_ANY_MANDATE_REGEX = /\bnever\s+use\s+`?any`?\b|\bno\s+explicit\s+`?any`?\b/i;
+const RULE_ID_DEF_REGEX = /\bruleId\s*:\s*['"`](NTA-[A-Z]\d{3})['"`]/g;
 
 export function analyzeSkillAndDocDrift(workspaceRoot: string): Finding[] {
   const findings: Finding[] = [];
@@ -17,6 +18,8 @@ export function analyzeSkillAndDocDrift(workspaceRoot: string): Finding[] {
 
   const sourceFiles = collectSourceFiles(workspaceRoot);
   const anyViolations: Finding[] = [];
+  const codeRules = new Map<string, { readonly file: string; readonly line: number }>();
+
   for (const absSrc of sourceFiles) {
     const relSrc = relative(workspaceRoot, absSrc).replace(/\\/g, "/");
     if (/\.(?:test|spec)\.[cm]?[jt]sx?$/.test(relSrc)) continue;
@@ -24,6 +27,32 @@ export function analyzeSkillAndDocDrift(workspaceRoot: string): Finding[] {
     for (const f of analyzeSuppressionFraud(relSrc, srcContent)) {
       if (f.ruleId === "NTA-S001") {
         anyViolations.push(f);
+      }
+    }
+    for (const match of srcContent.matchAll(RULE_ID_DEF_REGEX)) {
+      const rId = match[1];
+      if (rId && !codeRules.has(rId)) {
+        const line = srcContent.slice(0, match.index ?? 0).split("\n").length;
+        codeRules.set(rId, { file: relSrc, line });
+      }
+    }
+  }
+
+  const combinedDocsContent = docFiles.map((p) => readFileSync(p, "utf8")).join("\n");
+  if (docFiles.length > 0 && codeRules.size > 0) {
+    const primaryDoc = relative(workspaceRoot, docFiles[0] ?? "").replace(/\\/g, "/");
+    for (const [ruleId, loc] of codeRules.entries()) {
+      if (!combinedDocsContent.includes(ruleId)) {
+        findings.push({
+          ruleId: "NTA-K008",
+          category: "SKILL_DRIFT",
+          severity: "HIGH",
+          file: primaryDoc,
+          line: 1,
+          message: `Keep-Up-To-Date Drift: rule '${ruleId}' is implemented in ${loc.file}:${loc.line} but missing from project skill/knowledge docs.`,
+          evidence: `${loc.file}:${loc.line} defines ${ruleId} (undocumented in ${primaryDoc})`,
+          subagent: "SkillAndDocDriftInquisitor",
+        });
       }
     }
   }
