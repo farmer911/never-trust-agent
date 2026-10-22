@@ -208,6 +208,7 @@ function collectSkillAndRuleDocs(rootDir: string): string[] {
     ".nta",
     ".superpowers",
     "docs",
+    "graphify-out",
   ]);
 
   const walk = (dir: string) => {

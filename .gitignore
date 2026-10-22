@@ -2,5 +2,7 @@ node_modules/
 dist/
 .nta/
 .superpowers/
+graphify-out/.graphify_*
+graphify-out/cache/
 *.log
 .DS_Store

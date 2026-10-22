@@ -3,6 +3,7 @@ import { join, relative } from "node:path";
 import { analyzeCssAndUi } from "../analyzers/css-critic.ts";
 import { analyzeDefects } from "../analyzers/defect-scanner.ts";
 import { computeWorkspaceHash } from "../analyzers/evidence-verifier.ts";
+import { analyzeGraphAndTokenOptimization } from "../analyzers/graph-optimizer.ts";
 import {
   analyzePhantomCode,
   findDuplicateBlocks,
@@ -29,6 +30,7 @@ export async function runInquisitorSubagents(
   const repoMeta = syncRepository(repoUrlOrPath, cacheBaseDir);
   const ws = indexWorkspace(repoMeta.localPath);
   const entrypoints = detectEntrypoints(ws.codeFiles);
+  const graphOpt = analyzeGraphAndTokenOptimization(ws.root);
 
   const subagentDefinitions: readonly {
     readonly id: string;
@@ -131,6 +133,12 @@ export async function runInquisitorSubagents(
         return out;
       },
     },
+    {
+      id: "subagent-graph-token",
+      name: "GraphAndTokenInquisitor",
+      role: "Audits Graphify AST topology, God Node coupling bottlenecks (NTA-G001), and RTK/Graphify token savings (NTA-G002)",
+      run: () => graphOpt.findings.map((f) => ({ ...f, subagent: "GraphAndTokenInquisitor" })),
+    },
   ];
 
   const subagentReports: SubagentSummary[] = await Promise.all(
@@ -170,6 +178,7 @@ export async function runInquisitorSubagents(
     totalFindings: allFindings.length,
     integrityScore,
     passed: allFindings.length === 0,
+    tokenOptimization: graphOpt.telemetry,
     subagentReports,
     findings: allFindings,
   };
@@ -188,6 +197,7 @@ function indexWorkspace(rootDir: string): IndexedWorkspace {
     "coverage",
     ".nta",
     ".superpowers",
+    "graphify-out",
   ]);
 
   const walk = (dir: string) => {

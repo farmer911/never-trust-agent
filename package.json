@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "bun test",
     "test:api": "bun test",
-    "scan": "bun run src/cli/index.ts scan ."
+    "scan": "bun run src/cli/index.ts scan .",
+    "graph:update": "graphify update ."
   },
   "devDependencies": {
     "@types/bun": "latest",

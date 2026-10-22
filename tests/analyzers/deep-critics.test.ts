@@ -6,6 +6,7 @@ import { join } from "node:path";
 import { analyzeCssAndUi } from "../../src/analyzers/css-critic.ts";
 import { findDuplicateBlocks, findOrphanExports } from "../../src/analyzers/phantom-code.ts";
 import { analyzeSkillAndDocDrift } from "../../src/analyzers/skill-critic.ts";
+import { analyzeGraphAndTokenOptimization } from "../../src/analyzers/graph-optimizer.ts";
 import { syncRepository, parseRepoSlug } from "../../src/repo/git-manager.ts";
 import { runInquisitorSubagents } from "../../src/subagents/orchestrator.ts";
 import { createAppServer } from "../../src/web/server.ts";
@@ -207,8 +208,10 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
       spawnSync("git", ["commit", "-m", "init broken repo"], { cwd: targetRepo });
 
       const audit = await runInquisitorSubagents(targetRepo, cacheDir);
-      expect(audit.subagentReports.length).toBe(6);
-      expect(audit.totalFindings).toBeGreaterThanOrEqual(6);
+      expect(audit.subagentReports.length).toBe(7);
+      expect(audit.totalFindings).toBeGreaterThanOrEqual(7);
+      expect(audit.tokenOptimization.rawCorpusTokens).toBeGreaterThan(0);
+      expect(audit.tokenOptimization.reductionPercent).toBeGreaterThanOrEqual(0);
       expect(audit.findings.every((f) => f.evidence.length > 0 && f.line >= 1)).toBe(true);
 
       const server = createAppServer({ port: 0, cacheDir });
@@ -235,6 +238,35 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
       }
     } finally {
       rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
+  test("Subagent 7: Graph & Token Optimization Inquisitor computes RTK + Graphify savings and flags missing graphify-out (NTA-G001, NTA-G002)", () => {
+    const dir = mkdtempSync(join(tmpdir(), "nta-graph-opt-"));
+    try {
+      mkdirSync(join(dir, "src"), { recursive: true });
+      writeFileSync(join(dir, "AGENTS.md"), "# Agent Rules\nUse strict verification.\n");
+      // Create a hub file importing many modules to trigger God Node coupling check (NTA-G001)
+      const imports: string[] = [];
+      for (let i = 1; i <= 8; i++) {
+        writeFileSync(
+          join(dir, `src/mod${i}.ts`),
+          `export function helper${i}(x: number): number { return x + ${i}; }\n`
+        );
+        imports.push(`import { helper${i} } from "./mod${i}.ts";`);
+      }
+      writeFileSync(
+        join(dir, "src/god-hub.ts"),
+        `${imports.join("\n")}\nexport function megaHub(v: number) {\n  return ${Array.from({ length: 8 }, (_, i) => `helper${i + 1}(v)`).join(" + ")};\n}\n`
+      );
+
+      const res = analyzeGraphAndTokenOptimization(dir);
+      expect(res.telemetry.rawCorpusTokens).toBeGreaterThan(0);
+      expect(res.telemetry.graphNodes).toBeGreaterThanOrEqual(8);
+      expect(res.findings.some((f) => f.ruleId === "NTA-G001")).toBe(true);
+      expect(res.findings.some((f) => f.ruleId === "NTA-G002")).toBe(true);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
     }
   });
 });

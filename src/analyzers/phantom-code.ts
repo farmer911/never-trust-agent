@@ -187,7 +187,7 @@ export function findDuplicateBlocks(
   return findings;
 }
 
-function resolveRelativeImport(
+export function resolveRelativeImport(
   importerPath: string,
   specifier: string,
   files: ReadonlyMap<string, string>

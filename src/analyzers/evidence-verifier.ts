@@ -161,6 +161,7 @@ export function collectSourceFiles(rootDir: string): string[] {
     "coverage",
     ".nta",
     ".superpowers",
+    "graphify-out",
   ]);
 
   const walk = (dir: string) => {

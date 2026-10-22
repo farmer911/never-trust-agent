@@ -483,13 +483,16 @@ export function renderForensicDashboardHtml(): string {
     function renderDashboard() {
       if (!currentAudit) return;
       const m = currentAudit.repoMeta;
+      const t = currentAudit.tokenOptimization || {};
       document.getElementById("metaStrip").innerHTML = [
         metricCard("GIT SYNC ACTION", m.action + " (" + m.branch + ")"),
         metricCard("HEAD COMMIT SHA", m.headSha),
         metricCard("FILES / LINES SCANNED", currentAudit.scannedFilesCount + " files / " + currentAudit.totalLinesScanned + " LOC"),
         metricCard("TOTAL DEFECTS FOUND", String(currentAudit.totalFindings)),
         metricCard("INTEGRITY SCORE", currentAudit.integrityScore + " / 100"),
-        metricCard("SHA-256 RECEIPT", currentAudit.workspaceHash.slice(0, 14) + "..."),
+        metricCard("RTK + GRAPHIFY SAVED", (t.reductionPercent || 0) + "% (" + (t.tokensSaved || 0) + " tok)"),
+        metricCard("GRAPH TOPOLOGY", (t.graphNodes || 0) + " nodes / " + (t.graphEdges || 0) + " edges"),
+        metricCard("RTK ENGINE", t.rtkVersion || "active"),
       ].join("");
 
       document.getElementById("subagentGrid").innerHTML = currentAudit.subagentReports

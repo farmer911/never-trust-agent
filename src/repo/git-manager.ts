@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
+import { detectRtkVersion } from "../analyzers/graph-optimizer.ts";
 import type { RepoSyncMetadata } from "../types/verdict.ts";
 
 const FORBIDDEN_METACHARS = /[;|&$`\n\r<>]/;
@@ -78,6 +79,13 @@ export function syncRepository(repoUrl: string, cacheBaseDir: string): RepoSyncM
 }
 
 function gitOutput(cwd: string, args: readonly string[]): string {
+  const hasRtk = detectRtkVersion().length > 0;
+  if (hasRtk) {
+    const rtkRes = spawnSync("rtk", ["git", ...args], { cwd, encoding: "utf8" });
+    if (rtkRes.status === 0 && rtkRes.stdout) {
+      return rtkRes.stdout.trim();
+    }
+  }
   const res = spawnSync("git", [...args], { cwd, encoding: "utf8" });
   return (res.stdout ?? "").trim();
 }

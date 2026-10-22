@@ -7,7 +7,8 @@ export type FindingCategory =
   | "DEFECT"
   | "EVIDENCE_FRAUD"
   | "CSS_NITPICK"
-  | "SKILL_DRIFT";
+  | "SKILL_DRIFT"
+  | "GRAPH_COUPLING";
 
 export interface Finding {
   readonly ruleId: string;
@@ -53,6 +54,19 @@ export interface RepoSyncMetadata {
   readonly syncedAt: string;
 }
 
+export interface TokenOptimizationMetrics {
+  readonly rtkEnabled: boolean;
+  readonly rtkVersion: string;
+  readonly graphifyIndexed: boolean;
+  readonly rawCorpusTokens: number;
+  readonly graphCompactTokens: number;
+  readonly tokensSaved: number;
+  readonly reductionPercent: number;
+  readonly graphNodes: number;
+  readonly graphEdges: number;
+  readonly godNodes: readonly { readonly file: string; readonly degree: number }[];
+}
+
 export interface SubagentSummary {
   readonly id: string;
   readonly name: string;
@@ -74,6 +88,7 @@ export interface PlatformAuditReport {
   readonly totalFindings: number;
   readonly integrityScore: number;
   readonly passed: boolean;
+  readonly tokenOptimization: TokenOptimizationMetrics;
   readonly subagentReports: readonly SubagentSummary[];
   readonly findings: readonly Finding[];
 }
