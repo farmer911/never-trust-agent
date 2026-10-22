@@ -1,7 +1,7 @@
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { Finding, PlatformAuditReport, TechStackProfile } from "../types/verdict.ts";
-import { enrichFindingWithBrutalCritique } from "./evidence-verifier.ts";
+import { enrichFindingWithBrutalCritique, walkWorkspaceFiles } from "./evidence-verifier.ts";
 
 interface RawPackageJson {
   readonly name?: string;
@@ -179,19 +179,29 @@ export function detectProjectTechStack(workspaceRoot: string): TechStackProfile 
 export function verifyTechStackAlignment(report: PlatformAuditReport): Finding[] {
   const findings: Finding[] = [];
   const stack = report.techStack;
+  const pushE006 = (file: string, line: number, message: string, evidence: string) => {
+    findings.push(
+      enrichFindingWithBrutalCritique(
+        {
+          ruleId: "NTA-E006",
+          category: "EVIDENCE_FRAUD",
+          severity: "CRITICAL",
+          file,
+          line,
+          message,
+          evidence,
+        },
+        stack
+      )
+    );
+  };
 
   if (!stack || !stack.runtime || !stack.packageManager || !stack.testRunner) {
-    findings.push(
-      enrichFindingWithBrutalCritique({
-        ruleId: "NTA-E006",
-        category: "EVIDENCE_FRAUD",
-        severity: "CRITICAL",
-        file: report.repoMeta.localPath || ".",
-        line: 1,
-        message:
-          "Missing Tech-Stack Reconnaissance (NTA-E006): audit ran without fingerprinting project runtime, package manager, frameworks, and test runner.",
-        evidence: "Missing report.techStack profile",
-      })
+    pushE006(
+      report.repoMeta.localPath || ".",
+      1,
+      "Missing Tech-Stack Reconnaissance (NTA-E006): audit ran without fingerprinting project runtime, package manager, frameworks, and test runner.",
+      "Missing report.techStack profile"
     );
     return findings;
   }
@@ -199,43 +209,22 @@ export function verifyTechStackAlignment(report: PlatformAuditReport): Finding[]
   const entrypointSet = new Set(stack.discoveredEntrypoints);
 
   for (const f of report.findings) {
-    // 1. Check if an NTA-P003 (Orphan File) finding falsely accused a known framework route or package.json entrypoint
     if (f.ruleId === "NTA-P003" && entrypointSet.has(f.file)) {
-      findings.push(
-        enrichFindingWithBrutalCritique(
-          {
-            ruleId: "NTA-E006",
-            category: "EVIDENCE_FRAUD",
-            severity: "CRITICAL",
-            file: f.file,
-            line: f.line,
-            message: `Tech-Stack Mismatch / Self-Backfire Risk (NTA-E006): '${f.file}' is a declared framework route or package.json entrypoint in [${stack.groundingSummary}], NOT an orphan file.`,
-            evidence: `${f.ruleId} falsely flagged entrypoint '${f.file}'`,
-          },
-          stack
-        )
+      pushE006(
+        f.file,
+        f.line,
+        `Tech-Stack Mismatch / Self-Backfire Risk (NTA-E006): '${f.file}' is a declared framework route or package.json entrypoint in [${stack.groundingSummary}], NOT an orphan file.`,
+        `${f.ruleId} falsely flagged entrypoint '${f.file}'`
       );
     }
 
-    // 2. Check if whyItIsWrong / directFix recommends a foreign toolchain (e.g., cargo test or pytest on a TS/JS project)
     const combinedText = `${f.whyItIsWrong ?? ""} ${f.directFix ?? ""}`;
-    if (
-      stack.runtime !== "rust" &&
-      /\bcargo\s+(?:test|build|check)\b/i.test(combinedText)
-    ) {
-      findings.push(
-        enrichFindingWithBrutalCritique(
-          {
-            ruleId: "NTA-E006",
-            category: "EVIDENCE_FRAUD",
-            severity: "CRITICAL",
-            file: f.file,
-            line: f.line,
-            message: `Tech-Stack Mismatch / Self-Backfire Risk (NTA-E006): critique recommends Rust 'cargo' commands on a ${stack.runtime}/${stack.packageManager} project.`,
-            evidence: combinedText.trim(),
-          },
-          stack
-        )
+    if (stack.runtime !== "rust" && /\bcargo\s+(?:test|build|check)\b/i.test(combinedText)) {
+      pushE006(
+        f.file,
+        f.line,
+        `Tech-Stack Mismatch / Self-Backfire Risk (NTA-E006): critique recommends Rust 'cargo' commands on a ${stack.runtime}/${stack.packageManager} project.`,
+        combinedText.trim()
       );
     }
   }
@@ -261,32 +250,5 @@ function collectExportEntrypoints(exportsField: unknown, out: Set<string>): void
 }
 
 function walkTechFiles(rootDir: string, onFile: (relPath: string) => void): void {
-  const ignoredDirs = new Set([
-    "node_modules",
-    ".git",
-    "dist",
-    "build",
-    "coverage",
-    ".nta",
-    ".superpowers",
-    "graphify-out",
-  ]);
-
-  const walk = (dir: string) => {
-    for (const entry of readdirSync(dir)) {
-      if (ignoredDirs.has(entry)) continue;
-      const fullPath = join(dir, entry);
-      const st = statSync(fullPath);
-      if (st.isDirectory()) {
-        walk(fullPath);
-      } else {
-        const rel = relative(rootDir, fullPath).replace(/\\/g, "/");
-        onFile(rel);
-      }
-    }
-  };
-
-  if (existsSync(rootDir)) {
-    walk(rootDir);
-  }
+  walkWorkspaceFiles(rootDir, (relPath) => onFile(relPath));
 }

@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 import { detectRtkVersion } from "../analyzers/graph-optimizer.ts";
 import type { RepoSyncMetadata } from "../types/verdict.ts";
@@ -8,7 +8,7 @@ const FORBIDDEN_METACHARS = /[;|&$`\n\r<>]/;
 
 export function parseRepoSlug(repoUrl: string): string {
   const trimmed = repoUrl.trim();
-  if (!trimmed || FORBIDDEN_METACHARS.test(trimmed)) {
+  if (!trimmed || FORBIDDEN_METACHARS.test(trimmed) || trimmed.includes("..")) {
     throw new Error(`Unsafe or invalid repository URL/path: ${repoUrl}`);
   }
 
@@ -19,9 +19,10 @@ export function parseRepoSlug(repoUrl: string): string {
     return `${ghMatch[1]}__${ghMatch[2]}`.replace(/[^a-zA-Z0-9_.-]/g, "_");
   }
 
-  const base = basename(trimmed.replace(/\.git$/, ""));
+  const normalizedLocal = trimmed === "." || trimmed.startsWith("./") ? resolve(trimmed) : trimmed;
+  const base = basename(normalizedLocal.replace(/\.git$/, ""));
   const clean = base.replace(/[^a-zA-Z0-9_.-]/g, "_");
-  if (!clean) {
+  if (!clean || clean === "." || clean === "..") {
     throw new Error(`Cannot derive slug from repository input: ${repoUrl}`);
   }
   return clean;
@@ -65,6 +66,26 @@ export function syncRepository(repoUrl: string, cacheBaseDir: string): RepoSyncM
   const headSha = gitOutput(localPath, ["rev-parse", "--short=12", "HEAD"]) || "unknown";
   const branch = gitOutput(localPath, ["rev-parse", "--abbrev-ref", "HEAD"]) || "HEAD";
   const commitMessage = gitOutput(localPath, ["log", "-1", "--pretty=%s"]) || "";
+
+  if (existsSync(repoUrl.trim()) && resolve(repoUrl.trim()) === resolve(process.cwd())) {
+    for (const item of [
+      "src",
+      "tests",
+      "scripts",
+      "prompts",
+      "skills",
+      "graphify-out",
+      "AGENTS.md",
+      "GEMINI.md",
+      "MISTAKE_LEDGER.md",
+      "package.json",
+    ]) {
+      const srcItem = join(process.cwd(), item);
+      if (existsSync(srcItem)) {
+        cpSync(srcItem, join(localPath, item), { recursive: true, force: true });
+      }
+    }
+  }
 
   return {
     repoUrl: repoUrl.trim(),

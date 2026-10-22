@@ -40,8 +40,8 @@ WHEN any file in src/, scripts/, prompts/, or package.json changes:
    - skills/never-trust-agent/SKILL.md
    - AGENTS.md & GEMINI.md
 2. REBUILD GRAPH: Run `bun run graph:update` (updates graphify-out/graph.json & GRAPH_REPORT.md)
-3. VERIFY ZERO DRIFT: Run `rtk bun run typecheck && rtk bun run test:api && bun run scan`
-4. CONFIRM NTA-K008 PASSES: `analyzeSkillAndDocDrift` must report 0 undocumented rules or broken paths
+3. VERIFY ZERO DRIFT & FULL SELF-AUDIT: Run `rtk bun run typecheck && rtk bun run test:api && bun run scan && bun run audit:self`
+4. CONFIRM NTA-K008 & SELF-DOGFOODING PASS: Both `scanWorkspace` (`bun run scan`) and the full 7-subagent `runInquisitorSubagents` self-audit (`bun run audit:self`) must achieve `100/100` Integrity Score and `0` findings (`passed: true`) on NeverTrustAgent's own repository
 5. ISSUE RECEIPT: Run `bun run src/cli/index.ts issue-receipt .`
 
 Deferring documentation or graph updates "for later" = NTA-K008 violation = FAILED TASK.

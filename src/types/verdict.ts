@@ -1,6 +1,6 @@
-export type Severity = "CRITICAL" | "HIGH" | "MEDIUM" | "NITPICK";
+type Severity = "CRITICAL" | "HIGH" | "MEDIUM" | "NITPICK";
 
-export type FindingCategory =
+type FindingCategory =
   | "TEST_FRAUD"
   | "SUPPRESSION_FRAUD"
   | "PHANTOM_CODE"

@@ -8,9 +8,9 @@ Whenever you add, modify, or delete any analyzer rule (`NTA-*`), subagent, scrip
 1. Update [`skills/never-trust-agent/SKILL.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/skills/never-trust-agent/SKILL.md), [`skills/mistake-ledger-grow-up/SKILL.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/skills/mistake-ledger-grow-up/SKILL.md), and this [`AGENTS.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/AGENTS.md) / [`GEMINI.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/GEMINI.md) so zero rules, scripts, or paths drift (`NTA-K005..K009`).
 2. Whenever any mistake, test failure, analyzer violation, or user correction occurs, dissect it into [`MISTAKE_LEDGER.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/MISTAKE_LEDGER.md) with all 4 mandatory fields (`Where`, `How`, `Why`, `Prevention` — enforced by `NTA-K009`). Query past mistakes via `bun run mistakes` before coding.
 3. Rebuild the Graphify knowledge graph (`bun run graph:update`) so `graphify-out/graph.json` and `graphify-out/GRAPH_REPORT.md` reflect the latest AST topology.
-4. Run fresh verification after the final edit:
+4. Run fresh verification (including full 7-subagent self-audit `bun run audit:self`) after the final edit:
    ```bash
-   rtk bun run typecheck && rtk bun run test:api && bun run scan
+   rtk bun run typecheck && rtk bun run test:api && bun run scan && bun run audit:self
    ```
 
 ---

@@ -9,4 +9,4 @@ See [`AGENTS.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/AGENTS.md), [`ski
 3. **After any code, rule, or script change:**
    - Update `skills/never-trust-agent/SKILL.md` and `AGENTS.md` in the same turn (`NTA-K008`).
    - Run `bun run graph:update` to keep `graphify-out/` synchronized.
-   - Run `rtk bun run typecheck && rtk bun run test:api && bun run scan` and verify `0` findings (`passed: true`) before claiming completion.
+   - Run `rtk bun run typecheck && rtk bun run test:api && bun run scan && bun run audit:self` and verify `0` findings (`passed: true`, `100/100` Integrity Score) before claiming completion.

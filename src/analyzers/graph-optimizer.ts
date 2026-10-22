@@ -1,10 +1,13 @@
 import { spawnSync } from "node:child_process";
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
-import type { Finding, TokenOptimizationMetrics } from "../types/verdict.ts";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import type { Finding, TechStackProfile, TokenOptimizationMetrics } from "../types/verdict.ts";
+import { walkWorkspaceFiles } from "./evidence-verifier.ts";
 import { resolveRelativeImport } from "./phantom-code.ts";
+import { detectProjectTechStack } from "./tech-stack-detector.ts";
 
-const IMPORT_SPEC_REGEX = /\b(?:import|export)\b[\s\S]*?\bfrom\s*['"`]([^'"`]+)['"`]/g;
+const RUNTIME_IMPORT_REGEX =
+  /\b(?:import(?!\s+type\b)|export(?!\s+type\b))\b[\s\S]*?\bfrom\s*['"`]([^'"`]+)['"`]/g;
 const GOD_NODE_DEGREE_THRESHOLD = 8;
 
 let cachedRtkVersion: string | null = null;
@@ -19,54 +22,32 @@ export function detectRtkVersion(): string {
 export function analyzeGraphAndTokenOptimization(workspaceRoot: string): {
   readonly telemetry: TokenOptimizationMetrics;
   readonly findings: Finding[];
+  readonly techStack: TechStackProfile;
 } {
   const findings: Finding[] = [];
+  const techStack = detectProjectTechStack(workspaceRoot);
   const fileMap = new Map<string, string>();
   let totalChars = 0;
   let agentConfigFile: string | null = null;
 
-  const ignoredDirs = new Set([
-    "node_modules",
-    ".git",
-    "dist",
-    "build",
-    "coverage",
-    ".nta",
-    ".superpowers",
-    "graphify-out",
-  ]);
-
-  const walk = (dir: string) => {
-    for (const entry of readdirSync(dir)) {
-      if (ignoredDirs.has(entry)) continue;
-      const fullPath = join(dir, entry);
-      const st = statSync(fullPath);
-      if (st.isDirectory()) {
-        walk(fullPath);
-      } else if (st.size < 512_000) {
-        const rel = relative(workspaceRoot, fullPath).replace(/\\/g, "/");
-        if (
-          entry === "SKILL.md" ||
-          entry === "AGENTS.md" ||
-          entry === "CLAUDE.md" ||
-          entry === "GEMINI.md"
-        ) {
-          agentConfigFile ??= rel;
-        }
-        if (/\.(?:[cm]?[jt]sx?|py|go|rs|md|css|html|sh)$/.test(entry)) {
-          const content = readFileSync(fullPath, "utf8");
-          totalChars += content.length;
-          if (/\.[cm]?[jt]sx?$/.test(entry)) {
-            fileMap.set(rel, content);
-          }
-        }
+  walkWorkspaceFiles(workspaceRoot, (rel, fullPath, entry, sizeBytes) => {
+    if (sizeBytes >= 512_000) return;
+    if (
+      entry === "SKILL.md" ||
+      entry === "AGENTS.md" ||
+      entry === "CLAUDE.md" ||
+      entry === "GEMINI.md"
+    ) {
+      agentConfigFile ??= rel;
+    }
+    if (/\.(?:[cm]?[jt]sx?|py|go|rs|md|css|html|sh)$/.test(entry)) {
+      const content = readFileSync(fullPath, "utf8");
+      totalChars += content.length;
+      if (/\.[cm]?[jt]sx?$/.test(entry) && !/\.(?:test|spec)\.[cm]?[jt]sx?$/.test(rel)) {
+        fileMap.set(rel, content);
       }
     }
-  };
-
-  if (existsSync(workspaceRoot)) {
-    walk(workspaceRoot);
-  }
+  });
 
   const degreeMap = new Map<string, Set<string>>();
   for (const file of fileMap.keys()) {
@@ -75,7 +56,7 @@ export function analyzeGraphAndTokenOptimization(workspaceRoot: string): {
 
   let edgeCount = 0;
   for (const [importer, content] of fileMap.entries()) {
-    for (const match of content.matchAll(IMPORT_SPEC_REGEX)) {
+    for (const match of content.matchAll(RUNTIME_IMPORT_REGEX)) {
       const spec = match[1];
       if (!spec || !spec.startsWith(".")) continue;
       const target = resolveRelativeImport(importer, spec, fileMap);
@@ -174,5 +155,5 @@ export function analyzeGraphAndTokenOptimization(workspaceRoot: string): {
     godNodes: sortedNodes.slice(0, 5).map(({ file, degree }) => ({ file, degree })),
   };
 
-  return { telemetry, findings };
+  return { telemetry, findings, techStack };
 }

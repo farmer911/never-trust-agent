@@ -277,8 +277,10 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
     }
   });
 
-  test("parseRepoSlug rejects unsafe shell injection strings", () => {
+  test("parseRepoSlug rejects unsafe shell injection strings and resolves current directory dot", () => {
     expect(() => parseRepoSlug("https://github.com/obra/superpowers; rm -rf /")).toThrow();
+    expect(() => parseRepoSlug("..")).toThrow();
+    expect(parseRepoSlug(".")).toBe("NeverTrustAgent");
   });
 
   test("orchestrator & web server scan repository via POST /api/scan and return subagent evidence", async () => {
@@ -494,6 +496,21 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
       expect(backfireFindings.some((f) => f.ruleId === "NTA-E006")).toBe(true);
     } finally {
       rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
+  test("Self-Audit Dogfooding: NeverTrustAgent full 7-subagent platform audit on its own repo achieves 100/100 Integrity Score and 0 findings", async () => {
+    const cacheDir = mkdtempSync(join(tmpdir(), "nta-self-audit-"));
+    try {
+      const selfReport = await runInquisitorSubagents(process.cwd(), cacheDir);
+      expect(selfReport.findings).toEqual([]);
+      expect(selfReport.totalFindings).toBe(0);
+      expect(selfReport.integrityScore).toBe(100);
+      expect(selfReport.passed).toBe(true);
+      expect(verifyExternalAuditForensics(selfReport)).toEqual([]);
+      expect(verifyTechStackAlignment(selfReport)).toEqual([]);
+    } finally {
+      rmSync(cacheDir, { recursive: true, force: true });
     }
   });
 });

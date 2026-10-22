@@ -4,18 +4,6 @@
   "graph": {},
   "nodes": [
     {
-      "id": "src_engine_scanner_scanoptions",
-      "label": "ScanOptions",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "scanoptions",
-      "source_file": "src/engine/scanner.ts",
-      "source_location": "L16"
-    },
-    {
       "id": "src_subagents_orchestrator_indexedworkspace",
       "label": "IndexedWorkspace",
       "_callable": true,
@@ -25,7 +13,31 @@
       "file_type": "code",
       "norm_label": "indexedworkspace",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L29"
+      "source_location": "L19"
+    },
+    {
+      "id": "src_web_server_serveroptions",
+      "label": "ServerOptions",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "serveroptions",
+      "source_file": "src/web/server.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_engine_scanner_scanoptions",
+      "label": "ScanOptions",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "scanoptions",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L19"
     },
     {
       "id": "src_types_verdict_finding",
@@ -33,23 +45,11 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "file_type": "code",
       "norm_label": "finding",
       "source_file": "src/types/verdict.ts",
       "source_location": "L13"
-    },
-    {
-      "id": "src_analyzers_tech_stack_detector_rawpackagejson",
-      "label": "RawPackageJson",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "rawpackagejson",
-      "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L6"
     },
     {
       "id": "src_types_verdict_auditflowstep",
@@ -57,7 +57,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "auditflowstep",
       "source_file": "src/types/verdict.ts",
@@ -69,7 +69,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "citation",
       "source_file": "src/types/verdict.ts",
@@ -81,7 +81,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "findingcategory",
       "source_file": "src/types/verdict.ts",
@@ -93,7 +93,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "platformauditreport",
       "source_file": "src/types/verdict.ts",
@@ -105,7 +105,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "reposyncmetadata",
       "source_file": "src/types/verdict.ts",
@@ -117,7 +117,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "scanreport",
       "source_file": "src/types/verdict.ts",
@@ -129,7 +129,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "severity",
       "source_file": "src/types/verdict.ts",
@@ -141,7 +141,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "subagentsummary",
       "source_file": "src/types/verdict.ts",
@@ -153,7 +153,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "techstackprofile",
       "source_file": "src/types/verdict.ts",
@@ -165,7 +165,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "tokenoptimizationmetrics",
       "source_file": "src/types/verdict.ts",
@@ -177,47 +177,11 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "file_type": "code",
       "norm_label": "videoevidencemetadata",
       "source_file": "src/types/verdict.ts",
       "source_location": "L35"
-    },
-    {
-      "id": "src_web_server_serveroptions",
-      "label": "ServerOptions",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "serveroptions",
-      "source_file": "src/web/server.ts",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_analyzers_skill_critic_mistakeinput",
-      "label": "MistakeInput",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "code",
-      "norm_label": "mistakeinput",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_analyzers_skill_critic_mistakerecord",
-      "label": "MistakeRecord",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "code",
-      "norm_label": "mistakerecord",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L17"
     },
     {
       "id": "src_types_verdict_verdictreceipt",
@@ -225,11 +189,47 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "code",
       "norm_label": "verdictreceipt",
       "source_file": "src/types/verdict.ts",
       "source_location": "L53"
+    },
+    {
+      "id": "src_analyzers_skill_critic_mistakeinput",
+      "label": "MistakeInput",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "mistakeinput",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_analyzers_skill_critic_mistakerecord",
+      "label": "MistakeRecord",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "mistakerecord",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_rawpackagejson",
+      "label": "RawPackageJson",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "rawpackagejson",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L6"
     },
     {
       "id": "src_analyzers_css_critic_analyzecssandui",
@@ -243,39 +243,6 @@
       "source_location": "L11"
     },
     {
-      "id": "src_analyzers_defect_scanner_analyzedefects",
-      "label": "analyzeDefects()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "analyzedefects()",
-      "source_file": "src/analyzers/defect-scanner.ts",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_collectsourcefiles",
-      "label": "collectSourceFiles()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "collectsourcefiles()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L162"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_computeworkspacehash",
-      "label": "computeWorkspaceHash()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "computeworkspacehash()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L96"
-    },
-    {
       "id": "src_analyzers_evidence_verifier_generateauditvideoevidence",
       "label": "generateAuditVideoEvidence()",
       "_callable": true,
@@ -284,289 +251,47 @@
       "file_type": "code",
       "norm_label": "generateauditvideoevidence()",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L396"
-    },
-    {
-      "id": "src_analyzers_phantom_code_analyzephantomcode",
-      "label": "analyzePhantomCode()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "analyzephantomcode()",
-      "source_file": "src/analyzers/phantom-code.ts",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_analyzers_phantom_code_findduplicateblocks",
-      "label": "findDuplicateBlocks()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "findduplicateblocks()",
-      "source_file": "src/analyzers/phantom-code.ts",
-      "source_location": "L130"
-    },
-    {
-      "id": "src_analyzers_phantom_code_findorphanexports",
-      "label": "findOrphanExports()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "findorphanexports()",
-      "source_file": "src/analyzers/phantom-code.ts",
-      "source_location": "L85"
-    },
-    {
-      "id": "src_analyzers_phantom_code_findorphanfiles",
-      "label": "findOrphanFiles()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "findorphanfiles()",
-      "source_file": "src/analyzers/phantom-code.ts",
-      "source_location": "L47"
-    },
-    {
-      "id": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
-      "label": "analyzeSuppressionFraud()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "analyzesuppressionfraud()",
-      "source_file": "src/analyzers/suppression-fraud.ts",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_analyzers_suppression_fraud_stripstrings",
-      "label": "stripStrings()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "stripstrings()",
-      "source_file": "src/analyzers/suppression-fraud.ts",
-      "source_location": "L72"
-    },
-    {
-      "id": "src_analyzers_test_fraud_analyzetestfraud",
-      "label": "analyzeTestFraud()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "analyzetestfraud()",
-      "source_file": "src/analyzers/test-fraud.ts",
-      "source_location": "L13"
-    },
-    {
-      "id": "src_analyzers_test_fraud_detectmirrorassertion",
-      "label": "detectMirrorAssertion()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "detectmirrorassertion()",
-      "source_file": "src/analyzers/test-fraud.ts",
-      "source_location": "L187"
-    },
-    {
-      "id": "src_analyzers_test_fraud_extractbalancedbraces",
-      "label": "extractBalancedBraces()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "extractbalancedbraces()",
-      "source_file": "src/analyzers/test-fraud.ts",
-      "source_location": "L153"
-    },
-    {
-      "id": "src_engine_scanner_scanworkspace",
-      "label": "scanWorkspace()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "scanworkspace()",
-      "source_file": "src/engine/scanner.ts",
-      "source_location": "L20"
-    },
-    {
-      "id": "src_subagents_orchestrator_detectentrypoints",
-      "label": "detectEntrypoints()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "detectentrypoints()",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L316"
-    },
-    {
-      "id": "src_subagents_orchestrator_indexworkspace",
-      "label": "indexWorkspace()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "indexworkspace()",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L271"
-    },
-    {
-      "id": "src_subagents_orchestrator_runinquisitorsubagents",
-      "label": "runInquisitorSubagents()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "runinquisitorsubagents()",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L36"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
-      "label": "enrichFindingWithBrutalCritique()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "enrichfindingwithbrutalcritique()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L367"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_verifycitations",
-      "label": "verifyCitations()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "verifycitations()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L32"
-    },
-    {
-      "id": "src_analyzers_evidence_verifier_verifyexternalauditforensics",
-      "label": "verifyExternalAuditForensics()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "verifyexternalauditforensics()",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L484"
-    },
-    {
-      "id": "src_analyzers_tech_stack_detector_cleanrelpath",
-      "label": "cleanRelPath()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "cleanrelpath()",
-      "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L246"
-    },
-    {
-      "id": "src_analyzers_tech_stack_detector_collectexportentrypoints",
-      "label": "collectExportEntrypoints()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "collectexportentrypoints()",
-      "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L250"
-    },
-    {
-      "id": "src_analyzers_tech_stack_detector_detectprojecttechstack",
-      "label": "detectProjectTechStack()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "detectprojecttechstack()",
-      "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L21"
-    },
-    {
-      "id": "src_analyzers_tech_stack_detector_verifytechstackalignment",
-      "label": "verifyTechStackAlignment()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "verifytechstackalignment()",
-      "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L179"
-    },
-    {
-      "id": "src_analyzers_tech_stack_detector_walktechfiles",
-      "label": "walkTechFiles()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "walktechfiles()",
-      "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L263"
+      "source_location": "L419"
     },
     {
       "id": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
       "label": "analyzeGraphAndTokenOptimization()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 0,
       "file_type": "code",
       "norm_label": "analyzegraphandtokenoptimization()",
       "source_file": "src/analyzers/graph-optimizer.ts",
-      "source_location": "L19"
+      "source_location": "L22"
     },
     {
       "id": "src_analyzers_graph_optimizer_detectrtkversion",
       "label": "detectRtkVersion()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 0,
       "file_type": "code",
       "norm_label": "detectrtkversion()",
       "source_file": "src/analyzers/graph-optimizer.ts",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_analyzers_phantom_code_resolverelativeimport",
-      "label": "resolveRelativeImport()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "resolverelativeimport()",
-      "source_file": "src/analyzers/phantom-code.ts",
-      "source_location": "L190"
+      "source_location": "L15"
     },
     {
       "id": "src_repo_git_manager_gitoutput",
       "label": "gitOutput()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 0,
       "file_type": "code",
       "norm_label": "gitoutput()",
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L81"
+      "source_location": "L102"
     },
     {
       "id": "src_repo_git_manager_parsereposlug",
       "label": "parseRepoSlug()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 0,
       "file_type": "code",
       "norm_label": "parsereposlug()",
       "source_file": "src/repo/git-manager.ts",
@@ -577,20 +302,64 @@
       "label": "syncRepository()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 0,
       "file_type": "code",
       "norm_label": "syncrepository()",
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L30"
+      "source_location": "L31"
+    },
+    {
+      "id": "src_subagents_orchestrator_detectentrypoints",
+      "label": "detectEntrypoints()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "detectentrypoints()",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L204"
+    },
+    {
+      "id": "src_subagents_orchestrator_indexworkspace",
+      "label": "indexWorkspace()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "indexworkspace()",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L182"
+    },
+    {
+      "id": "src_subagents_orchestrator_runinquisitorsubagents",
+      "label": "runInquisitorSubagents()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "runinquisitorsubagents()",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L26"
     },
     {
       "id": "src_web_server_createappserver",
       "label": "createAppServer()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 0,
       "file_type": "code",
       "norm_label": "createappserver()",
+      "source_file": "src/web/server.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "src_web_server_jsonerror",
+      "label": "jsonError()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "jsonerror()",
       "source_file": "src/web/server.ts",
       "source_location": "L12"
     },
@@ -599,7 +368,7 @@
       "label": "renderForensicDashboardHtml()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 0,
       "file_type": "code",
       "norm_label": "renderforensicdashboardhtml()",
       "source_file": "src/web/ui.ts",
@@ -610,106 +379,326 @@
       "label": "runBash()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 0,
       "file_type": "code",
       "norm_label": "runbash()",
       "source_file": "tests/scripts/superpowers-extracted.test.ts",
       "source_location": "L9"
     },
     {
+      "id": "src_analyzers_defect_scanner_analyzedefects",
+      "label": "analyzeDefects()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "analyzedefects()",
+      "source_file": "src/analyzers/defect-scanner.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_analyzers_phantom_code_analyzephantomcode",
+      "label": "analyzePhantomCode()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "analyzephantomcode()",
+      "source_file": "src/analyzers/phantom-code.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_analyzers_phantom_code_findduplicateblocks",
+      "label": "findDuplicateBlocks()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "findduplicateblocks()",
+      "source_file": "src/analyzers/phantom-code.ts",
+      "source_location": "L130"
+    },
+    {
+      "id": "src_analyzers_phantom_code_findorphanexports",
+      "label": "findOrphanExports()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "findorphanexports()",
+      "source_file": "src/analyzers/phantom-code.ts",
+      "source_location": "L85"
+    },
+    {
+      "id": "src_analyzers_phantom_code_findorphanfiles",
+      "label": "findOrphanFiles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "findorphanfiles()",
+      "source_file": "src/analyzers/phantom-code.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "src_analyzers_phantom_code_resolverelativeimport",
+      "label": "resolveRelativeImport()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "resolverelativeimport()",
+      "source_file": "src/analyzers/phantom-code.ts",
+      "source_location": "L190"
+    },
+    {
+      "id": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
+      "label": "analyzeSuppressionFraud()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "analyzesuppressionfraud()",
+      "source_file": "src/analyzers/suppression-fraud.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_analyzers_suppression_fraud_stripstrings",
+      "label": "stripStrings()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "stripstrings()",
+      "source_file": "src/analyzers/suppression-fraud.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "src_analyzers_test_fraud_analyzetestfraud",
+      "label": "analyzeTestFraud()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "analyzetestfraud()",
+      "source_file": "src/analyzers/test-fraud.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_analyzers_test_fraud_detectmirrorassertion",
+      "label": "detectMirrorAssertion()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "detectmirrorassertion()",
+      "source_file": "src/analyzers/test-fraud.ts",
+      "source_location": "L187"
+    },
+    {
+      "id": "src_analyzers_test_fraud_extractbalancedbraces",
+      "label": "extractBalancedBraces()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "extractbalancedbraces()",
+      "source_file": "src/analyzers/test-fraud.ts",
+      "source_location": "L153"
+    },
+    {
+      "id": "src_engine_scanner_createcorecodesubagents",
+      "label": "createCoreCodeSubagents()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "createcorecodesubagents()",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "src_engine_scanner_scanworkspace",
+      "label": "scanWorkspace()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "scanworkspace()",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_makecritfinding",
+      "label": "makeCritFinding()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "makecritfinding()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L201"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_verifycitations",
+      "label": "verifyCitations()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "verifycitations()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_verifyexternalauditforensics",
+      "label": "verifyExternalAuditForensics()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "verifyexternalauditforensics()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L507"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_collectsourcefiles",
+      "label": "collectSourceFiles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "collectsourcefiles()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L191"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_walkworkspacefiles",
+      "label": "walkWorkspaceFiles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "walkworkspacefiles()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L168"
+    },
+    {
       "id": "src_analyzers_skill_critic_analyzeskillanddocdrift",
       "label": "analyzeSkillAndDocDrift()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "file_type": "code",
       "norm_label": "analyzeskillanddocdrift()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L30"
+      "source_location": "L32"
     },
     {
       "id": "src_analyzers_skill_critic_auditmistakeledger",
       "label": "auditMistakeLedger()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "file_type": "code",
       "norm_label": "auditmistakeledger()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L310"
+      "source_location": "L294"
     },
     {
       "id": "src_analyzers_skill_critic_auditskillfrontmatter",
       "label": "auditSkillFrontmatter()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "file_type": "code",
       "norm_label": "auditskillfrontmatter()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L177"
+      "source_location": "L194"
     },
     {
       "id": "src_analyzers_skill_critic_collectskillandruledocs",
       "label": "collectSkillAndRuleDocs()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "file_type": "code",
       "norm_label": "collectskillandruledocs()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L248"
+      "source_location": "L250"
     },
     {
       "id": "src_analyzers_skill_critic_isexampleplaceholderpath",
       "label": "isExamplePlaceholderPath()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "file_type": "code",
       "norm_label": "isexampleplaceholderpath()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L299"
+      "source_location": "L283"
+    },
+    {
+      "id": "src_analyzers_skill_critic_makeskillfinding",
+      "label": "makeSkillFinding()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "makeskillfinding()",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L179"
     },
     {
       "id": "src_analyzers_skill_critic_parsemistakeentries",
       "label": "parseMistakeEntries()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "file_type": "code",
       "norm_label": "parsemistakeentries()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L376"
+      "source_location": "L350"
     },
     {
       "id": "src_analyzers_skill_critic_readpackagescripts",
       "label": "readPackageScripts()",
       "_callable": true,
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "file_type": "code",
       "norm_label": "readpackagescripts()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L286"
+      "source_location": "L270"
     },
     {
       "id": "src_analyzers_evidence_verifier_analyzeagentreportlanguage",
       "label": "analyzeAgentReportLanguage()",
       "_callable": true,
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "code",
       "norm_label": "analyzeagentreportlanguage()",
       "source_file": "src/analyzers/evidence-verifier.ts",
       "source_location": "L70"
     },
     {
+      "id": "src_analyzers_evidence_verifier_computeworkspacehash",
+      "label": "computeWorkspaceHash()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "file_type": "code",
+      "norm_label": "computeworkspacehash()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L96"
+    },
+    {
       "id": "src_analyzers_evidence_verifier_createverdictreceipt",
       "label": "createVerdictReceipt()",
       "_callable": true,
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "code",
       "norm_label": "createverdictreceipt()",
       "source_file": "src/analyzers/evidence-verifier.ts",
@@ -720,7 +709,7 @@
       "label": "verifyVerdictReceipt()",
       "_callable": true,
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "code",
       "norm_label": "verifyverdictreceipt()",
       "source_file": "src/analyzers/evidence-verifier.ts",
@@ -731,29 +720,29 @@
       "label": "queryMistakes()",
       "_callable": true,
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "code",
       "norm_label": "querymistakes()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L453"
+      "source_location": "L427"
     },
     {
       "id": "src_analyzers_skill_critic_recordmistake",
       "label": "recordMistake()",
       "_callable": true,
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "code",
       "norm_label": "recordmistake()",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L472"
+      "source_location": "L446"
     },
     {
       "id": "src_analyzers_test_fraud_analyzetestdiffsabotage",
       "label": "analyzeTestDiffSabotage()",
       "_callable": true,
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "code",
       "norm_label": "analyzetestdiffsabotage()",
       "source_file": "src/analyzers/test-fraud.ts",
@@ -764,11 +753,77 @@
       "label": "runCli()",
       "_callable": true,
       "_origin": "ast",
-      "community": 6,
+      "community": 5,
       "file_type": "code",
       "norm_label": "runcli()",
       "source_file": "src/cli/index.ts",
       "source_location": "L16"
+    },
+    {
+      "id": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
+      "label": "enrichFindingWithBrutalCritique()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "enrichfindingwithbrutalcritique()",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L390"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_cleanrelpath",
+      "label": "cleanRelPath()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "cleanrelpath()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L235"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_collectexportentrypoints",
+      "label": "collectExportEntrypoints()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "collectexportentrypoints()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L239"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "label": "detectProjectTechStack()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "detectprojecttechstack()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_verifytechstackalignment",
+      "label": "verifyTechStackAlignment()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "verifytechstackalignment()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L179"
+    },
+    {
+      "id": "src_analyzers_tech_stack_detector_walktechfiles",
+      "label": "walkTechFiles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "walktechfiles()",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L252"
     },
     {
       "id": "src_analyzers_css_critic",
@@ -781,53 +836,23 @@
       "source_location": "L1"
     },
     {
-      "id": "src_analyzers_defect_scanner",
-      "label": "defect-scanner.ts",
+      "id": "src_analyzers_graph_optimizer",
+      "label": "graph-optimizer.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "defect-scanner.ts",
-      "source_file": "src/analyzers/defect-scanner.ts",
+      "norm_label": "graph-optimizer.ts",
+      "source_file": "src/analyzers/graph-optimizer.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_analyzers_phantom_code",
-      "label": "phantom-code.ts",
+      "id": "src_repo_git_manager",
+      "label": "git-manager.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "phantom-code.ts",
-      "source_file": "src/analyzers/phantom-code.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_analyzers_suppression_fraud",
-      "label": "suppression-fraud.ts",
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "suppression-fraud.ts",
-      "source_file": "src/analyzers/suppression-fraud.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_analyzers_test_fraud",
-      "label": "test-fraud.ts",
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "test-fraud.ts",
-      "source_file": "src/analyzers/test-fraud.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_engine_scanner",
-      "label": "scanner.ts",
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "scanner.ts",
-      "source_file": "src/engine/scanner.ts",
+      "norm_label": "git-manager.ts",
+      "source_file": "src/repo/git-manager.ts",
       "source_location": "L1"
     },
     {
@@ -841,70 +866,208 @@
       "source_location": "L1"
     },
     {
+      "id": "src_web_server",
+      "label": "server.ts",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "server.ts",
+      "source_file": "src/web/server.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_web_ui",
+      "label": "ui.ts",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "ui.ts",
+      "source_file": "src/web/ui.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_analyzers_deep_critics_test",
+      "label": "deep-critics.test.ts",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "deep-critics.test.ts",
+      "source_file": "tests/analyzers/deep-critics.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_scripts_superpowers_extracted_test",
+      "label": "superpowers-extracted.test.ts",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "superpowers-extracted.test.ts",
+      "source_file": "tests/scripts/superpowers-extracted.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_scripts_superpowers_extracted_test_scripts_dir",
+      "label": "SCRIPTS_DIR",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "scripts_dir",
+      "source_file": "tests/scripts/superpowers-extracted.test.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "mistake_ledger_mistake_005_partial_self_scan_blind_spot_between_scanworkspace_5_subagents_and_full_7_subagent_platform_audit",
+      "label": "[MISTAKE-005] Partial Self-Scan Blind Spot Between scanWorkspace (5 Subagents) and Full 7-Subagent Platform Audit",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-005] partial self-scan blind spot between scanworkspace (5 subagents) and full 7-subagent platform audit",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L39"
+    },
+    {
+      "id": "src_analyzers_defect_scanner",
+      "label": "defect-scanner.ts",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "defect-scanner.ts",
+      "source_file": "src/analyzers/defect-scanner.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_analyzers_phantom_code",
+      "label": "phantom-code.ts",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "phantom-code.ts",
+      "source_file": "src/analyzers/phantom-code.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_analyzers_suppression_fraud",
+      "label": "suppression-fraud.ts",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "suppression-fraud.ts",
+      "source_file": "src/analyzers/suppression-fraud.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_analyzers_test_fraud",
+      "label": "test-fraud.ts",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "test-fraud.ts",
+      "source_file": "src/analyzers/test-fraud.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_engine_scanner",
+      "label": "scanner.ts",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "scanner.ts",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "tests_analyzers_nta_suite_test",
       "label": "nta-suite.test.ts",
       "_origin": "ast",
-      "community": 0,
+      "community": 1,
       "file_type": "code",
       "norm_label": "nta-suite.test.ts",
       "source_file": "tests/analyzers/nta-suite.test.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_analyzers_evidence_verifier",
-      "label": "evidence-verifier.ts",
+      "id": "prompts_session_forensics",
+      "label": "session-forensics.md",
       "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "evidence-verifier.ts",
-      "source_file": "src/analyzers/evidence-verifier.ts",
+      "community": 10,
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "session-forensics.md",
+      "source_file": "prompts/session-forensics.md",
       "source_location": "L1"
     },
     {
-      "id": "src_analyzers_evidence_verifier_brutal_critique_by_rule",
-      "label": "BRUTAL_CRITIQUE_BY_RULE",
+      "id": "prompts_session_forensics_dimension_1_claim_to_tool_output_forensics_quality_evidence",
+      "label": "Dimension 1: Claim-to-Tool-Output Forensics (`quality-evidence`)",
       "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "brutal_critique_by_rule",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L194"
+      "community": 10,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "dimension 1: claim-to-tool-output forensics (`quality-evidence`)",
+      "source_file": "prompts/session-forensics.md",
+      "source_location": "L7"
     },
     {
-      "id": "src_analyzers_evidence_verifier_sycophancy_or_speculation_patterns",
-      "label": "SYCOPHANCY_OR_SPECULATION_PATTERNS",
+      "id": "prompts_session_forensics_dimension_2_plan_adherence_post_compaction_drift_plan_adherence",
+      "label": "Dimension 2: Plan Adherence & Post-Compaction Drift (`plan-adherence`)",
       "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "sycophancy_or_speculation_patterns",
-      "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L14"
+      "community": 10,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "dimension 2: plan adherence & post-compaction drift (`plan-adherence`)",
+      "source_file": "prompts/session-forensics.md",
+      "source_location": "L24"
     },
     {
-      "id": "src_analyzers_tech_stack_detector",
-      "label": "tech-stack-detector.ts",
+      "id": "prompts_session_forensics_session_transcript_forensics_protocol",
+      "label": "Session Transcript Forensics Protocol",
       "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "tech-stack-detector.ts",
-      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "community": 10,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "session transcript forensics protocol",
+      "source_file": "prompts/session-forensics.md",
       "source_location": "L1"
     },
     {
-      "id": "src_types_verdict",
-      "label": "verdict.ts",
+      "id": "gemini",
+      "label": "GEMINI.md",
       "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "verdict.ts",
-      "source_file": "src/types/verdict.ts",
+      "community": 11,
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "gemini.md",
+      "source_file": "GEMINI.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "gemini_continuous_learning_keep_up_to_date_loop",
+      "label": "Continuous Learning & Keep-Up-To-Date Loop",
+      "_origin": "ast",
+      "community": 11,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "continuous learning & keep-up-to-date loop",
+      "source_file": "GEMINI.md",
+      "source_location": "L5"
+    },
+    {
+      "id": "gemini_gemini_md_nevertrustagent_workspace_rules",
+      "label": "GEMINI.md \u2014 NeverTrustAgent Workspace Rules",
+      "_origin": "ast",
+      "community": 11,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "gemini.md \u2014 nevertrustagent workspace rules",
+      "source_file": "GEMINI.md",
       "source_location": "L1"
     },
     {
       "id": "prompts_implementer_strict",
       "label": "implementer-strict.md",
       "_origin": "ast",
-      "community": 10,
+      "community": 12,
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "implementer-strict.md",
@@ -915,7 +1078,7 @@
       "id": "prompts_implementer_strict_strict_implementer_subagent_protocol",
       "label": "Strict Implementer Subagent Protocol",
       "_origin": "ast",
-      "community": 10,
+      "community": 12,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "strict implementer subagent protocol",
@@ -926,7 +1089,7 @@
       "id": "prompts_inquisitor_task_reviewer",
       "label": "inquisitor-task-reviewer.md",
       "_origin": "ast",
-      "community": 11,
+      "community": 13,
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "inquisitor-task-reviewer.md",
@@ -937,7 +1100,7 @@
       "id": "prompts_inquisitor_task_reviewer_inquisitor_task_code_reviewer_prompt_template",
       "label": "Inquisitor Task & Code Reviewer Prompt Template",
       "_origin": "ast",
-      "community": 11,
+      "community": 13,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "inquisitor task & code reviewer prompt template",
@@ -948,7 +1111,7 @@
       "id": "scripts_find_polluter",
       "label": "find-polluter.sh",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -962,7 +1125,7 @@
       "id": "scripts_find_polluter_sh__entry",
       "label": "find-polluter.sh script",
       "_origin": "ast",
-      "community": 12,
+      "community": 14,
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -976,7 +1139,7 @@
       "id": "scripts_update_graph",
       "label": "update-graph.sh",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -990,7 +1153,7 @@
       "id": "scripts_update_graph_sh__entry",
       "label": "update-graph.sh script",
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "file_type": "code",
       "metadata": {
         "language": "bash",
@@ -1001,156 +1164,60 @@
       "source_location": "L1"
     },
     {
-      "id": "src_analyzers_graph_optimizer",
-      "label": "graph-optimizer.ts",
+      "id": "src_analyzers_evidence_verifier",
+      "label": "evidence-verifier.ts",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "graph-optimizer.ts",
-      "source_file": "src/analyzers/graph-optimizer.ts",
+      "norm_label": "evidence-verifier.ts",
+      "source_file": "src/analyzers/evidence-verifier.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_repo_git_manager",
-      "label": "git-manager.ts",
+      "id": "src_analyzers_evidence_verifier_brutal_critique_by_rule",
+      "label": "BRUTAL_CRITIQUE_BY_RULE",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "git-manager.ts",
-      "source_file": "src/repo/git-manager.ts",
-      "source_location": "L1"
+      "norm_label": "brutal_critique_by_rule",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L217"
     },
     {
-      "id": "src_web_server",
-      "label": "server.ts",
+      "id": "src_analyzers_evidence_verifier_default_ignored_dirs",
+      "label": "DEFAULT_IGNORED_DIRS",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "server.ts",
-      "source_file": "src/web/server.ts",
-      "source_location": "L1"
+      "norm_label": "default_ignored_dirs",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L157"
     },
     {
-      "id": "src_web_ui",
-      "label": "ui.ts",
+      "id": "src_analyzers_evidence_verifier_sycophancy_or_speculation_patterns",
+      "label": "SYCOPHANCY_OR_SPECULATION_PATTERNS",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "ui.ts",
-      "source_file": "src/web/ui.ts",
-      "source_location": "L1"
+      "norm_label": "sycophancy_or_speculation_patterns",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L14"
     },
     {
-      "id": "tests_analyzers_deep_critics_test",
-      "label": "deep-critics.test.ts",
+      "id": "src_types_verdict",
+      "label": "verdict.ts",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "deep-critics.test.ts",
-      "source_file": "tests/analyzers/deep-critics.test.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_scripts_superpowers_extracted_test",
-      "label": "superpowers-extracted.test.ts",
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "superpowers-extracted.test.ts",
-      "source_file": "tests/scripts/superpowers-extracted.test.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_scripts_superpowers_extracted_test_scripts_dir",
-      "label": "SCRIPTS_DIR",
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "scripts_dir",
-      "source_file": "tests/scripts/superpowers-extracted.test.ts",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_analyzers_skill_critic",
-      "label": "skill-critic.ts",
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "code",
-      "norm_label": "skill-critic.ts",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "mistake_ledger",
-      "label": "MISTAKE_LEDGER.md",
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "mistake_ledger.md",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "mistake_ledger_mistake_001_self_triggering_sycophancy_regex_inside_skill_md_red_flags_section",
-      "label": "[MISTAKE-001] Self-Triggering Sycophancy Regex Inside SKILL.md Red Flags Section",
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "[mistake-001] self-triggering sycophancy regex inside skill.md red flags section",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L7"
-    },
-    {
-      "id": "mistake_ledger_mistake_002_unscoped_graphify_file_collection_indexing_node_modules_and_cache_directories",
-      "label": "[MISTAKE-002] Unscoped Graphify File Collection Indexing node_modules and Cache Directories",
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "[mistake-002] unscoped graphify file collection indexing node_modules and cache directories",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L15"
-    },
-    {
-      "id": "mistake_ledger_mistake_003_deferring_skill_knowledge_synchronization_under_time_pressure",
-      "label": "[MISTAKE-003] Deferring Skill & Knowledge Synchronization Under Time Pressure",
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "[mistake-003] deferring skill & knowledge synchronization under time pressure",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L23"
-    },
-    {
-      "id": "mistake_ledger_mistake_004_embedded_call_site_syntax_in_brutal_critique_dictionary_triggered_nta_d001_and_nta_d003",
-      "label": "[MISTAKE-004] Embedded Call-Site Syntax in Brutal Critique Dictionary Triggered NTA-D001 and NTA-D003",
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "[mistake-004] embedded call-site syntax in brutal critique dictionary triggered nta-d001 and nta-d003",
-      "source_file": "MISTAKE_LEDGER.md",
-      "source_location": "L31"
-    },
-    {
-      "id": "mistake_ledger_mistake_ledger_md_agent_forensic_post_mortem_grow_up_ledger",
-      "label": "MISTAKE_LEDGER.md \u2014 Agent Forensic Post-Mortem & Grow-Up Ledger",
-      "_origin": "ast",
-      "community": 3,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "mistake_ledger.md \u2014 agent forensic post-mortem & grow-up ledger",
-      "source_file": "MISTAKE_LEDGER.md",
+      "norm_label": "verdict.ts",
+      "source_file": "src/types/verdict.ts",
       "source_location": "L1"
     },
     {
       "id": "skills_never_trust_agent_skill",
       "label": "never-trust-agent/SKILL.md",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "frontmatter": {
         "name": "never-trust-agent",
@@ -1165,7 +1232,7 @@
       "id": "agents",
       "label": "AGENTS.md",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "agents.md",
@@ -1176,7 +1243,7 @@
       "id": "agents_1_mandatory_keep_up_to_date_protocol_nta_k008",
       "label": "1. Mandatory Keep-Up-To-Date Protocol (`NTA-K008`)",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "1. mandatory keep-up-to-date protocol (`nta-k008`)",
@@ -1187,7 +1254,7 @@
       "id": "agents_2_project_architecture_module_map",
       "label": "2. Project Architecture & Module Map",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "2. project architecture & module map",
@@ -1198,7 +1265,7 @@
       "id": "agents_3_token_optimization_rules_rtk_graphify",
       "label": "3. Token Optimization Rules (RTK + Graphify)",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "3. token optimization rules (rtk + graphify)",
@@ -1209,7 +1276,7 @@
       "id": "agents_agents_md_nevertrustagent_project_knowledge_keep_up_to_date_law",
       "label": "AGENTS.md \u2014 NeverTrustAgent Project Knowledge & Keep-Up-To-Date Law",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "agents.md \u2014 nevertrustagent project knowledge & keep-up-to-date law",
@@ -1220,7 +1287,7 @@
       "id": "skills_never_trust_agent_skill_external_project_forensic_audit_protocol_nta_e005",
       "label": "External Project Forensic Audit Protocol (`NTA-E005`)",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "external project forensic audit protocol (`nta-e005`)",
@@ -1231,7 +1298,7 @@
       "id": "skills_never_trust_agent_skill_keep_up_to_date_gate_function_mandatory_before_finishing_any_turn",
       "label": "Keep-Up-To-Date Gate Function (Mandatory Before Finishing Any Turn)",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "keep-up-to-date gate function (mandatory before finishing any turn)",
@@ -1242,7 +1309,7 @@
       "id": "skills_never_trust_agent_skill_nevertrustagent_nta_forensic_inquisitor_keep_up_to_date_skill",
       "label": "NeverTrustAgent (NTA) \u2014 Forensic Inquisitor & Keep-Up-To-Date Skill",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "nevertrustagent (nta) \u2014 forensic inquisitor & keep-up-to-date skill",
@@ -1253,7 +1320,7 @@
       "id": "skills_never_trust_agent_skill_overview",
       "label": "Overview",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "overview",
@@ -1264,7 +1331,7 @@
       "id": "skills_never_trust_agent_skill_rationalization_prevention_bulletproofing_table",
       "label": "Rationalization Prevention (Bulletproofing Table)",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "rationalization prevention (bulletproofing table)",
@@ -1275,7 +1342,7 @@
       "id": "skills_never_trust_agent_skill_red_flags_stop_immediately",
       "label": "Red Flags \u2014 STOP Immediately",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "red flags \u2014 stop immediately",
@@ -1286,7 +1353,7 @@
       "id": "skills_never_trust_agent_skill_the_7_inquisitor_subagents_complete_rule_ledger",
       "label": "The 7 Inquisitor Subagents & Complete Rule Ledger",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "the 7 inquisitor subagents & complete rule ledger",
@@ -1297,7 +1364,7 @@
       "id": "skills_never_trust_agent_skill_the_five_iron_laws",
       "label": "The Five Iron Laws",
       "_origin": "ast",
-      "community": 4,
+      "community": 3,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "the five iron laws",
@@ -1305,10 +1372,30 @@
       "source_location": "L16"
     },
     {
+      "id": "src_analyzers_skill_critic",
+      "label": "skill-critic.ts",
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "skill-critic.ts",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_cli_index",
+      "label": "index.ts",
+      "_origin": "ast",
+      "community": 5,
+      "file_type": "code",
+      "norm_label": "index.ts",
+      "source_file": "src/cli/index.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "skills_mistake_ledger_grow_up_skill",
       "label": "mistake-ledger-grow-up/SKILL.md",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "document",
       "frontmatter": {
         "name": "mistake-ledger-grow-up",
@@ -1323,7 +1410,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_mandatory_two_phase_loop",
       "label": "Mandatory Two-Phase Loop",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "mandatory two-phase loop",
@@ -1334,7 +1421,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_mistake_ledger_grow_up_protocol_nta_k009",
       "label": "Mistake Ledger & Grow-Up Protocol (`NTA-K009`)",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "mistake ledger & grow-up protocol (`nta-k009`)",
@@ -1345,7 +1432,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_overview",
       "label": "Overview",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "overview",
@@ -1356,7 +1443,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_phase_1_pre_task_lookup_before_writing_code",
       "label": "Phase 1: Pre-Task Lookup (Before Writing Code)",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "phase 1: pre-task lookup (before writing code)",
@@ -1367,7 +1454,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_phase_2_post_mistake_dissection_grow_up_whenever_any_failure_or_correction_happens",
       "label": "Phase 2: Post-Mistake Dissection & Grow-Up (Whenever Any Failure or Correction Happens)",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "phase 2: post-mistake dissection & grow-up (whenever any failure or correction happens)",
@@ -1378,7 +1465,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_rationalization_prevention_bulletproofing_table",
       "label": "Rationalization Prevention (Bulletproofing Table)",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "rationalization prevention (bulletproofing table)",
@@ -1389,7 +1476,7 @@
       "id": "skills_mistake_ledger_grow_up_skill_red_flags_stop_immediately",
       "label": "Red Flags \u2014 STOP Immediately",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "red flags \u2014 stop immediately",
@@ -1397,20 +1484,86 @@
       "source_location": "L56"
     },
     {
-      "id": "src_cli_index",
-      "label": "index.ts",
+      "id": "src_analyzers_tech_stack_detector",
+      "label": "tech-stack-detector.ts",
       "_origin": "ast",
-      "community": 6,
+      "community": 7,
       "file_type": "code",
-      "norm_label": "index.ts",
-      "source_file": "src/cli/index.ts",
+      "norm_label": "tech-stack-detector.ts",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "mistake_ledger",
+      "label": "MISTAKE_LEDGER.md",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "mistake_ledger.md",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "mistake_ledger_mistake_001_self_triggering_sycophancy_regex_inside_skill_md_red_flags_section",
+      "label": "[MISTAKE-001] Self-Triggering Sycophancy Regex Inside SKILL.md Red Flags Section",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-001] self-triggering sycophancy regex inside skill.md red flags section",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L7"
+    },
+    {
+      "id": "mistake_ledger_mistake_002_unscoped_graphify_file_collection_indexing_node_modules_and_cache_directories",
+      "label": "[MISTAKE-002] Unscoped Graphify File Collection Indexing node_modules and Cache Directories",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-002] unscoped graphify file collection indexing node_modules and cache directories",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L15"
+    },
+    {
+      "id": "mistake_ledger_mistake_003_deferring_skill_knowledge_synchronization_under_time_pressure",
+      "label": "[MISTAKE-003] Deferring Skill & Knowledge Synchronization Under Time Pressure",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-003] deferring skill & knowledge synchronization under time pressure",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L23"
+    },
+    {
+      "id": "mistake_ledger_mistake_004_embedded_call_site_syntax_in_brutal_critique_dictionary_triggered_nta_d001_and_nta_d003",
+      "label": "[MISTAKE-004] Embedded Call-Site Syntax in Brutal Critique Dictionary Triggered NTA-D001 and NTA-D003",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[mistake-004] embedded call-site syntax in brutal critique dictionary triggered nta-d001 and nta-d003",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L31"
+    },
+    {
+      "id": "mistake_ledger_mistake_ledger_md_agent_forensic_post_mortem_grow_up_ledger",
+      "label": "MISTAKE_LEDGER.md \u2014 Agent Forensic Post-Mortem & Grow-Up Ledger",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "mistake_ledger.md \u2014 agent forensic post-mortem & grow-up ledger",
+      "source_file": "MISTAKE_LEDGER.md",
       "source_location": "L1"
     },
     {
       "id": "prompts_inquisitor_re_reviewer",
       "label": "inquisitor-re-reviewer.md",
       "_origin": "ast",
-      "community": 7,
+      "community": 9,
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "inquisitor-re-reviewer.md",
@@ -1421,7 +1574,7 @@
       "id": "prompts_inquisitor_re_reviewer_1_the_5_round_fix_loop_mechanics",
       "label": "1. The 5-Round Fix Loop Mechanics",
       "_origin": "ast",
-      "community": 7,
+      "community": 9,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "1. the 5-round fix loop mechanics",
@@ -1432,7 +1585,7 @@
       "id": "prompts_inquisitor_re_reviewer_2_scoped_re_review_prompt_template",
       "label": "2. Scoped Re-Review Prompt Template",
       "_origin": "ast",
-      "community": 7,
+      "community": 9,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "2. scoped re-review prompt template",
@@ -1443,7 +1596,7 @@
       "id": "prompts_inquisitor_re_reviewer_scoped_re_reviewer_5_round_fix_loop_protocol",
       "label": "Scoped Re-Reviewer & 5-Round Fix Loop Protocol",
       "_origin": "ast",
-      "community": 7,
+      "community": 9,
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "scoped re-reviewer & 5-round fix loop protocol",
@@ -1451,96 +1604,9 @@
       "source_location": "L1"
     },
     {
-      "id": "prompts_session_forensics",
-      "label": "session-forensics.md",
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "session-forensics.md",
-      "source_file": "prompts/session-forensics.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "prompts_session_forensics_dimension_1_claim_to_tool_output_forensics_quality_evidence",
-      "label": "Dimension 1: Claim-to-Tool-Output Forensics (`quality-evidence`)",
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "dimension 1: claim-to-tool-output forensics (`quality-evidence`)",
-      "source_file": "prompts/session-forensics.md",
-      "source_location": "L7"
-    },
-    {
-      "id": "prompts_session_forensics_dimension_2_plan_adherence_post_compaction_drift_plan_adherence",
-      "label": "Dimension 2: Plan Adherence & Post-Compaction Drift (`plan-adherence`)",
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "dimension 2: plan adherence & post-compaction drift (`plan-adherence`)",
-      "source_file": "prompts/session-forensics.md",
-      "source_location": "L24"
-    },
-    {
-      "id": "prompts_session_forensics_session_transcript_forensics_protocol",
-      "label": "Session Transcript Forensics Protocol",
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "session transcript forensics protocol",
-      "source_file": "prompts/session-forensics.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "gemini",
-      "label": "GEMINI.md",
-      "_origin": "ast",
-      "community": 9,
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "gemini.md",
-      "source_file": "GEMINI.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "gemini_continuous_learning_keep_up_to_date_loop",
-      "label": "Continuous Learning & Keep-Up-To-Date Loop",
-      "_origin": "ast",
-      "community": 9,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "continuous learning & keep-up-to-date loop",
-      "source_file": "GEMINI.md",
-      "source_location": "L5"
-    },
-    {
-      "id": "gemini_gemini_md_nevertrustagent_workspace_rules",
-      "label": "GEMINI.md \u2014 NeverTrustAgent Workspace Rules",
-      "_origin": "ast",
-      "community": 9,
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "gemini.md \u2014 nevertrustagent workspace rules",
-      "source_file": "GEMINI.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "ref_node_crypto",
-      "label": "ref_node_crypto",
-      "community": 1,
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_node_crypto",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "ref_bun_test",
       "label": "ref_bun_test",
-      "community": 2,
+      "community": 0,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_bun_test",
@@ -1550,7 +1616,7 @@
     {
       "id": "ref_node_child_process",
       "label": "ref_node_child_process",
-      "community": 2,
+      "community": 0,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_node_child_process",
@@ -1560,7 +1626,7 @@
     {
       "id": "ref_node_fs",
       "label": "ref_node_fs",
-      "community": 2,
+      "community": 0,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_node_fs",
@@ -1570,7 +1636,7 @@
     {
       "id": "ref_node_os",
       "label": "ref_node_os",
-      "community": 2,
+      "community": 0,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_node_os",
@@ -1580,15 +1646,47 @@
     {
       "id": "ref_node_path",
       "label": "ref_node_path",
-      "community": 2,
+      "community": 0,
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_node_path",
       "source_file": "",
       "type": "external"
+    },
+    {
+      "id": "src_analyzers_skill_critic_analyzesuppressionfraud",
+      "label": "src_analyzers_skill_critic_analyzesuppressionfraud",
+      "community": 1,
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "src_analyzers_skill_critic_analyzesuppressionfraud",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "ref_node_crypto",
+      "label": "ref_node_crypto",
+      "community": 2,
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_node_crypto",
+      "source_file": "",
+      "type": "external"
     }
   ],
   "links": [
+    {
+      "source": "src_analyzers_evidence_verifier_collectsourcefiles",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L193",
+      "weight": 1.0
+    },
     {
       "source": "src_analyzers_evidence_verifier_computeworkspacehash",
       "target": "src_analyzers_evidence_verifier_collectsourcefiles",
@@ -1622,7 +1720,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L489",
+      "source_location": "L512",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_evidence_verifier_verifyexternalauditforensics",
+      "target": "src_analyzers_evidence_verifier_makecritfinding",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L513",
       "weight": 1.0
     },
     {
@@ -1638,6 +1748,18 @@
       "weight": 1.0
     },
     {
+      "source": "src_analyzers_evidence_verifier_verifyverdictreceipt",
+      "target": "src_analyzers_evidence_verifier_makecritfinding",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
       "source": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
       "target": "src_analyzers_graph_optimizer_detectrtkversion",
       "relation": "calls",
@@ -1646,7 +1768,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/graph-optimizer.ts",
-      "source_location": "L163",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -1658,7 +1804,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/graph-optimizer.ts",
-      "source_location": "L81",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -1682,7 +1828,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L118",
+      "source_location": "L120",
       "weight": 1.0
     },
     {
@@ -1694,7 +1840,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L172",
+      "source_location": "L174",
       "weight": 1.0
     },
     {
@@ -1706,7 +1852,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L32",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -1718,7 +1864,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L33",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -1730,7 +1876,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L35",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -1742,7 +1888,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L43",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -1754,7 +1900,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L83",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_skill_critic_auditmistakeledger",
+      "target": "src_analyzers_skill_critic_makeskillfinding",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L302",
       "weight": 1.0
     },
     {
@@ -1766,7 +1924,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L334",
+      "source_location": "L314",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_skill_critic_auditskillfrontmatter",
+      "target": "src_analyzers_skill_critic_makeskillfinding",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_skill_critic_collectskillandruledocs",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L252",
       "weight": 1.0
     },
     {
@@ -1778,7 +1960,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L457",
+      "source_location": "L431",
       "weight": 1.0
     },
     {
@@ -1790,7 +1972,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L487",
+      "source_location": "L461",
       "weight": 1.0
     },
     {
@@ -1814,7 +1996,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L253",
+      "source_location": "L242",
       "weight": 1.0
     },
     {
@@ -1826,7 +2008,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L258",
+      "source_location": "L247",
       "weight": 1.0
     },
     {
@@ -1874,7 +2056,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L185",
+      "source_location": "L184",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector_walktechfiles",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L253",
       "weight": 1.0
     },
     {
@@ -2010,6 +2204,102 @@
       "weight": 1.0
     },
     {
+      "source": "src_engine_scanner_createcorecodesubagents",
+      "target": "src_analyzers_phantom_code_analyzephantomcode",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner_createcorecodesubagents",
+      "target": "src_analyzers_phantom_code_findorphanfiles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner_createcorecodesubagents",
+      "target": "src_analyzers_phantom_code_findorphanexports",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner_createcorecodesubagents",
+      "target": "src_analyzers_phantom_code_findduplicateblocks",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner_createcorecodesubagents",
+      "target": "src_analyzers_skill_critic_analyzeskillanddocdrift",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner_createcorecodesubagents",
+      "target": "src_analyzers_defect_scanner_analyzedefects",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner_createcorecodesubagents",
+      "target": "src_analyzers_test_fraud_analyzetestfraud",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner_createcorecodesubagents",
+      "target": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
       "source": "src_engine_scanner_scanworkspace",
       "target": "src_analyzers_evidence_verifier_collectsourcefiles",
       "relation": "calls",
@@ -2018,7 +2308,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L25",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -2030,7 +2320,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L36",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -2042,7 +2332,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L38",
+      "source_location": "L41",
       "weight": 1.0
     },
     {
@@ -2054,24 +2344,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L39",
-      "weight": 1.0
-    },
-    {
-      "source": "src_engine_scanner_scanworkspace",
-      "target": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/engine/scanner.ts",
       "source_location": "L42",
       "weight": 1.0
     },
     {
       "source": "src_engine_scanner_scanworkspace",
-      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "target": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2138,7 +2416,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L82",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -2150,7 +2428,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -2162,91 +2440,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L65",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_phantom_code_findorphanexports",
+      "source": "src_subagents_orchestrator_indexworkspace",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L100",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_phantom_code_findduplicateblocks",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L103",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_css_critic_analyzecssandui",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L116",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_skill_critic_analyzeskillanddocdrift",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L128",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_defect_scanner_analyzedefects",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L141",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L161",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_evidence_verifier_computeworkspacehash",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L186",
+      "source_location": "L187",
       "weight": 1.0
     },
     {
@@ -2258,7 +2464,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L243",
+      "source_location": "L154",
       "weight": 1.0
     },
     {
@@ -2270,7 +2476,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L40",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -2282,31 +2488,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L41",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L42",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_subagents_orchestrator_detectentrypoints",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L44",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -2318,55 +2500,67 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L46",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
       "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_test_fraud_analyzetestfraud",
+      "target": "src_subagents_orchestrator_detectentrypoints",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L62",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
       "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
+      "target": "src_engine_scanner_createcorecodesubagents",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L77",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
       "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_phantom_code_analyzephantomcode",
+      "target": "src_analyzers_css_critic_analyzecssandui",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L92",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
       "source": "src_subagents_orchestrator_runinquisitorsubagents",
-      "target": "src_analyzers_phantom_code_findorphanfiles",
+      "target": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L97",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator_runinquisitorsubagents",
+      "target": "src_analyzers_evidence_verifier_computeworkspacehash",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -2378,7 +2572,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/web/server.ts",
-      "source_location": "L22",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -2390,7 +2584,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/web/server.ts",
-      "source_location": "L36",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -2402,7 +2596,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/web/server.ts",
-      "source_location": "L46",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -2415,6 +2609,18 @@
       "context": "call",
       "source_file": "tests/scripts/superpowers-extracted.test.ts",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_skill_critic",
+      "target": "src_analyzers_suppression_fraud",
+      "relation": "re_exports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "export",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -2539,6 +2745,18 @@
     },
     {
       "source": "src_analyzers_graph_optimizer",
+      "target": "src_types_verdict_techstackprofile",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_graph_optimizer",
       "target": "src_types_verdict_tokenoptimizationmetrics",
       "relation": "imports",
       "_origin": "ast",
@@ -2551,7 +2769,7 @@
     },
     {
       "source": "src_analyzers_graph_optimizer",
-      "target": "src_analyzers_phantom_code_resolverelativeimport",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2559,6 +2777,30 @@
       "context": "import",
       "source_file": "src/analyzers/graph-optimizer.ts",
       "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_graph_optimizer",
+      "target": "src_analyzers_phantom_code_resolverelativeimport",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_graph_optimizer",
+      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -2588,6 +2830,18 @@
     {
       "source": "src_analyzers_skill_critic",
       "target": "src_analyzers_evidence_verifier_collectsourcefiles",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_skill_critic",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2660,6 +2914,18 @@
     {
       "source": "src_analyzers_tech_stack_detector",
       "target": "src_analyzers_evidence_verifier_enrichfindingwithbrutalcritique",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/tech-stack-detector.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_tech_stack_detector",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2810,7 +3076,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L10",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner",
+      "target": "src_analyzers_skill_critic_analyzesuppressionfraud",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -2822,19 +3100,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_engine_scanner",
-      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/engine/scanner.ts",
-      "source_location": "L12",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -2846,7 +3112,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L13",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -2858,7 +3124,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L14",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -2870,7 +3136,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L14",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -2935,6 +3201,30 @@
     },
     {
       "source": "src_engine_scanner",
+      "target": "src_analyzers_phantom_code_findduplicateblocks",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner",
+      "target": "src_analyzers_phantom_code_findorphanexports",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "src_engine_scanner",
       "target": "src_analyzers_phantom_code_findorphanfiles",
       "relation": "imports",
       "_origin": "ast",
@@ -2971,7 +3261,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
+      "target": "src_engine_scanner_createcorecodesubagents",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2983,102 +3273,6 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_phantom_code_analyzephantomcode",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_phantom_code_findduplicateblocks",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_phantom_code_findorphanexports",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_phantom_code_findorphanfiles",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_skill_critic_analyzeskillanddocdrift",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L17",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_suppression_fraud_analyzesuppressionfraud",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L18",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_tech_stack_detector_detectprojecttechstack",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L19",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_test_fraud_analyzetestfraud",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L20",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
       "target": "src_repo_git_manager_syncrepository",
       "relation": "imports",
       "_origin": "ast",
@@ -3086,7 +3280,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L21",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -3098,7 +3292,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L22",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -3110,7 +3304,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L22",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -3122,7 +3316,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L22",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -3134,7 +3328,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L22",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -3146,19 +3340,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_defect_scanner_analyzedefects",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L4",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -3170,7 +3352,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L5",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -3182,7 +3364,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L5",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -3194,7 +3376,31 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L5",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator",
+      "target": "src_analyzers_graph_optimizer_analyzegraphandtokenoptimization",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -3671,7 +3877,7 @@
     },
     {
       "source": "src_analyzers_graph_optimizer",
-      "target": "src_analyzers_phantom_code",
+      "target": "src_analyzers_evidence_verifier",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3679,6 +3885,30 @@
       "context": "import",
       "source_file": "src/analyzers/graph-optimizer.ts",
       "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_graph_optimizer",
+      "target": "src_analyzers_phantom_code",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_graph_optimizer",
+      "target": "src_analyzers_tech_stack_detector",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/analyzers/graph-optimizer.ts",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3753,18 +3983,6 @@
       "context": "import",
       "source_file": "src/analyzers/skill-critic.ts",
       "source_location": "L4",
-      "weight": 1.0
-    },
-    {
-      "source": "src_analyzers_skill_critic",
-      "target": "src_analyzers_suppression_fraud",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -3972,31 +4190,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L10",
-      "weight": 1.0
-    },
-    {
-      "source": "src_engine_scanner",
-      "target": "src_analyzers_suppression_fraud",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/engine/scanner.ts",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_engine_scanner",
-      "target": "src_analyzers_tech_stack_detector",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/engine/scanner.ts",
-      "source_location": "L12",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -4008,7 +4202,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L13",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -4020,7 +4214,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L14",
+      "source_location": "L17",
       "type_only": true,
       "weight": 1.0
     },
@@ -4147,7 +4341,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_graph_optimizer",
+      "target": "src_engine_scanner",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4159,7 +4353,7 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_phantom_code",
+      "target": "src_repo_git_manager",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4171,78 +4365,6 @@
     },
     {
       "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_skill_critic",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L17",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_suppression_fraud",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L18",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_tech_stack_detector",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L19",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "ref_node_path",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L2",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_test_fraud",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L20",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_repo_git_manager",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L21",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
       "target": "src_types_verdict",
       "relation": "imports_from",
       "_origin": "ast",
@@ -4250,7 +4372,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L22",
+      "source_location": "L12",
       "type_only": true,
       "weight": 1.0
     },
@@ -4263,19 +4385,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "src_subagents_orchestrator",
-      "target": "src_analyzers_defect_scanner",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L4",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -4287,7 +4397,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L5",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_subagents_orchestrator",
+      "target": "src_analyzers_graph_optimizer",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/subagents/orchestrator.ts",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -4719,7 +4841,7 @@
       "confidence_score": 1.0,
       "context": "type",
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -4830,6 +4952,17 @@
       "confidence_score": 1.0,
       "source_file": "MISTAKE_LEDGER.md",
       "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "mistake_ledger_mistake_ledger_md_agent_forensic_post_mortem_grow_up_ledger",
+      "target": "mistake_ledger_mistake_005_partial_self_scan_blind_spot_between_scanworkspace_5_subagents_and_full_7_subagent_platform_audit",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -5175,13 +5308,46 @@
     },
     {
       "source": "src_analyzers_evidence_verifier",
+      "target": "src_analyzers_evidence_verifier_default_ignored_dirs",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_evidence_verifier",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_evidence_verifier",
       "target": "src_analyzers_evidence_verifier_collectsourcefiles",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L162",
+      "source_location": "L191",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_evidence_verifier",
+      "target": "src_analyzers_evidence_verifier_makecritfinding",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/evidence-verifier.ts",
+      "source_location": "L201",
       "weight": 1.0
     },
     {
@@ -5192,7 +5358,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L194",
+      "source_location": "L217",
       "weight": 1.0
     },
     {
@@ -5214,7 +5380,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L367",
+      "source_location": "L390",
       "weight": 1.0
     },
     {
@@ -5225,7 +5391,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L396",
+      "source_location": "L419",
       "weight": 1.0
     },
     {
@@ -5236,7 +5402,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/evidence-verifier.ts",
-      "source_location": "L484",
+      "source_location": "L507",
       "weight": 1.0
     },
     {
@@ -5269,7 +5435,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/graph-optimizer.ts",
-      "source_location": "L12",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -5280,7 +5446,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/graph-optimizer.ts",
-      "source_location": "L19",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -5340,13 +5506,24 @@
     },
     {
       "source": "src_analyzers_skill_critic",
+      "target": "src_analyzers_skill_critic_makeskillfinding",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_skill_critic",
       "target": "src_analyzers_skill_critic_mistakerecord",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -5357,7 +5534,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L177",
+      "source_location": "L194",
       "weight": 1.0
     },
     {
@@ -5368,7 +5545,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L248",
+      "source_location": "L250",
       "weight": 1.0
     },
     {
@@ -5379,7 +5556,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L286",
+      "source_location": "L270",
       "weight": 1.0
     },
     {
@@ -5390,18 +5567,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L299",
-      "weight": 1.0
-    },
-    {
-      "source": "src_analyzers_skill_critic",
-      "target": "src_analyzers_skill_critic_analyzeskillanddocdrift",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L30",
+      "source_location": "L283",
       "weight": 1.0
     },
     {
@@ -5412,7 +5578,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L310",
+      "source_location": "L294",
+      "weight": 1.0
+    },
+    {
+      "source": "src_analyzers_skill_critic",
+      "target": "src_analyzers_skill_critic_analyzeskillanddocdrift",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/analyzers/skill-critic.ts",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -5423,7 +5600,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L376",
+      "source_location": "L350",
       "weight": 1.0
     },
     {
@@ -5434,7 +5611,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L453",
+      "source_location": "L427",
       "weight": 1.0
     },
     {
@@ -5445,7 +5622,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L472",
+      "source_location": "L446",
       "weight": 1.0
     },
     {
@@ -5456,7 +5633,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/skill-critic.ts",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -5511,7 +5688,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L246",
+      "source_location": "L235",
       "weight": 1.0
     },
     {
@@ -5522,7 +5699,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L250",
+      "source_location": "L239",
       "weight": 1.0
     },
     {
@@ -5533,7 +5710,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/analyzers/tech-stack-detector.ts",
-      "source_location": "L263",
+      "source_location": "L252",
       "weight": 1.0
     },
     {
@@ -5610,7 +5787,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L16",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -5621,18 +5798,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/engine/scanner.ts",
-      "source_location": "L20",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
-      "source": "src_repo_git_manager",
-      "target": "src_repo_git_manager_syncrepository",
+      "source": "src_engine_scanner",
+      "target": "src_engine_scanner_createcorecodesubagents",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "src/repo/git-manager.ts",
-      "source_location": "L30",
+      "source_file": "src/engine/scanner.ts",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -5643,7 +5820,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L81",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "src_repo_git_manager",
+      "target": "src_repo_git_manager_syncrepository",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/repo/git-manager.ts",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -5665,7 +5853,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L271",
+      "source_location": "L182",
       "weight": 1.0
     },
     {
@@ -5676,7 +5864,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L29",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -5687,7 +5875,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L316",
+      "source_location": "L204",
       "weight": 1.0
     },
     {
@@ -5698,7 +5886,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/subagents/orchestrator.ts",
-      "source_location": "L36",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -5846,13 +6034,24 @@
     },
     {
       "source": "src_web_server",
-      "target": "src_web_server_createappserver",
+      "target": "src_web_server_jsonerror",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/web/server.ts",
       "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "src_web_server",
+      "target": "src_web_server_createappserver",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/web/server.ts",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -5973,6 +6172,18 @@
       "weight": 1.0
     },
     {
+      "source": "mistake_ledger_mistake_005_partial_self_scan_blind_spot_between_scanworkspace_5_subagents_and_full_7_subagent_platform_audit",
+      "target": "src_repo_git_manager_parsereposlug",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "parseRepoSlug",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
       "source": "skills_mistake_ledger_grow_up_skill_phase_2_post_mistake_dissection_grow_up_whenever_any_failure_or_correction_happens",
       "target": "src_analyzers_skill_critic_recordmistake",
       "relation": "references",
@@ -5995,8 +6206,32 @@
       "source_file": "MISTAKE_LEDGER.md",
       "source_location": "L11",
       "weight": 1.0
+    },
+    {
+      "source": "mistake_ledger_mistake_005_partial_self_scan_blind_spot_between_scanworkspace_5_subagents_and_full_7_subagent_platform_audit",
+      "target": "src_repo_git_manager_syncrepository",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "syncRepository",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "mistake_ledger_mistake_005_partial_self_scan_blind_spot_between_scanworkspace_5_subagents_and_full_7_subagent_platform_audit",
+      "target": "src_analyzers_evidence_verifier_walkworkspacefiles",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "walkWorkspaceFiles",
+      "source_file": "MISTAKE_LEDGER.md",
+      "source_location": "L45",
+      "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "9fa02ba53adb16d5b1f79b83d753987af73702dd"
+  "built_at_commit": "9e4a0ff468ab3ecf2ba188ea145fe564dc7700ba"
 }

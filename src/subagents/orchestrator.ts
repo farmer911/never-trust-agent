@@ -1,23 +1,13 @@
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { readFileSync } from "node:fs";
 import { analyzeCssAndUi } from "../analyzers/css-critic.ts";
-import { analyzeDefects } from "../analyzers/defect-scanner.ts";
 import {
   computeWorkspaceHash,
   enrichFindingWithBrutalCritique,
   generateAuditVideoEvidence,
+  walkWorkspaceFiles,
 } from "../analyzers/evidence-verifier.ts";
 import { analyzeGraphAndTokenOptimization } from "../analyzers/graph-optimizer.ts";
-import {
-  analyzePhantomCode,
-  findDuplicateBlocks,
-  findOrphanExports,
-  findOrphanFiles,
-} from "../analyzers/phantom-code.ts";
-import { analyzeSkillAndDocDrift } from "../analyzers/skill-critic.ts";
-import { analyzeSuppressionFraud } from "../analyzers/suppression-fraud.ts";
-import { detectProjectTechStack } from "../analyzers/tech-stack-detector.ts";
-import { analyzeTestFraud } from "../analyzers/test-fraud.ts";
+import { createCoreCodeSubagents } from "../engine/scanner.ts";
 import { syncRepository } from "../repo/git-manager.ts";
 import type {
   AuditFlowStep,
@@ -39,11 +29,12 @@ export async function runInquisitorSubagents(
 ): Promise<PlatformAuditReport> {
   const repoMeta = syncRepository(repoUrlOrPath, cacheBaseDir);
   const ws = indexWorkspace(repoMeta.localPath);
-  const techStack = detectProjectTechStack(ws.root);
+  const graphOpt = analyzeGraphAndTokenOptimization(ws.root);
+  const techStack = graphOpt.techStack;
   const entrypoints = [
     ...new Set([...detectEntrypoints(ws.codeFiles), ...techStack.discoveredEntrypoints]),
   ];
-  const graphOpt = analyzeGraphAndTokenOptimization(ws.root);
+  const coreSubagents = createCoreCodeSubagents(ws.root, ws.codeFiles, entrypoints);
 
   const subagentDefinitions: readonly {
     readonly id: string;
@@ -51,61 +42,7 @@ export async function runInquisitorSubagents(
     readonly role: string;
     readonly run: () => Finding[];
   }[] = [
-    {
-      id: "subagent-test-fraud",
-      name: "TestInquisitor",
-      role: "Audits empty tests, tautologies, mirror assertions, mock existence checks, and arbitrary sleeps",
-      run: () => {
-        const out: Finding[] = [];
-        for (const [rel, content] of ws.codeFiles.entries()) {
-          if (/\.(?:test|spec)\.[cm]?[jt]sx?$/.test(rel)) {
-            for (const f of analyzeTestFraud(rel, content)) {
-              out.push({ ...f, subagent: "TestInquisitor" });
-            }
-          }
-        }
-        return out;
-      },
-    },
-    {
-      id: "subagent-type-error",
-      name: "TypeAndErrorInquisitor",
-      role: "Hunts explicit any, double casts, @ts-ignore, linter disables, and swallowed catch blocks",
-      run: () => {
-        const out: Finding[] = [];
-        for (const [rel, content] of ws.codeFiles.entries()) {
-          for (const f of analyzeSuppressionFraud(rel, content)) {
-            out.push({ ...f, subagent: "TypeAndErrorInquisitor" });
-          }
-        }
-        return out;
-      },
-    },
-    {
-      id: "subagent-dead-dup",
-      name: "DeadAndDuplicateCodeInquisitor",
-      role: "Exposes orphan files, dead exports, multi-line duplicate code blocks, and unimplemented stubs",
-      run: () => {
-        const out: Finding[] = [];
-        for (const [rel, content] of ws.codeFiles.entries()) {
-          if (!/\.(?:test|spec)\.[cm]?[jt]sx?$/.test(rel)) {
-            for (const f of analyzePhantomCode(rel, content)) {
-              out.push({ ...f, subagent: "DeadAndDuplicateCodeInquisitor" });
-            }
-          }
-        }
-        for (const f of findOrphanFiles(ws.codeFiles, entrypoints)) {
-          out.push({ ...f, subagent: "DeadAndDuplicateCodeInquisitor" });
-        }
-        for (const f of findOrphanExports(ws.codeFiles, entrypoints)) {
-          out.push({ ...f, subagent: "DeadAndDuplicateCodeInquisitor" });
-        }
-        for (const f of findDuplicateBlocks(ws.codeFiles)) {
-          out.push({ ...f, subagent: "DeadAndDuplicateCodeInquisitor" });
-        }
-        return out;
-      },
-    },
+    ...coreSubagents.slice(0, 3),
     {
       id: "subagent-css-ui",
       name: "CssAndUiInquisitor",
@@ -120,32 +57,7 @@ export async function runInquisitorSubagents(
         return out;
       },
     },
-    {
-      id: "subagent-skill-drift",
-      name: "SkillAndDocDriftInquisitor",
-      role: "Audits SKILL.md stupidity, bad frontmatter, broken file/script references, and rule-vs-code hypocrisy",
-      run: () =>
-        analyzeSkillAndDocDrift(ws.root).map((f) => ({
-          ...f,
-          subagent: "SkillAndDocDriftInquisitor",
-        })),
-    },
-    {
-      id: "subagent-runtime-security",
-      name: "RuntimeAndSecurityInquisitor",
-      role: "Scans for dynamic eval, unguarded fetch without AbortSignal, and unawaited async forEach loops",
-      run: () => {
-        const out: Finding[] = [];
-        for (const [rel, content] of ws.codeFiles.entries()) {
-          if (!/\.(?:test|spec)\.[cm]?[jt]sx?$/.test(rel)) {
-            for (const f of analyzeDefects(rel, content)) {
-              out.push({ ...f, subagent: "RuntimeAndSecurityInquisitor" });
-            }
-          }
-        }
-        return out;
-      },
-    },
+    ...coreSubagents.slice(3),
     {
       id: "subagent-graph-token",
       name: "GraphAndTokenInquisitor",
@@ -215,10 +127,9 @@ export async function runInquisitorSubagents(
       stageId: `STAGE_${stageLetters[idx] ?? "X"}_SUBAGENT_${idx + 1}`,
       title: `Stage ${stageLetters[idx] ?? "X"} — ${sub.name} Deep Scan`,
       detail: `${sub.role} -> ${sub.findingsCount} findings (${sub.criticalCount} CRITICAL, ${sub.highCount} HIGH)`,
-      evidence:
-        sub.findings[0]
-          ? `${sub.findings[0].ruleId} @ ${sub.findings[0].file}:${sub.findings[0].line}`
-          : "0 violations detected",
+      evidence: sub.findings[0]
+        ? `${sub.findings[0].ruleId} @ ${sub.findings[0].file}:${sub.findings[0].line}`
+        : "0 violations detected",
       timestamp: new Date().toISOString(),
       durationMs: sub.durationMs,
     })),
@@ -273,42 +184,19 @@ function indexWorkspace(rootDir: string): IndexedWorkspace {
   const codeFiles = new Map<string, string>();
   let totalLines = 0;
 
-  const ignoredDirs = new Set([
-    "node_modules",
-    ".git",
-    "dist",
-    "build",
-    "coverage",
-    ".nta",
-    ".superpowers",
-    "graphify-out",
-  ]);
-
-  const walk = (dir: string) => {
-    for (const entry of readdirSync(dir)) {
-      if (ignoredDirs.has(entry)) continue;
-      const fullPath = join(dir, entry);
-      const st = statSync(fullPath);
-      if (st.isDirectory()) {
-        walk(fullPath);
-      } else if (
-        /\.(?:[cm]?[jt]sx?|css|scss|less|html|md|sh|json|yaml|yml)$/.test(entry) &&
-        st.size < 512_000
-      ) {
-        const rel = relative(rootDir, fullPath).replace(/\\/g, "/");
-        const content = readFileSync(fullPath, "utf8");
-        allFiles.set(rel, content);
-        totalLines += content.split("\n").length;
-        if (/\.[cm]?[jt]sx?$/.test(entry)) {
-          codeFiles.set(rel, content);
-        }
+  walkWorkspaceFiles(rootDir, (rel, fullPath, entry, sizeBytes) => {
+    if (
+      /\.(?:[cm]?[jt]sx?|css|scss|less|html|md|sh|json|yaml|yml)$/.test(entry) &&
+      sizeBytes < 512_000
+    ) {
+      const content = readFileSync(fullPath, "utf8");
+      allFiles.set(rel, content);
+      totalLines += content.split("\n").length;
+      if (/\.[cm]?[jt]sx?$/.test(entry)) {
+        codeFiles.set(rel, content);
       }
     }
-  };
-
-  if (existsSync(rootDir)) {
-    walk(rootDir);
-  }
+  });
 
   return { root: rootDir, allFiles, codeFiles, totalLines };
 }

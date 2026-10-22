@@ -1,10 +1,12 @@
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import type { Finding } from "../types/verdict.ts";
-import { collectSourceFiles } from "./evidence-verifier.ts";
+import { collectSourceFiles, walkWorkspaceFiles } from "./evidence-verifier.ts";
 import { analyzeSuppressionFraud } from "./suppression-fraud.ts";
 
-export interface MistakeInput {
+export { analyzeSuppressionFraud };
+
+interface MistakeInput {
   readonly title: string;
   readonly ruleId: string;
   readonly where: string;
@@ -14,7 +16,7 @@ export interface MistakeInput {
   readonly date?: string;
 }
 
-export interface MistakeRecord extends MistakeInput {
+interface MistakeRecord extends MistakeInput {
   readonly id: string;
   readonly date: string;
   readonly line: number;
@@ -174,6 +176,21 @@ export function analyzeSkillAndDocDrift(workspaceRoot: string): Finding[] {
   return findings;
 }
 
+function makeSkillFinding(opts: {
+  readonly ruleId: string;
+  readonly severity: "CRITICAL" | "HIGH" | "MEDIUM";
+  readonly file: string;
+  readonly line: number;
+  readonly message: string;
+  readonly evidence: string;
+}): Finding {
+  return {
+    ...opts,
+    category: "SKILL_DRIFT",
+    subagent: "SkillAndDocDriftInquisitor",
+  };
+}
+
 function auditSkillFrontmatter(
   relDoc: string,
   content: string,
@@ -181,31 +198,23 @@ function auditSkillFrontmatter(
 ): Finding[] {
   const findings: Finding[] = [];
   if (!content.startsWith("---\n")) {
-    findings.push({
-      ruleId: "NTA-K001",
-      category: "SKILL_DRIFT",
-      severity: "CRITICAL",
-      file: relDoc,
-      line: 1,
-      message: "SKILL.md is missing required YAML frontmatter (---).",
-      evidence: (lines[0] ?? "").trim(),
-      subagent: "SkillAndDocDriftInquisitor",
-    });
+    findings.push(
+      makeSkillFinding({
+        ruleId: "NTA-K001", severity: "CRITICAL", file: relDoc, line: 1,
+        message: "SKILL.md is missing required YAML frontmatter (---).", evidence: (lines[0] ?? "").trim(),
+      })
+    );
     return findings;
   }
 
   const endIdx = content.indexOf("\n---", 4);
   if (endIdx === -1) {
-    findings.push({
-      ruleId: "NTA-K001",
-      category: "SKILL_DRIFT",
-      severity: "CRITICAL",
-      file: relDoc,
-      line: 1,
-      message: "SKILL.md has unclosed YAML frontmatter.",
-      evidence: "---",
-      subagent: "SkillAndDocDriftInquisitor",
-    });
+    findings.push(
+      makeSkillFinding({
+        ruleId: "NTA-K001", severity: "CRITICAL", file: relDoc, line: 1,
+        message: "SKILL.md has unclosed YAML frontmatter.", evidence: "---",
+      })
+    );
     return findings;
   }
 
@@ -215,31 +224,24 @@ function auditSkillFrontmatter(
 
   const rawName = nameMatch?.[1]?.trim().replace(/^['"]|['"]$/g, "") ?? "";
   if (!rawName || !/^[a-z0-9-]+$/.test(rawName)) {
-    findings.push({
-      ruleId: "NTA-K001",
-      category: "SKILL_DRIFT",
-      severity: "HIGH",
-      file: relDoc,
-      line: 2,
-      message: `Invalid or missing SKILL.md 'name' ('${rawName}'); must use lowercase letters, numbers, and hyphens only.`,
-      evidence: nameMatch?.[0] ?? "missing name:",
-      subagent: "SkillAndDocDriftInquisitor",
-    });
+    findings.push(
+      makeSkillFinding({
+        ruleId: "NTA-K001", severity: "HIGH", file: relDoc, line: 2,
+        message: `Invalid or missing SKILL.md 'name' ('${rawName}'); must use lowercase letters, numbers, and hyphens only.`,
+        evidence: nameMatch?.[0] ?? "missing name:",
+      })
+    );
   }
 
   const rawDesc = descMatch?.[1]?.trim().replace(/^['"]|['"]$/g, "") ?? "";
   if (!rawDesc || !/^use when\b/i.test(rawDesc) || /\bI\s+help\b|\bI\s+can\b/i.test(rawDesc)) {
-    findings.push({
-      ruleId: "NTA-K002",
-      category: "SKILL_DRIFT",
-      severity: "HIGH",
-      file: relDoc,
-      line: 3,
-      message:
-        "Stupid SKILL.md description: must be third-person and start with 'Use when...' describing triggering conditions, not workflow or first-person prose.",
-      evidence: descMatch?.[0] ?? "missing description:",
-      subagent: "SkillAndDocDriftInquisitor",
-    });
+    findings.push(
+      makeSkillFinding({
+        ruleId: "NTA-K002", severity: "HIGH", file: relDoc, line: 3,
+        message: "Stupid SKILL.md description: must be third-person and start with 'Use when...' describing triggering conditions, not workflow or first-person prose.",
+        evidence: descMatch?.[0] ?? "missing description:",
+      })
+    );
   }
 
   return findings;
@@ -247,25 +249,10 @@ function auditSkillFrontmatter(
 
 function collectSkillAndRuleDocs(rootDir: string): string[] {
   const results: string[] = [];
-  const ignoredDirs = new Set([
-    "node_modules",
-    ".git",
-    "dist",
-    "build",
-    ".nta",
-    ".superpowers",
-    "docs",
-    "graphify-out",
-  ]);
-
-  const walk = (dir: string) => {
-    for (const entry of readdirSync(dir)) {
-      if (ignoredDirs.has(entry)) continue;
-      const fullPath = join(dir, entry);
-      const st = statSync(fullPath);
-      if (st.isDirectory()) {
-        walk(fullPath);
-      } else if (
+  walkWorkspaceFiles(
+    rootDir,
+    (_rel, fullPath, entry) => {
+      if (
         entry === "SKILL.md" ||
         entry === "AGENTS.md" ||
         entry === "CLAUDE.md" ||
@@ -274,12 +261,9 @@ function collectSkillAndRuleDocs(rootDir: string): string[] {
       ) {
         results.push(fullPath);
       }
-    }
-  };
-
-  if (existsSync(rootDir)) {
-    walk(rootDir);
-  }
+    },
+    ["docs"]
+  );
   return results;
 }
 
@@ -314,17 +298,13 @@ function auditMistakeLedger(workspaceRoot: string): Finding[] {
 
   if (!existsSync(ledgerPath)) {
     if (existsSync(growUpSkillPath)) {
-      findings.push({
-        ruleId: "NTA-K009",
-        category: "SKILL_DRIFT",
-        severity: "HIGH",
-        file: "skills/mistake-ledger-grow-up/SKILL.md",
-        line: 1,
-        message:
-          "Grow-Up Ledger Missing: skills/mistake-ledger-grow-up/SKILL.md is installed, but MISTAKE_LEDGER.md does not exist at workspace root.",
-        evidence: "Missing MISTAKE_LEDGER.md",
-        subagent: "SkillAndDocDriftInquisitor",
-      });
+      findings.push(
+        makeSkillFinding({
+          ruleId: "NTA-K009", severity: "HIGH", file: "skills/mistake-ledger-grow-up/SKILL.md", line: 1,
+          message: "Grow-Up Ledger Missing: skills/mistake-ledger-grow-up/SKILL.md is installed, but MISTAKE_LEDGER.md does not exist at workspace root.",
+          evidence: "Missing MISTAKE_LEDGER.md",
+        })
+      );
     }
     return findings;
   }
@@ -334,16 +314,13 @@ function auditMistakeLedger(workspaceRoot: string): Finding[] {
   const entries = parseMistakeEntries(lines);
 
   if (entries.length === 0) {
-    findings.push({
-      ruleId: "NTA-K009",
-      category: "SKILL_DRIFT",
-      severity: "HIGH",
-      file: "MISTAKE_LEDGER.md",
-      line: 1,
-      message: "MISTAKE_LEDGER.md exists but contains zero '### [MISTAKE-XXX]' post-mortem entries.",
-      evidence: (lines[0] ?? "Empty MISTAKE_LEDGER.md").trim(),
-      subagent: "SkillAndDocDriftInquisitor",
-    });
+    findings.push(
+      makeSkillFinding({
+        ruleId: "NTA-K009", severity: "HIGH", file: "MISTAKE_LEDGER.md", line: 1,
+        message: "MISTAKE_LEDGER.md exists but contains zero '### [MISTAKE-XXX]' post-mortem entries.",
+        evidence: (lines[0] ?? "Empty MISTAKE_LEDGER.md").trim(),
+      })
+    );
     return findings;
   }
 
@@ -357,16 +334,13 @@ function auditMistakeLedger(workspaceRoot: string): Finding[] {
     }
 
     if (missingFields.length > 0) {
-      findings.push({
-        ruleId: "NTA-K009",
-        category: "SKILL_DRIFT",
-        severity: "HIGH",
-        file: "MISTAKE_LEDGER.md",
-        line: entry.line,
-        message: `Incomplete Mistake Post-Mortem: ${entry.id} is missing required forensic fields (${missingFields.join(", ")}). Every mistake must document Where, How, Why, and Prevention.`,
-        evidence: `${entry.id} (${entry.title}) missing: ${missingFields.join(", ")}`,
-        subagent: "SkillAndDocDriftInquisitor",
-      });
+      findings.push(
+        makeSkillFinding({
+          ruleId: "NTA-K009", severity: "HIGH", file: "MISTAKE_LEDGER.md", line: entry.line,
+          message: `Incomplete Mistake Post-Mortem: ${entry.id} is missing required forensic fields (${missingFields.join(", ")}). Every mistake must document Where, How, Why, and Prevention.`,
+          evidence: `${entry.id} (${entry.title}) missing: ${missingFields.join(", ")}`,
+        })
+      );
     }
   }
 

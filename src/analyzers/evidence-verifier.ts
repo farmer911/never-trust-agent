@@ -132,63 +132,86 @@ export function verifyVerdictReceipt(
   const findings: Finding[] = [];
 
   if (currentHash !== receipt.workspaceHash) {
-    findings.push({
-      ruleId: "NTA-E004",
-      category: "EVIDENCE_FRAUD",
-      severity: "CRITICAL",
-      file: ".",
-      line: 1,
-      message:
+    findings.push(
+      makeCritFinding(
+        { ruleId: "NTA-E004", file: ".", line: 1 },
         "Stale VerdictReceipt: workspace files were modified after verification command ran.",
-      evidence: `expected=${receipt.workspaceHash.slice(0, 12)} actual=${currentHash.slice(0, 12)}`,
-    });
+        `expected=${receipt.workspaceHash.slice(0, 12)} actual=${currentHash.slice(0, 12)}`
+      )
+    );
   }
 
   if (receipt.exitCode !== 0 || receipt.findingsCount > 0) {
-    findings.push({
-      ruleId: "NTA-E004",
-      category: "EVIDENCE_FRAUD",
-      severity: "CRITICAL",
-      file: ".",
-      line: 1,
-      message: `VerdictReceipt records failed verification (exitCode=${receipt.exitCode}, findings=${receipt.findingsCount}).`,
-      evidence: receipt.command,
-    });
+    findings.push(
+      makeCritFinding(
+        { ruleId: "NTA-E004", file: ".", line: 1 },
+        `VerdictReceipt records failed verification (exitCode=${receipt.exitCode}, findings=${receipt.findingsCount}).`,
+        receipt.command
+      )
+    );
   }
 
   return findings;
 }
 
-export function collectSourceFiles(rootDir: string): string[] {
-  const results: string[] = [];
-  const ignoredDirs = new Set([
-    "node_modules",
-    ".git",
-    "dist",
-    "build",
-    "coverage",
-    ".nta",
-    ".superpowers",
-    "graphify-out",
-  ]);
+const DEFAULT_IGNORED_DIRS = [
+  "node_modules",
+  ".git",
+  "dist",
+  "build",
+  "coverage",
+  ".nta",
+  ".superpowers",
+  "graphify-out",
+] as const;
 
-  const walk = (dir: string) => {
+export function walkWorkspaceFiles(
+  rootDir: string,
+  onFile: (relPath: string, fullPath: string, entryName: string, sizeBytes: number) => void,
+  extraIgnored: readonly string[] = []
+): void {
+  if (!existsSync(rootDir)) return;
+  const ignored = new Set<string>([...DEFAULT_IGNORED_DIRS, ...extraIgnored]);
+  const visit = (dir: string) => {
     for (const entry of readdirSync(dir)) {
-      if (ignoredDirs.has(entry)) continue;
+      if (ignored.has(entry)) continue;
       const fullPath = join(dir, entry);
       const st = statSync(fullPath);
       if (st.isDirectory()) {
-        walk(fullPath);
-      } else if (/\.[cm]?[jt]sx?$/.test(entry)) {
-        results.push(fullPath);
+        visit(fullPath);
+      } else {
+        const rel = relative(rootDir, fullPath).replace(/\\/g, "/");
+        onFile(rel, fullPath, entry, st.size);
       }
     }
   };
+  visit(rootDir);
+}
 
-  if (existsSync(rootDir)) {
-    walk(rootDir);
-  }
+export function collectSourceFiles(rootDir: string): string[] {
+  const results: string[] = [];
+  walkWorkspaceFiles(rootDir, (_rel, fullPath, entry) => {
+    if (/\.[cm]?[jt]sx?$/.test(entry)) {
+      results.push(fullPath);
+    }
+  });
   return results;
+}
+
+function makeCritFinding(
+  loc: { readonly ruleId: string; readonly file: string; readonly line: number },
+  message: string,
+  evidence: string
+): Finding {
+  return {
+    ruleId: loc.ruleId,
+    category: "EVIDENCE_FRAUD",
+    severity: "CRITICAL",
+    file: loc.file,
+    line: loc.line,
+    message,
+    evidence,
+  };
 }
 
 const BRUTAL_CRITIQUE_BY_RULE: Readonly<
@@ -483,18 +506,22 @@ export function generateAuditVideoEvidence(params: {
 
 export function verifyExternalAuditForensics(report: PlatformAuditReport): Finding[] {
   const findings: Finding[] = [];
+  const baseLoc = report.repoMeta.localPath || ".";
+  const pushE005 = (file: string, line: number, message: string, evidence: string) => {
+    findings.push(
+      enrichFindingWithBrutalCritique(
+        makeCritFinding({ ruleId: "NTA-E005", file, line }, message, evidence),
+        report.techStack
+      )
+    );
+  };
 
   if (report.scannedFilesCount <= 0 || report.totalLinesScanned <= 0) {
-    findings.push(
-      enrichFindingWithBrutalCritique({
-        ruleId: "NTA-E005",
-        category: "EVIDENCE_FRAUD",
-        severity: "CRITICAL",
-        file: report.repoMeta.localPath || ".",
-        line: 1,
-        message: "Audit Fraud: repository scan reported 0 scanned files or 0 lines.",
-        evidence: `scannedFilesCount=${report.scannedFilesCount}, totalLinesScanned=${report.totalLinesScanned}`,
-      })
+    pushE005(
+      baseLoc,
+      1,
+      "Audit Fraud: repository scan reported 0 scanned files or 0 lines.",
+      `scannedFilesCount=${report.scannedFilesCount}, totalLinesScanned=${report.totalLinesScanned}`
     );
   }
 
@@ -505,77 +532,50 @@ export function verifyExternalAuditForensics(report: PlatformAuditReport): Findi
     firstStage !== "STAGE_A_REPO_SYNC" ||
     lastStage !== "STAGE_Z_VIDEO_EVIDENCE_SEAL"
   ) {
-    findings.push(
-      enrichFindingWithBrutalCritique({
-        ruleId: "NTA-E005",
-        category: "EVIDENCE_FRAUD",
-        severity: "CRITICAL",
-        file: report.repoMeta.localPath || ".",
-        line: 1,
-        message:
-          "Incomplete Audit Flow: scan did not execute full A->Z flow trace (STAGE_A_REPO_SYNC .. STAGE_Z_VIDEO_EVIDENCE_SEAL).",
-        evidence: `stages=${report.flowTrace.length} first=${firstStage} last=${lastStage}`,
-      })
+    pushE005(
+      baseLoc,
+      1,
+      "Incomplete Audit Flow: scan did not execute full A->Z flow trace (STAGE_A_REPO_SYNC .. STAGE_Z_VIDEO_EVIDENCE_SEAL).",
+      `stages=${report.flowTrace.length} first=${firstStage} last=${lastStage}`
     );
   }
 
   const video = report.videoEvidence;
   if (!video || !video.filePath || !existsSync(video.filePath)) {
-    findings.push(
-      enrichFindingWithBrutalCritique({
-        ruleId: "NTA-E005",
-        category: "EVIDENCE_FRAUD",
-        severity: "CRITICAL",
-        file: video?.filePath || "missing-video.webm",
-        line: 1,
-        message:
-          "Missing A->Z Video Evidence: every repository scan must produce a verified A->Z video artifact on disk.",
-        evidence: `videoPath=${video?.filePath ?? "none"}`,
-      })
+    pushE005(
+      video?.filePath || "missing-video.webm",
+      1,
+      "Missing A->Z Video Evidence: every repository scan must produce a verified A->Z video artifact on disk.",
+      `videoPath=${video?.filePath ?? "none"}`
     );
   } else {
     const diskBytes = readFileSync(video.filePath);
     const actualSha = createHash("sha256").update(diskBytes).digest("hex");
     if (diskBytes.byteLength === 0 || actualSha !== video.sha256) {
-      findings.push(
-        enrichFindingWithBrutalCritique({
-          ruleId: "NTA-E005",
-          category: "EVIDENCE_FRAUD",
-          severity: "CRITICAL",
-          file: video.filePath,
-          line: 1,
-          message: "Corrupted or tampered A->Z Video Evidence: SHA-256 mismatch or empty file.",
-          evidence: `expectedSha=${video.sha256.slice(0, 12)} actualSha=${actualSha.slice(0, 12)}`,
-        })
+      pushE005(
+        video.filePath,
+        1,
+        "Corrupted or tampered A->Z Video Evidence: SHA-256 mismatch or empty file.",
+        `expectedSha=${video.sha256.slice(0, 12)} actualSha=${actualSha.slice(0, 12)}`
       );
     }
   }
 
   for (const f of report.findings) {
     if (!f.evidence || f.evidence.trim().length === 0) {
-      findings.push(
-        enrichFindingWithBrutalCritique({
-          ruleId: "NTA-E005",
-          category: "EVIDENCE_FRAUD",
-          severity: "CRITICAL",
-          file: f.file,
-          line: f.line,
-          message: `Unproven Finding (${f.ruleId}): finding lacks verbatim code evidence.`,
-          evidence: `${f.file}:${f.line}`,
-        })
+      pushE005(
+        f.file,
+        f.line,
+        `Unproven Finding (${f.ruleId}): finding lacks verbatim code evidence.`,
+        `${f.file}:${f.line}`
       );
     }
     if (!f.whyItIsWrong || f.whyItIsWrong.trim().length < 20) {
-      findings.push(
-        enrichFindingWithBrutalCritique({
-          ruleId: "NTA-E005",
-          category: "EVIDENCE_FRAUD",
-          severity: "CRITICAL",
-          file: f.file,
-          line: f.line,
-          message: `Soft/Unexplained Finding (${f.ruleId}): finding lacks a ruthless root-cause explanation (whyItIsWrong) showing the user why it is wrong.`,
-          evidence: `${f.ruleId} at ${f.file}:${f.line}`,
-        })
+      pushE005(
+        f.file,
+        f.line,
+        `Soft/Unexplained Finding (${f.ruleId}): finding lacks a ruthless root-cause explanation (whyItIsWrong) showing the user why it is wrong.`,
+        `${f.ruleId} at ${f.file}:${f.line}`
       );
     }
   }

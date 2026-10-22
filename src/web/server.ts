@@ -9,6 +9,10 @@ export interface ServerOptions {
   readonly cacheDir?: string;
 }
 
+function jsonError(err: unknown, status = 400): Response {
+  return Response.json({ error: err instanceof Error ? err.message : String(err) }, { status });
+}
+
 export function createAppServer(options: ServerOptions = {}) {
   const port = options.port ?? Number(process.env.PORT ?? 4173);
   const cacheDir = resolve(options.cacheDir ?? join(process.cwd(), ".nta/repos"));
@@ -36,8 +40,7 @@ export function createAppServer(options: ServerOptions = {}) {
           const report = await runInquisitorSubagents(target, cacheDir);
           return Response.json(report);
         } catch (err) {
-          const message = err instanceof Error ? err.message : String(err);
-          return Response.json({ error: message }, { status: 400 });
+          return jsonError(err);
         }
       }
 
@@ -53,13 +56,9 @@ export function createAppServer(options: ServerOptions = {}) {
           }
 
           const content = readFileSync(absFile, "utf8");
-          return Response.json({
-            file: relFile,
-            lines: content.split("\n"),
-          });
+          return Response.json({ file: relFile, lines: content.split("\n") });
         } catch (err) {
-          const message = err instanceof Error ? err.message : String(err);
-          return Response.json({ error: message }, { status: 400 });
+          return jsonError(err);
         }
       }
 
@@ -80,8 +79,7 @@ export function createAppServer(options: ServerOptions = {}) {
             },
           });
         } catch (err) {
-          const message = err instanceof Error ? err.message : String(err);
-          return Response.json({ error: message }, { status: 400 });
+          return jsonError(err);
         }
       }
 
