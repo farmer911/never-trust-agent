@@ -73,5 +73,7 @@ function stripStrings(line: string): string {
   return line
     .replace(/'(?:\\.|[^'\\])*'/g, "''")
     .replace(/"(?:\\.|[^"\\])*"/g, '""')
-    .replace(/`(?:\\.|[^`\\])*`/g, "``");
+    .replace(/`(?:\\.|[^`\\])*`/g, "``")
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\/\/.*$/, "");
 }

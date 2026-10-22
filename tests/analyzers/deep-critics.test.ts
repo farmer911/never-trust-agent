@@ -1,16 +1,19 @@
 import { describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { analyzeCssAndUi } from "../../src/analyzers/css-critic.ts";
+import { analyzeDefects } from "../../src/analyzers/defect-scanner.ts";
 import { verifyExternalAuditForensics } from "../../src/analyzers/evidence-verifier.ts";
 import { findDuplicateBlocks, findOrphanExports } from "../../src/analyzers/phantom-code.ts";
 import {
   analyzeSkillAndDocDrift,
+  analyzeSuppressionFraud,
   queryMistakes,
   recordMistake,
 } from "../../src/analyzers/skill-critic.ts";
+import { analyzeTestFraud } from "../../src/analyzers/test-fraud.ts";
 import { scanWorkspace } from "../../src/engine/scanner.ts";
 import { analyzeGraphAndTokenOptimization } from "../../src/analyzers/graph-optimizer.ts";
 import {
@@ -18,7 +21,11 @@ import {
   verifyTechStackAlignment,
 } from "../../src/analyzers/tech-stack-detector.ts";
 import { syncRepository, parseRepoSlug } from "../../src/repo/git-manager.ts";
-import { runInquisitorSubagents } from "../../src/subagents/orchestrator.ts";
+import {
+  adjudicateFindingRebuttal,
+  runCrossTestArena,
+  runInquisitorSubagents,
+} from "../../src/subagents/orchestrator.ts";
 import { createAppServer } from "../../src/web/server.ts";
 
 describe("Subagent 4: CSS & UI Nitpicking Critic", () => {
@@ -507,10 +514,90 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
       expect(selfReport.totalFindings).toBe(0);
       expect(selfReport.integrityScore).toBe(100);
       expect(selfReport.passed).toBe(true);
+      expect(existsSync(selfReport.markdownReport.filePath)).toBe(true);
       expect(verifyExternalAuditForensics(selfReport)).toEqual([]);
       expect(verifyTechStackAlignment(selfReport)).toEqual([]);
     } finally {
       rmSync(cacheDir, { recursive: true, force: true });
+    }
+  });
+
+  test("20-Round Adversarial Cross-Test Arena, Markdown Dossier (NTA-E007), and Backfire Humiliation Evolution (SHAME-001..004)", async () => {
+    const tempDir = mkdtempSync(join(tmpdir(), "nta-arena-"));
+    try {
+      // 1. Verify the 4 evolved analyzers do not get counter-attacked (bị phản dame) on valid edge cases:
+      const wcagCss = [
+        "@media (prefers-reduced-motion: reduce) {",
+        "  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }",
+        "}",
+        ".btn:focus-visible {",
+        "  outline: none;",
+        "  box-shadow: 0 0 0 2px var(--focus-ring);",
+        "}",
+      ].join("\n");
+      expect(analyzeCssAndUi("src/a11y.css", wcagCss)).toEqual([]);
+
+      const honoTestCode = [
+        "// fetch('https://example.com') in a comment is not a call",
+        "const res = await app.fetch(req);",
+        "const res2 = await server.fetch(new Request('http://localhost/'));",
+      ].join("\n");
+      expect(analyzeDefects("tests/server.test.ts", honoTestCode)).toEqual([]);
+
+      const commentedAnyCode = [
+        "// Warning: never use : any or as any in production parsers",
+        "export const cleanValue: string = 'deterministic';",
+      ].join("\n");
+      expect(analyzeSuppressionFraud("src/clean.ts", commentedAnyCode)).toEqual([]);
+
+      const customAssertTest = [
+        "test('validates receipt via domain helper', () => {",
+        "  const r = issueReceipt();",
+        "  assertValidReceipt(r);",
+        "});",
+      ].join("\n");
+      expect(analyzeTestFraud("tests/helper.test.ts", customAssertTest)).toEqual([]);
+
+      // 2. Run the 20-Round Adversarial Cross-Test Arena on NeverTrustAgent's own repo
+      const arenaMdPath = join(tempDir, "CROSS_AUDIT_ARENA.md");
+      const arena = await runCrossTestArena(process.cwd(), arenaMdPath);
+      expect(arena.totalRounds).toBe(20);
+      expect(arena.rounds.length).toBe(20);
+      expect(arena.backfireShameCount).toBe(4);
+      expect(arena.passedAllRounds).toBe(true);
+      expect(existsSync(arenaMdPath)).toBe(true);
+      const mdText = readFileSync(arenaMdPath, "utf8");
+      expect(mdText).toContain("ROUND-01");
+      expect(mdText).toContain("ROUND-20");
+      expect(mdText).toContain("SHAME-001");
+      expect(mdText).toContain("NHỤC NHÃ");
+
+      // 3. Test interactive Rebuttal & Adjudication (AGREE, REBUTTED_INVALID, REBUTTED_VALID_BACKFIRE)
+      const invalidRebuttal = adjudicateFindingRebuttal(tempDir, {
+        roundId: "ROUND-05",
+        ruleId: "NTA-S001",
+        file: "src/parser.ts",
+        line: 14,
+        decision: "REBUT",
+        challengerArgument: "Tôi dùng : any tạm thời cho nhanh kịp deadline thôi!",
+      });
+      expect(invalidRebuttal.verdict).toBe("REBUTTED_INVALID");
+
+      const validBackfire = adjudicateFindingRebuttal(tempDir, {
+        roundId: "ROUND-17",
+        ruleId: "NTA-C001",
+        file: "src/a11y.css",
+        line: 2,
+        decision: "REBUT",
+        challengerArgument:
+          "Chuẩn WCAG 2.1 SC 2.3.3 bắt buộc dùng !important trong @media (prefers-reduced-motion: reduce) để tắt animation.",
+      });
+      expect(validBackfire.verdict).toBe("REBUTTED_VALID_BACKFIRE");
+      expect(validBackfire.humiliationRecorded).toBe(true);
+      expect(existsSync(join(tempDir, "MISTAKE_LEDGER.md"))).toBe(true);
+      expect(readFileSync(join(tempDir, "MISTAKE_LEDGER.md"), "utf8")).toContain("BỊ PHẢN DAME");
+    } finally {
+      rmSync(tempDir, { recursive: true, force: true });
     }
   });
 });

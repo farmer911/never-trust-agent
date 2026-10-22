@@ -1,7 +1,11 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join, normalize, resolve } from "node:path";
 import { parseRepoSlug } from "../repo/git-manager.ts";
-import { runInquisitorSubagents } from "../subagents/orchestrator.ts";
+import {
+  adjudicateFindingRebuttal,
+  runCrossTestArena,
+  runInquisitorSubagents,
+} from "../subagents/orchestrator.ts";
 import { renderForensicDashboardHtml } from "./ui.ts";
 
 export interface ServerOptions {
@@ -78,6 +82,59 @@ export function createAppServer(options: ServerOptions = {}) {
               "content-disposition": `inline; filename="${safeSlug}-audit.webm"`,
             },
           });
+        } catch (err) {
+          return jsonError(err);
+        }
+      }
+
+      if (req.method === "GET" && url.pathname === "/api/report") {
+        try {
+          const slug = parseRepoSlug(url.searchParams.get("slug") ?? "");
+          const safeSlug = slug.replace(/[^a-zA-Z0-9._-]/g, "_");
+          const mdPath = resolve(join(cacheDir, "reports", `${safeSlug}-FORENSIC_REPORT.md`));
+          if (!mdPath.startsWith(cacheDir) || !existsSync(mdPath)) {
+            return Response.json({ error: "Forensic Markdown report not found" }, { status: 404 });
+          }
+          const mdText = readFileSync(mdPath, "utf8");
+          return new Response(mdText, {
+            headers: {
+              "content-type": "text/markdown; charset=utf-8",
+              "content-disposition": `inline; filename="${safeSlug}-FORENSIC_REPORT.md"`,
+            },
+          });
+        } catch (err) {
+          return jsonError(err);
+        }
+      }
+
+      if (req.method === "GET" && url.pathname === "/api/cross-audit") {
+        try {
+          const arena = await runCrossTestArena(process.cwd());
+          return Response.json(arena);
+        } catch (err) {
+          return jsonError(err);
+        }
+      }
+
+      if (req.method === "POST" && url.pathname === "/api/rebuttal") {
+        try {
+          const body = (await req.json()) as {
+            roundId?: string;
+            ruleId?: string;
+            file?: string;
+            line?: number;
+            decision?: "AGREE" | "REBUT";
+            challengerArgument?: string;
+          };
+          const res = adjudicateFindingRebuttal(process.cwd(), {
+            roundId: body.roundId ?? "WEB-AUDIT",
+            ruleId: body.ruleId ?? "NTA-UNKNOWN",
+            file: body.file ?? "unknown",
+            line: Number(body.line ?? 1),
+            decision: body.decision === "REBUT" ? "REBUT" : "AGREE",
+            challengerArgument: body.challengerArgument ?? "",
+          });
+          return Response.json(res);
         } catch (err) {
           return jsonError(err);
         }

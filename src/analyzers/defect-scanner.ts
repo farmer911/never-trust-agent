@@ -1,8 +1,9 @@
 import type { Finding } from "../types/verdict.ts";
 
 const DYNAMIC_EXEC_REGEX = /\beval\s*\(|\bnew\s+Function\s*\(/;
-const FETCH_CALL_REGEX = /(?<!\basync\s+|\bfunction\s+)\bfetch\s*\(([^)]*)\)/;
+const FETCH_CALL_REGEX = /(?<!\.|\basync\s+|\bfunction\s+)\bfetch\s*\(([^)]*)\)/;
 const ASYNC_FOREACH_REGEX = /\.forEach\s*\(\s*async\b/;
+const COMMENT_LINE_REGEX = /^[ \t]*(?:\/\/|\/\*|\*)/;
 
 export function analyzeDefects(file: string, content: string): Finding[] {
   const findings: Finding[] = [];
@@ -11,6 +12,7 @@ export function analyzeDefects(file: string, content: string): Finding[] {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i] ?? "";
     const lineNum = i + 1;
+    if (COMMENT_LINE_REGEX.test(line)) continue;
 
     if (DYNAMIC_EXEC_REGEX.test(line)) {
       findings.push({

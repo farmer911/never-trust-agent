@@ -13,6 +13,7 @@
     "test:api": "bun test",
     "scan": "bun run src/cli/index.ts scan .",
     "audit:self": "bun run src/cli/index.ts audit-repo .",
+    "cross-test": "bun run src/cli/index.ts cross-test",
     "mistakes": "bun run src/cli/index.ts mistakes",
     "graph:update": "bash scripts/update-graph.sh"
   },

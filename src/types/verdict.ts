@@ -114,6 +114,54 @@ export interface TechStackProfile {
   readonly groundingSummary: string;
 }
 
+export interface MarkdownDossierMetadata {
+  readonly filePath: string;
+  readonly reportUrl: string;
+  readonly sha256: string;
+  readonly sizeBytes: number;
+}
+
+export interface AdjudicationResult {
+  readonly roundId: string;
+  readonly ruleId: string;
+  readonly file: string;
+  readonly line: number;
+  readonly decision: "AGREE" | "REBUT";
+  readonly challengerArgument: string;
+  readonly verdict: "AGREED" | "REBUTTED_INVALID" | "REBUTTED_VALID_BACKFIRE";
+  readonly inquisitorResponse: string;
+  readonly humiliationRecorded: boolean;
+  readonly mistakeId?: string | undefined;
+}
+
+export interface CrossTestRoundResult {
+  readonly roundNumber: number;
+  readonly roundId: string;
+  readonly title: string;
+  readonly subagent: string;
+  readonly targetRules: readonly string[];
+  readonly mode: "DEFECT_INJECTION" | "BACKFIRE_CHALLENGE";
+  readonly findingsDetected: number;
+  readonly adjudicationVerdict: "AGREED" | "REBUTTED_INVALID" | "REBUTTED_VALID_BACKFIRE";
+  readonly shameId?: string | undefined;
+  readonly errorPointedOut: string;
+  readonly remediationFix: string;
+  readonly challengerStatement: string;
+  readonly inquisitorVerdictNote: string;
+  readonly passedRound: boolean;
+}
+
+export interface CrossTestArenaReport {
+  readonly totalRounds: number;
+  readonly agreedCount: number;
+  readonly rejectedRebuttalCount: number;
+  readonly backfireShameCount: number;
+  readonly passedAllRounds: boolean;
+  readonly markdownPath: string;
+  readonly generatedAt: string;
+  readonly rounds: readonly CrossTestRoundResult[];
+}
+
 export interface PlatformAuditReport {
   readonly repoMeta: RepoSyncMetadata;
   readonly workspaceHash: string;
@@ -126,6 +174,7 @@ export interface PlatformAuditReport {
   readonly tokenOptimization: TokenOptimizationMetrics;
   readonly flowTrace: readonly AuditFlowStep[];
   readonly videoEvidence: VideoEvidenceMetadata;
+  readonly markdownReport: MarkdownDossierMetadata;
   readonly subagentReports: readonly SubagentSummary[];
   readonly findings: readonly Finding[];
 }

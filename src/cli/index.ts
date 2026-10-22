@@ -9,7 +9,11 @@ import {
 import { queryMistakes, recordMistake } from "../analyzers/skill-critic.ts";
 import { analyzeTestDiffSabotage } from "../analyzers/test-fraud.ts";
 import { scanWorkspace } from "../engine/scanner.ts";
-import { runInquisitorSubagents } from "../subagents/orchestrator.ts";
+import {
+  adjudicateFindingRebuttal,
+  runCrossTestArena,
+  runInquisitorSubagents,
+} from "../subagents/orchestrator.ts";
 import type { VerdictReceipt } from "../types/verdict.ts";
 import { createAppServer } from "../web/server.ts";
 
@@ -95,8 +99,38 @@ export async function runCli(argv: readonly string[]): Promise<number> {
     return 0;
   }
 
+  if (cmd === "cross-test") {
+    const outPath = target !== "." ? resolve(target) : join(process.cwd(), "CROSS_AUDIT_ARENA.md");
+    const arena = await runCrossTestArena(process.cwd(), outPath);
+    process.stdout.write(`${JSON.stringify(arena, null, 2)}\n`);
+    return arena.passedAllRounds ? 0 : 1;
+  }
+
+  if (cmd === "adjudicate") {
+    const [
+      ,
+      roundId = "ROUND-01",
+      ruleId = "NTA-T001",
+      fileLine = "src/index.ts:1",
+      decisionRaw = "AGREE",
+      challengerArgument = "",
+    ] = argv;
+    const [file = "src/index.ts", lineStr = "1"] = fileLine.split(":");
+    const decision = decisionRaw === "REBUT" ? "REBUT" : "AGREE";
+    const res = adjudicateFindingRebuttal(process.cwd(), {
+      roundId,
+      ruleId,
+      file,
+      line: Number(lineStr) || 1,
+      decision,
+      challengerArgument,
+    });
+    process.stdout.write(`${JSON.stringify(res, null, 2)}\n`);
+    return 0;
+  }
+
   process.stderr.write(
-    "Usage: nta <serve|audit-repo|scan|diff-audit|report-audit|issue-receipt|verify-receipt|mistakes|log-mistake> [target]\n"
+    "Usage: nta <serve|audit-repo|scan|cross-test|adjudicate|diff-audit|report-audit|issue-receipt|verify-receipt|mistakes|log-mistake> [target]\n"
   );
   return 2;
 }

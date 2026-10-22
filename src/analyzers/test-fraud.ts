@@ -75,7 +75,7 @@ export function analyzeTestFraud(file: string, content: string): Finding[] {
     const blockBody = extractBalancedBraces(content, afterTitleIndex);
     if (!blockBody) continue;
 
-    if (!/\b(?:expect|assert)\b/.test(blockBody)) {
+    if (!/\b(?:expect|assert)[A-Za-z0-9_]*\b/.test(blockBody)) {
       findings.push({
         ruleId: "NTA-T001",
         category: "TEST_FRAUD",

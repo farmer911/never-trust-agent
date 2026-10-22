@@ -5,6 +5,7 @@ import type {
   AuditFlowStep,
   Citation,
   Finding,
+  MarkdownDossierMetadata,
   PlatformAuditReport,
   TechStackProfile,
   VerdictReceipt,
@@ -385,6 +386,10 @@ const BRUTAL_CRITIQUE_BY_RULE: Readonly<
     why: "Phê bình lệch hệ sinh thái công nghệ của dự án (Tech-Stack Mismatch): phán xét mà không kiểm tra manifest/framework thực tế của repo, dẫn tới bắt nhầm file route của framework hoặc xúi chạy sai công cụ.",
     fix: "Chạy `detectProjectTechStack` trước khi quét để khóa chặt runtime, packageManager, testRunner và các entrypoint theo quy ước framework.",
   },
+  "NTA-E007": {
+    why: "Thiếu hồ sơ đối kháng `.md` có thể chia sẻ hoặc bỏ sót biên bản tiến hóa sau khi bị phản dame (`REBUTTED_VALID_BACKFIRE`): kiểm toán mà không xuất file `.md` chỉ thẳng lỗi/cách sửa và không ghi nhận nỗi nhục khi bị phản biện đúng là trốn tránh trách nhiệm.",
+    fix: "Xuất hồ sơ `.md` đầy đủ (`generateForensicMarkdownDossier`) và ghi nhận mọi lần bị phản dame vào `MISTAKE_LEDGER.md` kèm bản vá tiến hóa analyzer.",
+  },
 };
 
 export function enrichFindingWithBrutalCritique(
@@ -504,20 +509,87 @@ export function generateAuditVideoEvidence(params: {
   };
 }
 
+export function generateForensicMarkdownDossier(opts: {
+  readonly slug: string;
+  readonly repoUrl: string;
+  readonly workspaceHash: string;
+  readonly integrityScore: number;
+  readonly scannedFilesCount: number;
+  readonly totalLinesScanned: number;
+  readonly techStack: TechStackProfile;
+  readonly videoEvidence: VideoEvidenceMetadata;
+  readonly findings: readonly Finding[];
+  readonly cacheBaseDir: string;
+}): MarkdownDossierMetadata {
+  const reportsDir = join(opts.cacheBaseDir, "reports");
+  mkdirSync(reportsDir, { recursive: true });
+  const filePath = join(reportsDir, `${opts.slug}-FORENSIC_REPORT.md`);
+
+  const findingSections =
+    opts.findings.length === 0
+      ? `### 0 Findings Detected — Repository Achieved 100/100 Deterministic Integrity\n- **Status:** \`PASSED (0 VIOLATIONS)\`\n`
+      : opts.findings
+          .map(
+            (f, idx) =>
+              `### [${idx + 1}] \`${f.ruleId}\` (${f.severity}) — \`${f.file}:${f.line}\` [${f.subagent ?? "Inquisitor"}]\n` +
+              `- **Bằng chứng tại chỗ (Verbatim Evidence):** \`${f.evidence.replace(/`/g, "'")}\`\n` +
+              `- **Chỉ thẳng lỗi — Vì sao sai (Why It Is Wrong):** ${f.whyItIsWrong ?? f.message}\n` +
+              `- **Cách khắc phục (Direct Fix):** ${f.directFix ?? "Fix the violation and re-run verification."}\n` +
+              `- **Phán quyết đối kháng (Adjudication):** \`[ ] ĐỒNG Ý (AGREE)\` | \`[ ] PHẢN BIỆN / PHẢN DAME (REBUT)\`\n`
+          )
+          .join("\n");
+
+  const mdContent = [
+    `# HỒ SƠ KIỂM TOÁN PHÁP Y & ĐỐI KHÁNG (FORENSIC AUDIT DOSSIER): ${opts.slug}`,
+    ``,
+    `> **Triết lý:** \`NOTHING IS PERFECT. EVERY AGENT IS AN ASSHOLE UNTIL PROVEN BY DETERMINISTIC EVIDENCE.\``,
+    `> **Luật Phản Dame:** Nếu phát hiện bất kỳ phán quyết nào dưới đây bắt lỗi sai công nghệ hoặc false-positive, hãy gửi phản biện (\`REBUT\`). Mỗi lần Agent bị phản dame đúng (\`REBUTTED_VALID_BACKFIRE\`) là **1 LẦN NHỤC NHÃ** bắt buộc ghi vào \`MISTAKE_LEDGER.md\` và tiến hóa bộ quét ngay lập tức.`,
+    ``,
+    `## 1. Thông Số Bằng Chứng (Deterministic Telemetry)`,
+    `- **Repository:** \`${opts.repoUrl}\` (\`${opts.slug}\`)`,
+    `- **Workspace SHA-256:** \`${opts.workspaceHash}\``,
+    `- **Integrity Score:** \`${opts.integrityScore}/100\` (\`Findings: ${opts.findings.length}\`)`,
+    `- **Full Source Coverage:** \`${opts.scannedFilesCount} files\` / \`${opts.totalLinesScanned} lines\``,
+    `- **Tech-Stack Grounding:** \`${opts.techStack.groundingSummary}\``,
+    `- **A->Z Video Evidence:** \`${opts.videoEvidence.videoUrl}\` (SHA-256: \`${opts.videoEvidence.sha256}\`)`,
+    ``,
+    `## 2. Danh Sách Lỗi, Cách Khắc Phục & Bảng Đồng Ý / Phản Biện`,
+    findingSections,
+  ].join("\n");
+
+  writeFileSync(filePath, mdContent, "utf8");
+  const rawBytes = Buffer.from(mdContent, "utf8");
+  const sha256 = createHash("sha256").update(rawBytes).digest("hex");
+
+  return {
+    filePath,
+    reportUrl: `/api/report?slug=${encodeURIComponent(opts.slug)}`,
+    sha256,
+    sizeBytes: rawBytes.byteLength,
+  };
+}
+
 export function verifyExternalAuditForensics(report: PlatformAuditReport): Finding[] {
   const findings: Finding[] = [];
   const baseLoc = report.repoMeta.localPath || ".";
-  const pushE005 = (file: string, line: number, message: string, evidence: string) => {
+  const pushForensicFinding = (
+    ruleId: "NTA-E005" | "NTA-E007",
+    file: string,
+    line: number,
+    message: string,
+    evidence: string
+  ) => {
     findings.push(
       enrichFindingWithBrutalCritique(
-        makeCritFinding({ ruleId: "NTA-E005", file, line }, message, evidence),
+        makeCritFinding({ ruleId, file, line }, message, evidence),
         report.techStack
       )
     );
   };
 
   if (report.scannedFilesCount <= 0 || report.totalLinesScanned <= 0) {
-    pushE005(
+    pushForensicFinding(
+      "NTA-E005",
       baseLoc,
       1,
       "Audit Fraud: repository scan reported 0 scanned files or 0 lines.",
@@ -532,7 +604,8 @@ export function verifyExternalAuditForensics(report: PlatformAuditReport): Findi
     firstStage !== "STAGE_A_REPO_SYNC" ||
     lastStage !== "STAGE_Z_VIDEO_EVIDENCE_SEAL"
   ) {
-    pushE005(
+    pushForensicFinding(
+      "NTA-E005",
       baseLoc,
       1,
       "Incomplete Audit Flow: scan did not execute full A->Z flow trace (STAGE_A_REPO_SYNC .. STAGE_Z_VIDEO_EVIDENCE_SEAL).",
@@ -542,7 +615,8 @@ export function verifyExternalAuditForensics(report: PlatformAuditReport): Findi
 
   const video = report.videoEvidence;
   if (!video || !video.filePath || !existsSync(video.filePath)) {
-    pushE005(
+    pushForensicFinding(
+      "NTA-E005",
       video?.filePath || "missing-video.webm",
       1,
       "Missing A->Z Video Evidence: every repository scan must produce a verified A->Z video artifact on disk.",
@@ -552,7 +626,8 @@ export function verifyExternalAuditForensics(report: PlatformAuditReport): Findi
     const diskBytes = readFileSync(video.filePath);
     const actualSha = createHash("sha256").update(diskBytes).digest("hex");
     if (diskBytes.byteLength === 0 || actualSha !== video.sha256) {
-      pushE005(
+      pushForensicFinding(
+        "NTA-E005",
         video.filePath,
         1,
         "Corrupted or tampered A->Z Video Evidence: SHA-256 mismatch or empty file.",
@@ -561,9 +636,39 @@ export function verifyExternalAuditForensics(report: PlatformAuditReport): Findi
     }
   }
 
+  const md = report.markdownReport;
+  if (!md || !md.filePath || !existsSync(md.filePath)) {
+    findings.push(
+      enrichFindingWithBrutalCritique(
+        makeCritFinding(
+          { ruleId: "NTA-E007", file: md?.filePath || "missing-report.md", line: 1 },
+          "Missing Shareable Markdown Dossier: every audit must persist a .md forensic report pointing out errors, fixes, and AGREE/REBUT options.",
+          `markdownPath=${md?.filePath ?? "none"}`
+        ),
+        report.techStack
+      )
+    );
+  } else {
+    const mdBytes = readFileSync(md.filePath);
+    const actualMdSha = createHash("sha256").update(mdBytes).digest("hex");
+    if (mdBytes.byteLength === 0 || actualMdSha !== md.sha256) {
+      findings.push(
+        enrichFindingWithBrutalCritique(
+          makeCritFinding(
+            { ruleId: "NTA-E007", file: md.filePath, line: 1 },
+            "Corrupted or tampered Markdown Dossier (.md): SHA-256 mismatch or empty file.",
+            `expectedSha=${md.sha256.slice(0, 12)} actualSha=${actualMdSha.slice(0, 12)}`
+          ),
+          report.techStack
+        )
+      );
+    }
+  }
+
   for (const f of report.findings) {
     if (!f.evidence || f.evidence.trim().length === 0) {
-      pushE005(
+      pushForensicFinding(
+        "NTA-E005",
         f.file,
         f.line,
         `Unproven Finding (${f.ruleId}): finding lacks verbatim code evidence.`,
@@ -571,7 +676,8 @@ export function verifyExternalAuditForensics(report: PlatformAuditReport): Findi
       );
     }
     if (!f.whyItIsWrong || f.whyItIsWrong.trim().length < 20) {
-      pushE005(
+      pushForensicFinding(
+        "NTA-E005",
         f.file,
         f.line,
         `Soft/Unexplained Finding (${f.ruleId}): finding lacks a ruthless root-cause explanation (whyItIsWrong) showing the user why it is wrong.`,

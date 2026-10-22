@@ -18,10 +18,10 @@ Whenever you add, modify, or delete any analyzer rule (`NTA-*`), subagent, scrip
 ## 2. Project Architecture & Module Map
 
 - **Entrypoints & Interfaces:**
-  - `src/cli/index.ts` — CLI binary (`nta <serve|audit-repo|scan|diff-audit|report-audit|issue-receipt|verify-receipt|mistakes|log-mistake> [target]`)
-  - `MISTAKE_LEDGER.md` — Canonical agent violation & post-mortem ledger (`Where`, `How`, `Why`, `Prevention`) queried via `bun run mistakes`
-  - `src/web/server.ts` & `src/web/ui.ts` — Web platform (`http://127.0.0.1:4173`) with `POST /api/scan` (clones or pulls any Git repo, runs all 7 Inquisitor Subagents across full source & full flow, dissects `whyItIsWrong`, and seals A→Z `.webm` video evidence), `GET /api/video` (streams the sealed A→Z `.webm` forensic video), and `GET /api/file` (line-by-line forensic code inspector)
-  - `src/subagents/orchestrator.ts` — Parallel 7-subagent dispatcher & Integrity Score calculator
+  - `src/cli/index.ts` — CLI binary (`nta <serve|audit-repo|scan|cross-test|adjudicate|diff-audit|report-audit|issue-receipt|verify-receipt|mistakes|log-mistake> [target]`)
+  - `MISTAKE_LEDGER.md` & `CROSS_AUDIT_ARENA.md` — Canonical agent violation, backfire humiliation (`BỊ PHẢN DAME — NỖI NHỤC NHÃ`), & 20-round adversarial cross-test dossiers queried via `bun run mistakes` and `bun run cross-test`
+  - `src/web/server.ts` & `src/web/ui.ts` — Web platform (`http://127.0.0.1:4173`) with `POST /api/scan` (clones or pulls any Git repo, runs all 7 Inquisitor Subagents across full source & full flow, dissects `whyItIsWrong`, seals A→Z `.webm` video evidence, and writes a shareable `.md` dossier), `GET /api/report` (streams the shareable `.md` forensic dossier), `GET /api/cross-audit` (20-round self-cross-test arena), `POST /api/rebuttal` (`AGREE` vs `REBUT` adjudication & humiliation logger), `GET /api/video` (streams the sealed A→Z `.webm` forensic video), and `GET /api/file` (line-by-line forensic code inspector)
+  - `src/subagents/orchestrator.ts` — Parallel 7-subagent dispatcher, Integrity Score calculator, 20-round `runCrossTestArena`, and `adjudicateFindingRebuttal`
   - `src/repo/git-manager.ts` — Safe repo slug parser, `git clone` / `git pull` manager, and `rtk git` wrapper
   - `src/engine/scanner.ts` — Workspace static scanner
 - **7 Inquisitor Subagents (`src/analyzers/`):**
@@ -32,7 +32,7 @@ Whenever you add, modify, or delete any analyzer rule (`NTA-*`), subagent, scrip
   5. `SkillAndDocDriftInquisitor` (`src/analyzers/skill-critic.ts`): `NTA-K001`..`NTA-K009`
   6. `RuntimeAndSecurityInquisitor` (`src/analyzers/defect-scanner.ts`): `NTA-D001`..`NTA-D003`
   7. `GraphAndTokenInquisitor` (`src/analyzers/graph-optimizer.ts`): `NTA-G001`..`NTA-G002` + RTK/Graphify token telemetry
-- **Evidence & Tech-Stack Verifier (`src/analyzers/evidence-verifier.ts` & `src/analyzers/tech-stack-detector.ts`):** `NTA-E001`..`NTA-E006` (citations, anti-sycophancy, SHA-256 `VerdictReceipt`, full-flow A→Z `.webm` video evidence, brutal `whyItIsWrong` root-cause verifier, and tech-stack fingerprinting / anti-backfire guard)
+- **Evidence & Tech-Stack Verifier (`src/analyzers/evidence-verifier.ts` & `src/analyzers/tech-stack-detector.ts`):** `NTA-E001`..`NTA-E007` (citations, anti-sycophancy, SHA-256 `VerdictReceipt`, full-flow A→Z `.webm` video evidence, brutal `whyItIsWrong` root-cause verifier, tech-stack fingerprinting / anti-backfire guard, and shareable `.md` dossier + backfire humiliation evolution gate)
 - **Deterministic SDD & Debugging Scripts (`scripts/`):**
   - `scripts/sdd-workspace`, `scripts/task-brief`, `scripts/review-package`, `scripts/find-polluter.sh`, `scripts/update-graph.sh`
 - **Adversarial Prompt Templates (`prompts/`):**

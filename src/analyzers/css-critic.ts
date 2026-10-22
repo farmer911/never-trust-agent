@@ -16,6 +16,8 @@ export function analyzeCssAndUi(file: string, content: string): Finding[] {
 
   let currentBlockProps = new Map<string, number>();
   let inStyleTag = false;
+  let inReducedMotionMedia = false;
+  let mediaBraceDepth = 0;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i] ?? "";
@@ -43,11 +45,23 @@ export function analyzeCssAndUi(file: string, content: string): Finding[] {
 
     if (!isStylesheet && !inStyleTag) continue;
 
+    if (/@media\b[^{]*prefers-reduced-motion/i.test(line)) {
+      inReducedMotionMedia = true;
+      mediaBraceDepth = 0;
+    }
+    if (inReducedMotionMedia) {
+      mediaBraceDepth += (line.match(/\{/g) ?? []).length;
+      mediaBraceDepth -= (line.match(/\}/g) ?? []).length;
+    }
+
     if (line.includes("{")) {
       currentBlockProps = new Map<string, number>();
     }
 
-    if (IMPORTANT_REGEX.test(line)) {
+    const isWcagReducedMotionOverride =
+      inReducedMotionMedia && /\b(?:animation|transition|scroll-behavior)[a-zA-Z-]*\s*:/.test(line);
+
+    if (IMPORTANT_REGEX.test(line) && !isWcagReducedMotionOverride) {
       findings.push({
         ruleId: "NTA-C001",
         category: "CSS_NITPICK",
@@ -93,16 +107,22 @@ export function analyzeCssAndUi(file: string, content: string): Finding[] {
     }
 
     if (OUTLINE_NONE_REGEX.test(line)) {
-      findings.push({
-        ruleId: "NTA-C006",
-        category: "CSS_NITPICK",
-        severity: "HIGH",
-        file,
-        line: lineNum,
-        message: "Removing focus outline (outline: none/0) destroys keyboard accessibility.",
-        evidence: trimmed,
-        subagent: "CssAndUiInquisitor",
-      });
+      const ruleWindow = lines.slice(Math.max(0, i - 3), Math.min(lines.length, i + 4)).join("\n");
+      const hasReplacementFocusRing = /\bbox-shadow\s*:|\bborder(?:-color|-width)?\s*:/.test(
+        ruleWindow
+      );
+      if (!hasReplacementFocusRing) {
+        findings.push({
+          ruleId: "NTA-C006",
+          category: "CSS_NITPICK",
+          severity: "HIGH",
+          file,
+          line: lineNum,
+          message: "Removing focus outline (outline: none/0) destroys keyboard accessibility.",
+          evidence: trimmed,
+          subagent: "CssAndUiInquisitor",
+        });
+      }
     }
 
     const propMatch = CSS_PROP_LINE_REGEX.exec(line);
@@ -128,6 +148,9 @@ export function analyzeCssAndUi(file: string, content: string): Finding[] {
 
     if (line.includes("}")) {
       currentBlockProps.clear();
+      if (inReducedMotionMedia && mediaBraceDepth <= 0) {
+        inReducedMotionMedia = false;
+      }
     }
   }
 

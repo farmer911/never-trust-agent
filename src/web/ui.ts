@@ -635,8 +635,11 @@ export function renderForensicDashboardHtml(): string {
 
       document.getElementById("azVideoPanel").innerHTML = \`
         <div class="panel-header">
-          <span>MANDATORY A→Z FULL-FLOW FORENSIC VIDEO EVIDENCE (\${videoFrames.length} FRAMES // SHA-256: \${escapeHtml(v.sha256.slice(0, 16))}...)</span>
-          <a class="preset-btn" href="\${escapeAttr(v.videoUrl)}" download>⬇ DOWNLOAD SEALED A→Z WEBM VIDEO (\${v.sizeBytes} bytes)</a>
+          <span>MANDATORY A→Z FULL-FLOW FORENSIC VIDEO & MD DOSSIER (\${videoFrames.length} FRAMES // SHA-256: \${escapeHtml(v.sha256.slice(0, 16))}...)</span>
+          <div class="badge-row">
+            <a class="preset-btn" href="\${escapeAttr((currentAudit.markdownReport && currentAudit.markdownReport.reportUrl) || ('/api/report?slug=' + encodeURIComponent(currentAudit.repoMeta.slug)))}" target="_blank">📄 SHAREABLE .MD DOSSIER</a>
+            <a class="preset-btn" href="\${escapeAttr(v.videoUrl)}" download>⬇ DOWNLOAD SEALED A→Z WEBM VIDEO (\${v.sizeBytes} bytes)</a>
+          </div>
         </div>
         <div class="video-layout">
           <div>
@@ -789,7 +792,7 @@ export function renderForensicDashboardHtml(): string {
 
       document.getElementById("findingsList").innerHTML = filtered
         .map(
-          (f) => \`
+          (f, idx) => \`
           <div class="finding-item" onclick="inspectFile('\${escapeAttr(f.file)}', \${f.line})">
             <div class="finding-top">
               <span class="badge badge-\${f.severity}">\${f.severity}</span>
@@ -801,10 +804,36 @@ export function renderForensicDashboardHtml(): string {
             <div class="finding-evidence">EVIDENCE: \${escapeHtml(f.evidence)}</div>
             <div class="finding-why"><strong>VÌ SAO SAI (KHÔNG NỂ NANG):</strong> \${escapeHtml(f.whyItIsWrong || "")}</div>
             <div class="finding-fix"><strong>CÁCH ĐẬP ĐI SỬA LẠI:</strong> \${escapeHtml(f.directFix || "")}</div>
+            <div class="badge-row" onclick="event.stopPropagation()">
+              <button class="preset-btn" onclick="submitRebuttal(\${idx}, '\${escapeAttr(f.ruleId)}', '\${escapeAttr(f.file)}', \${f.line}, 'AGREE')">✓ ĐỒNG Ý (AGREE)</button>
+              <button class="preset-btn" onclick="submitRebuttal(\${idx}, '\${escapeAttr(f.ruleId)}', '\${escapeAttr(f.file)}', \${f.line}, 'REBUT')">⚔ PHẢN BIỆN / PHẢN DAME (REBUT)</button>
+            </div>
+            <div id="rebuttal-result-\${idx}" class="finding-fix"></div>
           </div>
         \`
         )
         .join("");
+    }
+
+    async function submitRebuttal(idx, ruleId, file, line, decision) {
+      let challengerArgument = "Đồng ý lỗi.";
+      if (decision === "REBUT") {
+        const input = window.prompt("Nhập bằng chứng phản biện kỹ thuật (Nếu bạn đúng và Agent sai -> Agent chịu NHỤC NHÃ & tiến hóa vào MISTAKE_LEDGER.md):", "");
+        if (!input) return;
+        challengerArgument = input;
+      }
+      const res = await fetch("/api/rebuttal", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ roundId: "WEB-" + (idx + 1), ruleId, file, line, decision, challengerArgument }),
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!res.ok) return;
+      const data = await res.json();
+      const el = document.getElementById("rebuttal-result-" + idx);
+      if (el) {
+        el.innerHTML = "<strong>[" + escapeHtml(data.verdict) + "]:</strong> " + escapeHtml(data.inquisitorResponse);
+      }
     }
 
     async function inspectFile(filePath, targetLine) {

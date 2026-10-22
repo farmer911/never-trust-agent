@@ -27,6 +27,11 @@ bun run src/cli/index.ts mistakes NTA-K003
 ### Phase 2: Post-Mistake Dissection & Grow-Up (Whenever Any Failure or Correction Happens)
 Whenever a test fails unexpectedly, `bun run scan` flags a violation, a command errors due to a flawed assumption, or the user corrects your work, you **MUST** record a structured post-mortem entry in [`MISTAKE_LEDGER.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/MISTAKE_LEDGER.md) **in the exact same turn** before claiming completion.
 
+### Phase 3: Humiliation on Backfire ("Bị Phản Dame = 1 Lần Nhục Nhã" — `NTA-E007`)
+Whenever a developer/challenger rebuts a finding (`REBUT`) and proves they were technically right and the agent was wrong (`REBUTTED_VALID_BACKFIRE` — e.g., flagging WCAG-required `!important` in `prefers-reduced-motion`, flagging in-memory `app.fetch(req)`, flagging comments, or flagging custom `assert*` helpers):
+1. **Treat Every Backfire as a Forensic Humiliation (`[BỊ PHẢN DAME — NỖI NHỤC NHÃ KỸ THUẬT]`):** Do not offer soft/sycophantic apologies. Record the humiliation directly into [`MISTAKE_LEDGER.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/MISTAKE_LEDGER.md) (`Where`, `How`, `Why`, `Prevention`) and [`CROSS_AUDIT_ARENA.md`](file:///Users/phucnguyen/Dev/NeverTrustAgent/CROSS_AUDIT_ARENA.md) via `adjudicateFindingRebuttal` or `bun run src/cli/index.ts adjudicate`.
+2. **Evolve the Analyzer Immediately:** Patch the offending analyzer in `src/analyzers/*` and lock it with a regression test in `tests/analyzers/deep-critics.test.ts` + re-run `bun run cross-test` so the false positive can never happen again.
+
 Every entry in `MISTAKE_LEDGER.md` is audited by `SkillAndDocDriftInquisitor` (`NTA-K009`) and **MUST** contain all 4 forensic fields:
 
 ```markdown
