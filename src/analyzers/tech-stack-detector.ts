@@ -16,7 +16,8 @@ interface RawPackageJson {
 }
 
 const CONVENTION_ROUTE_OR_CONFIG_REGEX =
-  /(?:^|\/)(?:app\/.*\/(?:page|layout|route|loading|error|not-found)\.[cm]?[jt]sx?|pages\/.*\.[cm]?[jt]sx?|routes\/.*\.[cm]?[jt]sx?|middleware\.[cm]?[jt]s|[a-z0-9-]+\.config\.[cm]?[jt]s)$/i;
+  /(?:^|\/)(?:app\/(?:.*\/)?(?:page|layout|route|loading|error|not-found|_layout|index|robots|sitemap)\.[cm]?[jt]sx?|pages\/.*\.[cm]?[jt]sx?|routes\/.*\.[cm]?[jt]sx?|scripts\/.*\.[cm]?[jt]sx?|middleware\.[cm]?[jt]s|index\.[cm]?[jt]sx?|public\/.*\.js|[a-z0-9-]+\.config\.[cm]?[jt]s)$/i;
+const MONOREPO_SUBDIRS = ["", "frontend", "backend", "mobile", "qc", "web", "server", "api"] as const;
 
 export function detectProjectTechStack(workspaceRoot: string): TechStackProfile {
   const languages = new Set<string>();
@@ -30,12 +31,18 @@ export function detectProjectTechStack(workspaceRoot: string): TechStackProfile 
   const pkgPath = join(workspaceRoot, "package.json");
   let allDeps: Record<string, string> = {};
   let scripts: Record<string, string> = {};
+  let hasAnyPkgJson = false;
 
-  if (existsSync(pkgPath)) {
+  for (const sub of MONOREPO_SUBDIRS) {
+    const dir = sub ? join(workspaceRoot, sub) : workspaceRoot;
+    const subPkgPath = join(dir, "package.json");
+    if (!existsSync(subPkgPath)) continue;
+    hasAnyPkgJson = true;
     try {
-      const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as RawPackageJson;
-      allDeps = { ...(pkg.dependencies ?? {}), ...(pkg.devDependencies ?? {}) };
-      scripts = pkg.scripts ?? {};
+      const pkg = JSON.parse(readFileSync(subPkgPath, "utf8")) as RawPackageJson;
+      allDeps = { ...allDeps, ...(pkg.dependencies ?? {}), ...(pkg.devDependencies ?? {}) };
+      scripts = { ...scripts, ...(pkg.scripts ?? {}) };
+      const prefix = sub ? `${sub}/` : "";
 
       if (pkg.packageManager) {
         if (pkg.packageManager.startsWith("pnpm")) packageManager = "pnpm";
@@ -44,13 +51,13 @@ export function detectProjectTechStack(workspaceRoot: string): TechStackProfile 
         else if (pkg.packageManager.startsWith("npm")) packageManager = "npm";
       }
 
-      if (typeof pkg.main === "string") discoveredEntrypoints.add(cleanRelPath(pkg.main));
-      if (typeof pkg.module === "string") discoveredEntrypoints.add(cleanRelPath(pkg.module));
+      if (typeof pkg.main === "string") discoveredEntrypoints.add(`${prefix}${cleanRelPath(pkg.main)}`);
+      if (typeof pkg.module === "string") discoveredEntrypoints.add(`${prefix}${cleanRelPath(pkg.module)}`);
       if (typeof pkg.bin === "string") {
-        discoveredEntrypoints.add(cleanRelPath(pkg.bin));
+        discoveredEntrypoints.add(`${prefix}${cleanRelPath(pkg.bin)}`);
       } else if (pkg.bin && typeof pkg.bin === "object") {
         for (const target of Object.values(pkg.bin)) {
-          if (typeof target === "string") discoveredEntrypoints.add(cleanRelPath(target));
+          if (typeof target === "string") discoveredEntrypoints.add(`${prefix}${cleanRelPath(target)}`);
         }
       }
       collectExportEntrypoints(pkg.exports, discoveredEntrypoints);
@@ -59,25 +66,33 @@ export function detectProjectTechStack(workspaceRoot: string): TechStackProfile 
     }
   }
 
-  // Lockfile & manifest detection
+  // Lockfile & manifest detection across root and monorepo subdirs
+  const hasSubFile = (name: string) =>
+    MONOREPO_SUBDIRS.some((s) => existsSync(join(workspaceRoot, s, name)));
+
   if (
-    existsSync(join(workspaceRoot, "bun.lock")) ||
-    existsSync(join(workspaceRoot, "bun.lockb")) ||
+    hasSubFile("bun.lock") ||
+    hasSubFile("bun.lockb") ||
     "@types/bun" in allDeps ||
     Object.values(scripts).some((s) => /\bbun\b/.test(s))
   ) {
     runtime = "bun";
     if (packageManager === "npm") packageManager = "bun";
   }
-  if (existsSync(join(workspaceRoot, "pnpm-lock.yaml"))) packageManager = "pnpm";
-  if (existsSync(join(workspaceRoot, "yarn.lock"))) packageManager = "yarn";
+  if (hasSubFile("pnpm-lock.yaml")) packageManager = "pnpm";
+  if (hasSubFile("yarn.lock")) packageManager = "yarn";
 
-  if (
-    existsSync(join(workspaceRoot, "pyproject.toml")) ||
-    existsSync(join(workspaceRoot, "requirements.txt"))
-  ) {
+  if (hasSubFile("pyproject.toml") || hasSubFile("requirements.txt")) {
     languages.add("Python");
-    if (!existsSync(pkgPath)) {
+    for (const sub of MONOREPO_SUBDIRS) {
+      const reqFile = join(workspaceRoot, sub, "requirements.txt");
+      if (existsSync(reqFile)) {
+        const reqText = readFileSync(reqFile, "utf8");
+        if (/\bfastapi\b/i.test(reqText)) frameworks.add("FastAPI");
+        if (/\bpytest\b/i.test(reqText)) frameworks.add("Pytest");
+      }
+    }
+    if (!hasAnyPkgJson) {
       runtime = "python";
       packageManager = "uv/pip";
       testRunner = "pytest";
@@ -103,6 +118,7 @@ export function detectProjectTechStack(workspaceRoot: string): TechStackProfile 
   // Framework & Tooling Fingerprinting
   if ("next" in allDeps) frameworks.add("Next.js");
   if ("react" in allDeps || "react-dom" in allDeps) frameworks.add("React");
+  if ("expo" in allDeps || "react-native" in allDeps) frameworks.add("Expo / React Native");
   if ("vue" in allDeps) frameworks.add("Vue");
   if ("svelte" in allDeps || "@sveltejs/kit" in allDeps) frameworks.add("Svelte");
   if ("astro" in allDeps) frameworks.add("Astro");
@@ -115,8 +131,9 @@ export function detectProjectTechStack(workspaceRoot: string): TechStackProfile 
   if (
     "tailwindcss" in allDeps ||
     "@tailwindcss/vite" in allDeps ||
-    existsSync(join(workspaceRoot, "tailwind.config.js")) ||
-    existsSync(join(workspaceRoot, "tailwind.config.ts"))
+    "@tailwindcss/postcss" in allDeps ||
+    hasSubFile("tailwind.config.js") ||
+    hasSubFile("tailwind.config.ts")
   ) {
     frameworks.add("Tailwind CSS");
     stylingSystem = "tailwind";

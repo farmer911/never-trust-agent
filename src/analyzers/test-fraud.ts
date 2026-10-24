@@ -151,7 +151,17 @@ export function analyzeTestDiffSabotage(diffText: string): Finding[] {
 }
 
 function extractBalancedBraces(source: string, fromIndex: number): string | null {
-  const openBrace = source.indexOf("{", fromIndex);
+  const arrowIdx = source.indexOf("=>", fromIndex);
+  const fnIdx = source.indexOf("function", fromIndex);
+  const nextStmtIdx = source.indexOf("\n", fromIndex);
+  let bodySearchStart = fromIndex;
+  if (arrowIdx !== -1 && (nextStmtIdx === -1 || arrowIdx < nextStmtIdx + 80)) {
+    bodySearchStart = arrowIdx + 2;
+  } else if (fnIdx !== -1 && (nextStmtIdx === -1 || fnIdx < nextStmtIdx + 80)) {
+    const closeParen = source.indexOf(")", fnIdx);
+    if (closeParen !== -1) bodySearchStart = closeParen + 1;
+  }
+  const openBrace = source.indexOf("{", bodySearchStart);
   if (openBrace === -1) return null;
   let depth = 0;
   let inQuote: string | null = null;

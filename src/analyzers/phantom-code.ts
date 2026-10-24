@@ -53,7 +53,12 @@ export function findOrphanFiles(
   for (const [importerPath, content] of files.entries()) {
     for (const match of content.matchAll(IMPORT_FROM_REGEX)) {
       const specifier = match[1];
-      if (!specifier || !specifier.startsWith(".")) continue;
+      if (
+        !specifier ||
+        (!specifier.startsWith(".") && !specifier.startsWith("@/") && !specifier.startsWith("~/"))
+      ) {
+        continue;
+      }
       const resolved = resolveRelativeImport(importerPath, specifier, files);
       if (resolved) {
         importedFiles.add(resolved);
@@ -91,7 +96,7 @@ export function findOrphanExports(
 
   for (const [filePath, content] of files.entries()) {
     const isTestFile = /\.(?:test|spec)\.[cm]?[jt]sx?$/.test(filePath);
-    if (isTestFile || entrySet.has(filePath)) continue;
+    if (isTestFile || filePath.endsWith(".d.ts") || entrySet.has(filePath)) continue;
 
     for (const match of content.matchAll(EXPORT_DECL_REGEX)) {
       const symbolName = match[1];
@@ -192,17 +197,33 @@ export function resolveRelativeImport(
   specifier: string,
   files: ReadonlyMap<string, string>
 ): string | null {
-  const baseDir = dirname(importerPath).replace(/\\/g, "/");
-  const candidate = posix.normalize(posix.join(baseDir, specifier));
-  const candidates = [
-    candidate,
-    `${candidate}.ts`,
-    `${candidate}.tsx`,
-    `${candidate}/index.ts`,
-    candidate.replace(/\.js$/, ".ts"),
-  ];
-  for (const c of candidates) {
-    if (files.has(c)) return c;
+  const rawBases: string[] = [];
+  if (specifier.startsWith("@/") || specifier.startsWith("~/")) {
+    const stripped = specifier.slice(2);
+    const firstSeg = importerPath.split("/")[0] ?? "";
+    if (firstSeg && firstSeg !== "src") {
+      rawBases.push(posix.normalize(`${firstSeg}/src/${stripped}`));
+      rawBases.push(posix.normalize(`${firstSeg}/${stripped}`));
+    }
+    rawBases.push(posix.normalize(`src/${stripped}`));
+    rawBases.push(posix.normalize(stripped));
+  } else {
+    const baseDir = dirname(importerPath).replace(/\\/g, "/");
+    rawBases.push(posix.normalize(posix.join(baseDir, specifier)));
+  }
+
+  for (const candidate of rawBases) {
+    const candidates = [
+      candidate,
+      `${candidate}.ts`,
+      `${candidate}.tsx`,
+      `${candidate}/index.ts`,
+      `${candidate}/index.tsx`,
+      candidate.replace(/\.js$/, ".ts"),
+    ];
+    for (const c of candidates) {
+      if (files.has(c)) return c;
+    }
   }
   return null;
 }

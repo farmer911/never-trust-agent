@@ -120,7 +120,10 @@ export function analyzeSkillAndDocDrift(workspaceRoot: string): Finding[] {
         if (!refPath || isExamplePlaceholderPath(refPath)) continue;
         const inRepoRoot = existsSync(join(workspaceRoot, refPath));
         const inSkillDir = existsSync(join(dirname(absDoc), refPath));
-        if (!inRepoRoot && !inSkillDir) {
+        const inMonorepoSub = ["frontend", "backend", "mobile", "qc", "web", "server"].some((sub) =>
+          existsSync(join(workspaceRoot, sub, refPath))
+        );
+        if (!inRepoRoot && !inSkillDir && !inMonorepoSub) {
           findings.push({
             ruleId: "NTA-K005",
             category: "SKILL_DRIFT",
@@ -233,12 +236,16 @@ function auditSkillFrontmatter(
     );
   }
 
-  const rawDesc = descMatch?.[1]?.trim().replace(/^['"]|['"]$/g, "") ?? "";
-  if (!rawDesc || !/^use when\b/i.test(rawDesc) || /\bI\s+help\b|\bI\s+can\b/i.test(rawDesc)) {
+  let rawDesc = descMatch?.[1]?.trim().replace(/^['"]|['"]$/g, "") ?? "";
+  if (rawDesc === ">-" || rawDesc === ">" || rawDesc === "|" || rawDesc === "|-") {
+    const foldedMatch = /^description:\s*[>|]-?\s*\n((?:[ \t]+.+\n?)+)/m.exec(frontmatter);
+    rawDesc = (foldedMatch?.[1] ?? "").replace(/\s+/g, " ").trim();
+  }
+  if (!rawDesc || !/\buse when\b/i.test(rawDesc) || /\bI\s+help\b|\bI\s+can\b/i.test(rawDesc)) {
     findings.push(
       makeSkillFinding({
         ruleId: "NTA-K002", severity: "HIGH", file: relDoc, line: 3,
-        message: "Stupid SKILL.md description: must be third-person and start with 'Use when...' describing triggering conditions, not workflow or first-person prose.",
+        message: "Stupid SKILL.md description: must be third-person and include 'Use when...' describing triggering conditions, not workflow or first-person prose.",
         evidence: descMatch?.[0] ?? "missing description:",
       })
     );

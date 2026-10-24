@@ -555,6 +555,9 @@ describe("Git Repository Cloner/Puller & Multi-Subagent Web Platform", () => {
         "  const r = issueReceipt();",
         "  assertValidReceipt(r);",
         "});",
+        "test('playwright destructured param', async ({ page }) => {",
+        "  await expect(page).toBeTruthy();",
+        "});",
       ].join("\n");
       expect(analyzeTestFraud("tests/helper.test.ts", customAssertTest)).toEqual([]);
 
