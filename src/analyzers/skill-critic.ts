@@ -241,7 +241,7 @@ function auditSkillFrontmatter(
     const foldedMatch = /^description:\s*[>|]-?\s*\n((?:[ \t]+.+\n?)+)/m.exec(frontmatter);
     rawDesc = (foldedMatch?.[1] ?? "").replace(/\s+/g, " ").trim();
   }
-  if (!rawDesc || !/\buse when\b/i.test(rawDesc) || /\bI\s+help\b|\bI\s+can\b/i.test(rawDesc)) {
+  if (!rawDesc || !/\buse (?:when|on|for)\b/i.test(rawDesc) || /\bI\s+help\b|\bI\s+can\b/i.test(rawDesc)) {
     findings.push(
       makeSkillFinding({
         ruleId: "NTA-K002", severity: "HIGH", file: relDoc, line: 3,

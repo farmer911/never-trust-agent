@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, rmSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 import { detectRtkVersion } from "../analyzers/graph-optimizer.ts";
 import type { RepoSyncMetadata } from "../types/verdict.ts";
@@ -43,6 +43,8 @@ export function syncRepository(repoUrl: string, cacheBaseDir: string): RepoSyncM
     }
     action = "CLONED";
   } else {
+    spawnSync("git", ["reset", "--hard", "HEAD"], { cwd: localPath, encoding: "utf8" });
+    spawnSync("git", ["clean", "-fd"], { cwd: localPath, encoding: "utf8" });
     const pullRes = spawnSync("git", ["pull", "--ff-only"], {
       cwd: localPath,
       encoding: "utf8",
@@ -67,22 +69,31 @@ export function syncRepository(repoUrl: string, cacheBaseDir: string): RepoSyncM
   const branch = gitOutput(localPath, ["rev-parse", "--abbrev-ref", "HEAD"]) || "HEAD";
   const commitMessage = gitOutput(localPath, ["log", "-1", "--pretty=%s"]) || "";
 
-  if (existsSync(repoUrl.trim()) && resolve(repoUrl.trim()) === resolve(process.cwd())) {
-    for (const item of [
-      "src",
-      "tests",
-      "scripts",
-      "prompts",
-      "skills",
-      "graphify-out",
-      "AGENTS.md",
-      "GEMINI.md",
-      "MISTAKE_LEDGER.md",
-      "package.json",
-    ]) {
-      const srcItem = join(process.cwd(), item);
-      if (existsSync(srcItem)) {
-        cpSync(srcItem, join(localPath, item), { recursive: true, force: true });
+  const localSourceRoot = resolve(repoUrl.trim());
+  if (existsSync(join(localSourceRoot, ".git")) && localSourceRoot !== localPath) {
+    const dirtyRes = spawnSync("git", ["status", "--porcelain", "-uall"], {
+      cwd: localSourceRoot,
+      encoding: "utf8",
+    });
+    for (const line of (dirtyRes.stdout ?? "").split("\n")) {
+      if (line.length < 4) continue;
+      const statusFlag = line.slice(0, 2);
+      const relDirty = line.slice(3).trim().replace(/^"|"$/g, "");
+      if (
+        !relDirty ||
+        relDirty.startsWith(".nta/") ||
+        relDirty.includes("node_modules/") ||
+        relDirty.includes(".venv/") ||
+        relDirty.includes(".next/")
+      ) {
+        continue;
+      }
+      const srcDirty = join(localSourceRoot, relDirty);
+      const dstDirty = join(localPath, relDirty);
+      if (statusFlag.includes("D") || !existsSync(srcDirty)) {
+        rmSync(dstDirty, { recursive: true, force: true });
+      } else {
+        cpSync(srcDirty, dstDirty, { recursive: true, force: true });
       }
     }
   }

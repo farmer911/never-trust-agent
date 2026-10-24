@@ -905,7 +905,7 @@
       "file_type": "code",
       "norm_label": "gitoutput()",
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L102"
+      "source_location": "L113"
     },
     {
       "id": "src_repo_git_manager_parsereposlug",
@@ -2895,7 +2895,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L103",
+      "source_location": "L114",
       "weight": 1.0
     },
     {
@@ -2919,7 +2919,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L66",
+      "source_location": "L68",
       "weight": 1.0
     },
     {
@@ -6999,7 +6999,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/repo/git-manager.ts",
-      "source_location": "L102",
+      "source_location": "L113",
       "weight": 1.0
     },
     {
@@ -7608,5 +7608,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "bd90234a4d0ececda002f4c2b88515f0bbbb8b6e"
+  "built_at_commit": "655c702699aaa6b92d4a1dde069207b5ea7adc16"
 }
